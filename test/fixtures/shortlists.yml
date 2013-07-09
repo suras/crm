@@ -1,0 +1,11 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/Fixtures.html
+
+one:
+  status: MyString
+  candidate_id: 1
+  call_list: 
+
+two:
+  status: MyString
+  candidate_id: 1
+  call_list: 
