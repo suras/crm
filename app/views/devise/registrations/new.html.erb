@@ -1,0 +1,30 @@
+<h2>Sign up</h2>
+
+<%= form_for(resource, :as => resource_name, :url => registration_path(resource_name)) do |f| %>
+  <%= devise_error_messages! %>
+<h3>The Basics</h3>
+<div><%= f.label :first_name %><br />
+  <%= f.text_field :first_name %></div>
+  <div><%= f.hidden_field :register_type, :value => "owner" %></div>
+  <div><%= f.label :last_name %><br />
+  <%= f.text_field :last_name %></div>
+    <div><%= f.label :company %><br />
+  <%= f.text_field :company %></div>
+ 
+  	<h3>Please Choose Your Login Info</h3>
+  	 <div><%= f.label :email %><br />
+  <%= f.email_field :email, :autofocus => true %></div>
+
+  <div><%= f.label :password %><br />
+  <%= f.password_field :password %></div>
+
+  <div><%= f.label :password_confirmation %><br />
+  <%= f.password_field :password_confirmation %></div>
+  
+  <h3>Choose Plan</h3>
+  <div><%=select("user", "plan_id", Plan.all.collect {|p| [ p.name, p.id ] })%></div><br />
+   <%=render 'gateway/payment_details'%>
+  <div><%= f.submit "Sign up" %></div>
+<% end %>
+
+<%= render "devise/shared/links" %>

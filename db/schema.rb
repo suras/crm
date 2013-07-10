@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20130709130431) do
+ActiveRecord::Schema.define(:version => 20130710070011) do
 
   create_table "call_lists", :force => true do |t|
     t.string   "name"
@@ -65,6 +65,14 @@ ActiveRecord::Schema.define(:version => 20130709130431) do
   end
 
   add_index "notes", ["candidate_id"], :name => "index_notes_on_candidate_id"
+
+  create_table "plans", :force => true do |t|
+    t.string   "name"
+    t.string   "amount"
+    t.text     "description"
+    t.datetime "created_at",  :null => false
+    t.datetime "updated_at",  :null => false
+  end
 
   create_table "shortlists", :force => true do |t|
     t.string   "status"
