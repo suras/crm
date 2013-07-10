@@ -1,17 +1,22 @@
-<h2>Sign up</h2>
+<br /><br />
+<div class="register-border">
+	
+<div class="register-heading"><h4>Your just 60 seconds away from your new HootQuest account!</h4></div>
 
 <%= form_for(resource, :as => resource_name, :url => registration_path(resource_name)) do |f| %>
   <%= devise_error_messages! %>
-<h3>The Basics</h3>
-<div><%= f.label :first_name %><br />
-  <%= f.text_field :first_name %></div>
+  <div class="register-spacing">
+<h4>The Basics</h4>
+<table border="0">
+<tr><td><%= f.label :first_name %></td>
+  <td><%= f.text_field :first_name %></td></tr>
   <div><%= f.hidden_field :register_type, :value => "owner" %></div>
-  <div><%= f.label :last_name %><br />
-  <%= f.text_field :last_name %></div>
-    <div><%= f.label :company %><br />
-  <%= f.text_field :company %></div>
+  <tr><td><%= f.label :last_name %></td>
+  <td><%= f.text_field :last_name %></td></tr>
+    <tr><td><%= f.label :company %></td>
+  <td><%= f.text_field :company %></td></tr></table>
  
-  	<h3>Please Choose Your Login Info</h3>
+  	<h4>Please Choose Your Login Info</h4>
   	 <div><%= f.label :email %><br />
   <%= f.email_field :email, :autofocus => true %></div>
 
@@ -21,10 +26,14 @@
   <div><%= f.label :password_confirmation %><br />
   <%= f.password_field :password_confirmation %></div>
   
-  <h3>Choose Plan</h3>
+  <h4>How many users would you like on the account?</h4>
   <div><%=select("user", "plan_id", Plan.all.collect {|p| [ p.name, p.id ] })%></div><br />
    <%=render 'gateway/payment_details'%>
-  <div><%= f.submit "Sign up" %></div>
+   
+   <p>Your 30-day free trial lasts until time on month date, year. If you don't want to continue using HootQuest, just cancel before the trial ends and you won't be charged (we'll email you 5 days before the trial ends to remind you). Otherwise, you'll pay just $49/month for the service as long as your account is open. You can upgrade, downgrade, or cancel any time.
+</p><p>By clicking you agree to the Terms of Service, Privacy, and Refund policies.</p>
+  <div><%= f.submit "Start my free trial" %></div>
 <% end %>
-
-<%= render "devise/shared/links" %>
+</div>
+</div>
+<!--<%= render "devise/shared/links" %>-->

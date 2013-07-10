@@ -1,3 +1,5 @@
+<br />
+<div class="candidate-border">
 <h3>Add A New Candidate</h3>
 <%= form_for(@candidate) do |f| %>
 <% if @candidate.errors.any? %>
@@ -7,41 +9,46 @@
 
 <% end %>
 <% end %>
-
- <div><%= f.label :first_name %><br />
-  <%= f.text_field :first_name %></div>
- <div><%= f.label :last_name %><br />
-  <%= f.text_field :last_name %></div>
-   <div><%= f.label :title %><br />
-  <%= f.text_field :position %></div>
-   <div><%= f.label :company %><br />
-  <%= f.text_field :company %></div>
-   <div><%= label_tag :Tags %>(keywords separated by commas)<br />
-  <%= text_field_tag :tags %></div>
-  <%= f.label :"profile picture"%><br />
-  <%= f.file_field :profile_pic%>
-  <div><%= f.label :phone %><br />
-  <%= f.text_field :contact_number %></div>
-   <div><%= f.label :email %><br />
-  <%= f.email_field :email, :autofocus => true %></div>
-  <div><%= f.label :address %><br />
-  <%= f.text_field :address %></div>
-  <div><%= f.label :city %><br />
-  <%= f.text_field :city %></div>
-    <div><%= f.label :state %><br />
-  <%= f.text_field :state %></div>
-   <div><%= f.label :zip %><br />
-  <%= f.text_field :zip %></div>
-    <div><%= f.label :linked_in %><br />
-  <%= f.text_field :linked_in %></div>
-      <div><%= f.label :facebook %><br />
-  <%= f.text_field :facebook %></div>
-    <div><%= f.label :twitter %><br />
-  <%= f.text_field :twitter %></div>
-  <p>Add a resume or any other documents such as references, etc.</p>
-  <%=f.file_field :resume %>
+<br />
+<table border="0">
+ <tr><td><%= f.label :first_name %></td>
+  <td><%= f.text_field :first_name %></td></tr>
+ <tr><td><%= f.label :last_name %></td>
+  <td><%= f.text_field :last_name %></td></tr>
+   <tr><td><%= f.label :title %></td>
+  <td><%= f.text_field :position %></td></tr>
+   <tr><td><%= f.label :company %></td>
+  <td><%= f.text_field :company %></td></tr>
+   <tr><td><%= label_tag :Tags %><br />(keywords separated by commas)</td>
+  <td><%= text_field_tag :tags %></td></tr>
+  <tr><td><%= f.label :"profile picture"%></td>
+  <td><%= f.file_field :profile_pic%></td></tr>
+  <tr><td><%= f.label :phone %></td>
+ <td> <%= f.text_field :contact_number %></td></tr>
+   <tr><td><%= f.label :email %></td>
+  <td><%= f.email_field :email, :autofocus => true %></td></tr>
+  <tr><td><%= f.label :address %></td>
+  <td><%= f.text_field :address %></td></tr>
+  <tr><td><%= f.label :city %></td>
+  <td><%= f.text_field :city %></td></tr>
+    <tr><td><%= f.label :state %></td>
+  <td><%= f.text_field :state %></td></tr>
+   <tr><td><%= f.label :zip %></td>
+  <td><%= f.text_field :zip %></td></tr>
+    <tr><td><%= f.label :linked_in %></td>
+  <td><%= f.text_field :linked_in %></td></tr>
+      <tr><td><%= f.label :facebook %></td>
+  <td><%= f.text_field :facebook %></td></tr>
+    <tr><td><%= f.label :twitter %></td>
+  <td><%= f.text_field :twitter %></td></tr>
+  <tr><td>Add a resume or any other documents such as </br>references, etc.</td></tr>
+  <tr><td><%=f.file_field :resume %></td></tr>
   
-<div class="action">
+<tr class="action">
+	<td>
 <%= f.submit :Add %>
-</div>
+</td>
+</tr>
 <% end %>
+</table>
+</div>

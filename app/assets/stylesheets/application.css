@@ -35,3 +35,53 @@ ul.nav li {
   background-color: #FCC;
   border: solid 1px #C66;
 }
+
+.center-page
+{
+
+    width: 241px;
+    height: 245px;
+    position: absolute;
+    top:0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    margin: auto;
+
+}
+.register-border
+{
+	
+	border: 1px solid blue;
+    padding-bottom: 30px;
+    width: 41%;
+}
+
+.candidate-border
+{
+	border: 1px solid blue;
+    padding-bottom: 30px;
+    width: 50%;
+    padding-left: 16px;
+}
+.register-heading
+{
+	 background-color: #EAF5FD;
+    overflow: hidden;
+   
+    text-align: center;
+    top: 22px;
+	
+	
+}
+.header-color
+{
+	background-color: #72BDD4;
+    padding: 32px;
+}
+
+.register-spacing
+{
+	 padding: 6px 13px 2px 27px;
+	
+}

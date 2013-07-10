@@ -1,5 +1,6 @@
 class CandidatesController < ApplicationController
   before_filter :authenticate_user!, :get_team
+  layout "candidate"
   def new
     @candidate = @team.candidates.new
   end

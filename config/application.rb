@@ -42,6 +42,11 @@ module HootQuest
 
     # Enable escaping HTML in JSON.
     config.active_support.escape_html_entities_in_json = true
+    
+    config.to_prepare do
+          Devise::SessionsController.layout "blue" 
+           Devise::RegistrationsController.layout proc{ |controller| user_signed_in? ? "application" : "registration" }
+    end
 
     # Use SQL instead of Active Record's schema dumper when creating the database.
     # This is necessary if your schema can't be completely dumped by the schema dumper,
