@@ -1,0 +1,142 @@
+body{
+    font-size: 12px;
+}
+.navLeft{
+  margin-top: -10px;
+}
+.navLeft ul li{
+  float: left;
+  padding: 0px 20px 0px 0px;
+  list-style: none;
+}
+.navLeft ul li a,.navLeft ul li a:hover{
+  text-decoration: none;
+  color: #fff;
+  font-family: Arial, Helvetica, adobe-helvetica, Arial Narrow;
+  font-size: 18px;
+  line-height: 21px;
+  min-height: 21px;
+}
+.navRight{
+  margin-top: 30px;
+}
+.navRight ul li{
+  padding: 0px 20px 0px 0px;
+  float: right;
+    list-style: none;
+
+}
+.navRight ul li a,.navRight ul li a:hover{
+  text-decoration: none;
+  font-family: Arial, Helvetica, adobe-helvetica, Arial Narrow;
+  font-size: 18px;
+  line-height: 21px;
+  min-height: 21px;
+  font-family: Arial, Helvetica, adobe-helvetica, Arial Narrow;
+font-size: 16px;
+line-height: 18px;
+}
+
+.key-search{
+  margin-top: 100px;
+  margin-bottom: 50px;
+}
+.search-input{
+  width:75%;
+  height:30px !important;
+}
+
+.content{
+  outline: #eee solid 1px;
+  background: #eee;
+}
+
+.quick-view-box{
+  background: #fff;
+  height: 500px;
+  outline:  #eee solid 1px;
+  margin-left: 5px;
+  width: 315px;
+  height: 500px;
+  overflow-y: scroll;
+  overflow-x: hidden;
+}
+.candidate-list-box span,.candidate-list span,.NameDiv span{
+  display: block;
+}
+.candidate-list{
+  font-size: 12px;
+  background: #fff;
+  height: 500px;
+  outline:  #eee solid 1px;
+  margin-left: 0px;
+  list-style: none;
+  height: 500px;
+  overflow: auto;
+
+}
+.candidate-list li{
+  padding:10px 0px 10px 0px;
+  outline: #eee solid 1px;
+}
+.candidate-list li img{
+  padding:0px 0px 0px 10px;
+}
+.name{
+  font-weight: bold;
+}
+.selectcheck{
+  width:15px;
+}
+
+.sortBy{
+  display: inline-block;
+  margin-top: 5px;
+}
+.bottomLink{
+  margin-left: 10px;
+  margin-top: 5px;
+}
+.sortBy li,.bottomLink li{
+  float: left;
+  padding:0px 25px 0px 0px;
+}
+.selectAll{
+  margin-left: 0px;
+  margin-top: 5px;
+}
+.headLink{
+  background: #F7F7F7;
+  padding: 5px 0px 5px 10px;
+  outline: #eee solid 1px;
+}
+.QV-content{
+  margin: 10px 0px 25px 0px;
+  position: relative;
+}
+.innerDiv{
+  padding:5px 0px 0px 0px;
+  display: block;
+}
+.bold{
+  font-weight: bold;
+}
+.innerDiv span{
+  display: block;
+  font-size: 12px;
+}
+.profile-box{
+  position: absolute;
+  right: 25px;
+}
+.header{
+background: #8cc1d3;
+background: -moz-linear-gradient(top,  #8cc1d3 0%, #65afc8 100%);
+background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,#8cc1d3), color-stop(100%,#65afc8));
+background: -webkit-linear-gradient(top,  #8cc1d3 0%,#65afc8 100%);
+background: -o-linear-gradient(top,  #8cc1d3 0%,#65afc8 100%);
+background: -ms-linear-gradient(top,  #8cc1d3 0%,#65afc8 100%);
+background: linear-gradient(to bottom,  #8cc1d3 0%,#65afc8 100%);
+filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#8cc1d3', endColorstr='#65afc8',GradientType=0 );
+
+}

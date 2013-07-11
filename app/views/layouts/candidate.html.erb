@@ -1,25 +1,18 @@
 <!DOCTYPE html>
-<html>
-<head>
-  <title>HootQuest</title>
-  <%= stylesheet_link_tag    "application", :media => "all" %>
-  <%= javascript_include_tag "application" %>
-  <%= csrf_meta_tags %>
-</head>
-<body class="<%= controller_name %> <%= action_name %>">
-    <div id="container" class="container">
-      <header>
-      	<%= render 'layouts/navigation' %>
-       <div class="header-color"><%=link_to "Search", "#"%>&nbsp;&nbsp;
-       	<%=link_to "Add Candidate", new_candidate_path%>&nbsp;&nbsp;<%=link_to "Call list", "#"%></div>
-        
-        <%= render 'layouts/messages' %>
-      </header>
+<html >
+  <head>
+    <title>HootQuest</title>
+    <%= stylesheet_link_tag    "application", :media => "all" %>
+    <%= javascript_include_tag "application" %>
+    <%= csrf_meta_tags %>
+  </head>
+  <body class="<%= controller_name %> <%= action_name %>">
+    <%= render 'layouts/header'%>
+    <div class="container">
+      <%= render 'layouts/messages' %>
       <div id="main" role="main">
         <%= yield %>
       </div>
-      <footer>
-      </footer>
     </div> <!--! end of #container -->
   </body>
 </html>

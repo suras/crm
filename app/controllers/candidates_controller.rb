@@ -16,17 +16,30 @@ class CandidatesController < ApplicationController
     if @candidate.save
        @candidate.tags << tags
     redirect_to users_index_path(), :notice => "Candidate Added Successfully"
-    
     else 
-      
       render :action => "new"
-      
     end
     
   end
 
+  def show
+    @candidate = Candidate.find(params[:id])
+    respond_to do |format|
+      format.html
+      format.json { render :json => @candidate.to_json }
+    end
+  end
+
   def search
-    
+    @candidates = []
+    if params[:keywords]
+      @tags = Tag.where(:id=>params[:keywords].split(",").to_i)
+      @tags.each do |tag|
+        @candidates << tag.candidates
+      end
+    else
+      @candidates = Candidate.all
+    end
   end
 
   def edit

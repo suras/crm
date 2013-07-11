@@ -15,8 +15,16 @@ class Candidate < ActiveRecord::Base
  belongs_to :user
  belongs_to :team
  has_and_belongs_to_many :tags
- 
-
-
-
+ attr_reader :get_tags, :profile_pic_url
+ def as_json options=nil
+    options ||= {}
+    options[:methods] = ((options[:methods] || []) + [:get_tags,:profile_pic_url])
+    super options
+  end
+ def get_tags
+    self.tags.select(:name).map(&:name).join(",")
+ end
+  def profile_pic_url
+    self.profile_pic(:small)
+  end
 end

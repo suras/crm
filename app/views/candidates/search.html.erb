@@ -1,0 +1,187 @@
+<script type="text/javascript">
+window.tags = <%=  get_tags%>;
+window.candidates = <%= raw @candidates.to_json %>
+</script>
+<div ng-app="app">
+  <div class="container" ng-controller="candidates_controller">
+  <div class="key-search">
+    <div class="row">
+      <div class="span12">
+        <label>Key Word Search</label>
+      </div>
+    </div>
+    <div class="row">
+      <div class="span12">
+        <input type="text" class="search-input" ng-model="search_data" id="keywords" name="search-input">
+      </div>
+    </div>
+  </div>
+  <div class="content" >
+    <div class="row">
+      <div class="span12">
+        <div class="row">
+          <div class="span7">
+            <ul class="sortBy">
+              <li>Sort By</li>
+              <li><a href="#" ng-click="predicate = 'first_name';reverse=!reverse">Name</a></li>
+              <li><a href="#" ng-click="predicate = 'position';reverse=!reverse">Title</a></li>
+              <li><a href="#" ng-click="predicate = 'contact_number';reverse=!reverse">Location</a></li>
+            </ul>
+          </div>
+          <div class="span1 selectAll">
+            <a href="#" id="selectAll">Select All</a>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="row">
+      <div class="span8 candidate-list-box">
+        <ul class ="candidate-list">
+          <li ng-repeat="candidate in candidates | orderBy:predicate:reverse">
+            <div class="row" ng-mouseover="view(candidate)">
+                <div class="span1">
+                  <img src="{{candidate.profile_pic_url}}">
+                </div>
+                <div class="span2">
+                  <span class="name"><a href="">{{ candidate.first_name}} {{ candidate.last_name}}</a></span>
+                  <span class="title">{{ candidate.position}}</span>
+                </div>
+                <div class="span2">{{candidate.get_tags}}</div>
+                <div class="span2">{{candidate.contact_number}}</div>
+                <div class="span1 selectcheck"><input type="checkbox"></div>
+            </div>
+          </li>
+        </ul>
+      </div>
+      <div class="span4 quick-view-box">
+        <div class="row">
+          <div class="span4 headLink"><a href="">Edit</a></div>
+        </div>
+        <div class="row QV-content" id="view-can{{ can.id}}" >
+          <div class="span4">
+            <div class="row NameDiv">
+              <div class="span4">
+                <span class="name"><a href="">{{ can.first_name}} {{ can.last_name}}</a></span>
+                <span class="title">{{ can.position}}</span>
+              </div>
+            </div>
+            <div class="innerDiv row">
+              <div class="span4">
+                <span class="bold">Company:</span>
+                <span>{{ can.company}}</span>
+              </div>
+            </div>
+            <div class="innerDiv row">
+              <div class="span4">
+                <span class="bold">expereience:</span>
+                <span >{{ can.experience}} years</span>
+              </div>
+            </div>
+            <div class="innerDiv row">
+              <div class="span4">
+                <span class="bold">tags:</span>
+                <span>{{ can.get_tags}}</span>
+              </div>
+            </div>
+            <div class="innerDiv row">
+              <div class="span4">
+                <span class="bold">location:</span>
+                <span>{{ can.city}} {{can.state}}</span>
+              </div>
+            </div>
+            <div class="innerDiv row">
+              <div class="span4">
+                <span class="bold">cell phone:</span>
+                <span>{{ can.contact_number}}</span>
+              </div>
+            </div>
+            <div class="innerDiv row">
+              <div class="span4">
+                <span class="bold">email:</span>
+                <span>{{ can.email}} | <a href="">send email</a></span>
+              </div>
+            </div>
+            <div class="innerDiv row">
+              <div class="span4">
+                <span><a href="">view resume</a></span>
+              </div>
+            </div>
+            <div class="innerDiv row">
+              <div class="span4">
+                <span><a href="">attach resume to email</a></span>
+              </div>
+            </div>
+          </div>
+          <div class="profile-box">
+            <img src="{{can.profile_pic_url}}">
+          </div>
+        </div>
+        <div class="row">
+          <div class="span4 headLink">Notes &nbsp;&nbsp;&nbsp;<a href="">Add Note</a></div>
+        </div>
+        <div class="row QV-content">
+          <div class="span4">
+            <div class="innerDiv row">
+              <div class="span4">
+                <span>2/01/2013</span>
+                <span>She is open to relocating to FL, GA, SC as she has family in those areas. Seeking family, geriatric and urgent care opportunities.</span>
+              </div>
+            </div>
+            <div class="innerDiv row">
+              <div class="span4">
+                <span>2/01/2013</span>
+                <span>She is open to relocating to FL, GA, SC as she has family in those areas. Seeking family, geriatric and urgent care opportunities.</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="row">
+      <div class="span12">
+        <ul class="bottomLink">
+          <li><a href="">send mail</a></li>
+          <li><a href="">create new call list</a></li>
+          <li><a href="">add to existing call list</a></li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</div>
+</div>
+<script>
+var app = angular.module('app', ['ngResource']);
+app.factory('Candidate',['$resource', function($resource) {
+  return $resource('/candidates/:id', {id: '@id'});
+}]);
+
+app.controller('candidates_controller', ['$scope', '$location', 'Candidate','$http',
+  function($scope, $location, Candidate) {
+     $scope.$watch('search_data', function() {
+       console.log("cnages");
+     }); // initialize the watch
+     $scope.$apply()
+    $scope.candidates=window.candidates;
+    $scope.view = function(candidate){
+      $scope.can = candidate;
+    };
+    $scope.search = function(){
+      alert("searched");
+       $http({method: "GET", url: "/search/:query"}).
+          success(function(data, status) {
+            $scope.candidates = data;
+          }).
+          error(function(data, status) {
+          $scope.candidates = [];
+          alert("No more data");
+        });
+      };
+     
+    $scope.save = function() {
+      $scope.candidate.$save(function(candidate) {
+        $location.path('/update/' + candidate.id);
+      });
+    };
+  }
+]);
+</script>

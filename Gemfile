@@ -9,7 +9,6 @@ gem 'mysql2'
 gem 'devise'
 gem 'paperclip'
 
-
 # Gems used only for assets and not required
 # in production environments by default.
 group :assets do
@@ -21,8 +20,9 @@ group :assets do
 
   gem 'uglifier', '>= 1.0.3'
   gem 'twitter-bootstrap-rails', :git => 'git://github.com/seyhunak/twitter-bootstrap-rails.git'
-  gem 'jquery-tokeninput-rails'
+  gem 'angularjs-rails'
 end
+  gem 'jquery-tokeninput-rails'
 
 group :development do
   gem "better_errors"
