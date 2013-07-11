@@ -8,9 +8,18 @@ class Candidate < ActiveRecord::Base
                   :path => ":rails_root/public/assets/candidates/:id/avatar/:style/:basename.:extension"
  has_attached_file :resume,
                   :url  => "/assets/candidates/:id/resume/:basename.:extension",
-                  :path => ":rails_root/public/assets/candidates/:id/resume/:basename.:extension"                 
- 
- validates :email, :first_name, :presence => true
+                  :path => ":rails_root/public/assets/candidates/:id/resume/:basename.:extension" 
+                  
+                                  
+validates_attachment_content_type :profile_pic, :content_type => ['image/jpeg', 'image/png', 'image/gif']
+validates_attachment_content_type :resume, :content_type => ["application/pdf", "application/msword", 
+             "application/vnd.openxmlformats-officedocument.wordprocessingml.document", 
+             "text/plain"]
+
+ validates :email, :presence => true
+ validates :email, :email => true
+
+ validates :contact_number, :length => {:minimum => 6, :maximum => 25}, :format => { :with => /\A\S[0-9\+\/\(\)\s\-]*\z/i }, :allow_blank => true
  
  belongs_to :user
  belongs_to :team
