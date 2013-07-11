@@ -18,13 +18,18 @@ validates_attachment_content_type :resume, :content_type => ["application/pdf", 
 
  validates :email, :presence => true
  validates :email, :email => true
-
+ 
  validates :contact_number, :length => {:minimum => 6, :maximum => 25}, :format => { :with => /\A\S[0-9\+\/\(\)\s\-]*\z/i }, :allow_blank => true
  
  belongs_to :user
  belongs_to :team
  has_and_belongs_to_many :tags
+ before_create :save_image
  
+ 
+ def save_image
+   
+ end
 
 
 

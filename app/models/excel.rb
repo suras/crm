@@ -9,15 +9,20 @@ class Excel < ActiveRecord::Base
 
 
   def self.import(file, user_id)
+    catch_errors = " "
+    count = 1
    spreadsheet = open_spreadsheet(file)
     header = spreadsheet.row(1)
     (2..spreadsheet.last_row).each do |i|
+      count += 1
     row = Hash[[header, spreadsheet.row(i)].transpose]
    #Rails.logger.info "plain row: #{row}"
     row = row.to_hash
     if row['contact_number'].present?
       contact = row['contact_number'].to_s
+      if(contact.index('.'))
       contact = contact.slice(0, contact.index('.'))
+      end
       row['contact_number'] = contact
     end
     row["user_id"] = user_id
@@ -25,7 +30,18 @@ class Excel < ActiveRecord::Base
     
      Rails.logger.warn "added row: #{row}"
      candidate = Candidate.new(row)
+     if candidate.valid?
        candidate.save
+     else
+       catch_errors += "Error uploading record with row number#{count}/n"
+     end
+       
+     end
+     if catch_errors != " "
+       filename = File.basename(file, File.extname(file)) 
+       File.open("#{Rails.root}/public/errors/#{filename}", "w") do |f|
+         f.write(catch_errors)
+       end
      end
   end
   
