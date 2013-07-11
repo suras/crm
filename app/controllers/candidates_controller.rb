@@ -25,6 +25,10 @@ class CandidatesController < ApplicationController
     
   end
 
+  def search
+    
+  end
+
   def edit
     
   end
@@ -40,5 +44,4 @@ class CandidatesController < ApplicationController
   def get_team
     @team = current_user.team
   end
-  
 end
