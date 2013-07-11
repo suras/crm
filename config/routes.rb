@@ -10,7 +10,11 @@ HootQuest::Application.routes.draw do
   resources :candidates
   
   get "users/index", :to =>"users#index", :as => "users_index"
-
+  
+  get "uploads/excel", :to => "uploads#new_upload_excel", :as => "new_upload_excel"
+  
+  post "uploads/excel", :to => "uploads#upload_excel", :as => "upload_excel"
+  get  "uploads/excel_jobs", :to => "uploads#excel_jobs"
   # The priority is based upon order of creation:
   # first created -> highest priority.
 

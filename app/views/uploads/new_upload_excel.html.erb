@@ -1,0 +1,15 @@
+<%=form_for @excel, url: upload_excel_path do |f|%>
+<% if(@excel.errors.any?)%>
+<% @excel.errors.full_messages.each do |msg|%>
+<%=msg%>
+<% end %>
+<% end %>
+<h4>Upload Candidates from Outlook</h4>
+<p>Important: Before you can import your Outlook contacts, you'll need to convert them into a format this software can read. 
+	If the contacts are not in the proper format they will not be imported.</p>
+<%=f.file_field :excel_sheet%></br>
+<%=f.submit :"upload and import"%>
+
+
+
+<% end %>

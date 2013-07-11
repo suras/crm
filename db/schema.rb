@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20130710070011) do
+ActiveRecord::Schema.define(:version => 20130711103530) do
 
   create_table "call_lists", :force => true do |t|
     t.string   "name"
@@ -56,6 +56,17 @@ ActiveRecord::Schema.define(:version => 20130710070011) do
     t.integer "tag_id"
   end
 
+  create_table "excels", :force => true do |t|
+    t.string   "excel_sheet_file_name"
+    t.string   "excel_sheet_content_type"
+    t.integer  "excel_sheet_file_size"
+    t.datetime "excel_sheet_updated_at"
+    t.datetime "created_at",                                :null => false
+    t.datetime "updated_at",                                :null => false
+    t.integer  "user_id"
+    t.string   "status",                   :default => "0"
+  end
+
   create_table "notes", :force => true do |t|
     t.integer  "candidate_id"
     t.text     "candidate_note"
@@ -97,6 +108,15 @@ ActiveRecord::Schema.define(:version => 20130710070011) do
     t.integer  "plan_id"
     t.datetime "created_at", :null => false
     t.datetime "updated_at", :null => false
+  end
+
+  create_table "uploads", :force => true do |t|
+    t.string   "excel_file_name"
+    t.string   "excel_content_type"
+    t.integer  "excel_file_size"
+    t.datetime "excel_updated_at"
+    t.datetime "created_at",         :null => false
+    t.datetime "updated_at",         :null => false
   end
 
   create_table "users", :force => true do |t|
