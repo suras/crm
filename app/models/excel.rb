@@ -1,5 +1,5 @@
 class Excel < ActiveRecord::Base
-  attr_accessible :excel_sheet, :user_id
+  attr_accessible :excel_sheet, :user_id, :status
   has_attached_file :excel_sheet,
   :url  => "/jobs/excel/:basename.:extension",
                   :path => ":rails_root/public/jobs/excel/:basename.:extension" 
@@ -33,7 +33,7 @@ class Excel < ActiveRecord::Base
      if candidate.valid?
        candidate.save
      else
-       catch_errors += "Error uploading record with row number#{count}/n"
+       catch_errors += "Error uploading record with row number#{count}\n"
      end
        
      end

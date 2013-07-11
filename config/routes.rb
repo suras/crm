@@ -15,6 +15,13 @@ HootQuest::Application.routes.draw do
   
   post "uploads/excel", :to => "uploads#upload_excel", :as => "upload_excel"
   get  "uploads/excel_jobs", :to => "uploads#excel_jobs"
+  
+  get "uploads/linkedin", :to => "uploads#new_upload_linkedin", :as => "new_upload_linkedin"
+  
+  post "uploads/linkedin", :to => "uploads#upload_linkedin", :as => "upload_linkedin"
+  
+  get "uploads/outlook", :to => "uploads#new_upload_outlook", :as => "new_upload_outlook"
+  post "uploads/outlook", :to => "uploads#upload_outlook", :as => "upload_outlook"
   # The priority is based upon order of creation:
   # first created -> highest priority.
 

@@ -1,4 +1,3 @@
-require "open-uri"
 class UploadsController < ApplicationController
   before_filter :authenticate_user!, :except => :excel_jobs
   layout "candidate"
@@ -37,5 +36,42 @@ class UploadsController < ApplicationController
     render :nothing => true 
     
   end
+  
+  
+  #==============linked_in========
+  
+    def new_upload_linkedin
+    @linkedin = Linkedin.new
+  end
+  
+  def upload_linkedin
+    params[:linkedin][:user_id] = current_user.id
+    @linkedin = Linked.new(params[:excel])
+    if @linkedin.save
+      redirect_to new_upload_linkedin_path, :notice => "Upload Successfully. It will take sometime to process
+      the file"
+    else
+      render :action => "new_upload_linkedin"
+    end
+    
+  end
+  #=====outlook===#
+   def new_upload_outlook
+    @outlook = Outlook.new
+  end
+  
+  def upload_outlook
+    params[:outlook][:user_id] = current_user.id
+    @outlook = Outlook.new(params[:excel])
+    if @outlook.save
+      redirect_to new_upload_outlook_path, :notice => "Upload Successfully. It will take sometime to process
+      the file"
+    else
+      render :action => "new_upload_outlook"
+    end
+    
+  end
+  
+  #=====class end==============
   
 end

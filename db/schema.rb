@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20130711103530) do
+ActiveRecord::Schema.define(:version => 20130711143737) do
 
   create_table "call_lists", :force => true do |t|
     t.string   "name"
@@ -67,6 +67,17 @@ ActiveRecord::Schema.define(:version => 20130711103530) do
     t.string   "status",                   :default => "0"
   end
 
+  create_table "linkedins", :force => true do |t|
+    t.string   "linkedin_sheet_file_name"
+    t.string   "linkedin_sheet_content_type"
+    t.integer  "linkedin_sheet_file_size"
+    t.datetime "linkedin_sheet_updated_at"
+    t.integer  "user_id"
+    t.string   "status"
+    t.datetime "created_at",                  :null => false
+    t.datetime "updated_at",                  :null => false
+  end
+
   create_table "notes", :force => true do |t|
     t.integer  "candidate_id"
     t.text     "candidate_note"
@@ -76,6 +87,17 @@ ActiveRecord::Schema.define(:version => 20130711103530) do
   end
 
   add_index "notes", ["candidate_id"], :name => "index_notes_on_candidate_id"
+
+  create_table "outlooks", :force => true do |t|
+    t.string   "outlook_sheet_file_name"
+    t.string   "outlook_sheet_content_type"
+    t.integer  "outlook_sheet_file_size"
+    t.datetime "outlook_sheet_updated_at"
+    t.integer  "user_id"
+    t.string   "status"
+    t.datetime "created_at",                 :null => false
+    t.datetime "updated_at",                 :null => false
+  end
 
   create_table "plans", :force => true do |t|
     t.string   "name"
