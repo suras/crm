@@ -22,6 +22,9 @@ HootQuest::Application.routes.draw do
   
   get "uploads/outlook", :to => "uploads#new_upload_outlook", :as => "new_upload_outlook"
   post "uploads/outlook", :to => "uploads#upload_outlook", :as => "upload_outlook"
+  
+   get "uploads/docs", :to => "uploads#new_upload_doc", :as => "new_upload_doc"
+  post "uploads/docs", :to => "uploads#upload_doc", :as => "upload_doc"
   # The priority is based upon order of creation:
   # first created -> highest priority.
 

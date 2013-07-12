@@ -46,7 +46,7 @@ class UploadsController < ApplicationController
   
   def upload_linkedin
     params[:linkedin][:user_id] = current_user.id
-    @linkedin = Linked.new(params[:excel])
+    @linkedin = Linkedin.new(params[:linkedin])
     if @linkedin.save
       redirect_to new_upload_linkedin_path, :notice => "Upload Successfully. It will take sometime to process
       the file"
@@ -62,7 +62,7 @@ class UploadsController < ApplicationController
   
   def upload_outlook
     params[:outlook][:user_id] = current_user.id
-    @outlook = Outlook.new(params[:excel])
+    @outlook = Outlook.new(params[:outlook])
     if @outlook.save
       redirect_to new_upload_outlook_path, :notice => "Upload Successfully. It will take sometime to process
       the file"
@@ -71,6 +71,28 @@ class UploadsController < ApplicationController
     end
     
   end
+  
+  
+  #===========resume===============
+  
+  
+   def new_upload_doc
+    @resume = Doc.new
+  end
+  
+  def upload_doc
+    params[:doc][:user_id] = current_user.id
+    @resume = Doc.new(params[:doc])
+    if @resume.save
+      redirect_to new_upload_doc_path, :notice => "Upload Successfully. It will take sometime to process
+      the file"
+    else
+      render :action => "new_upload_doc"
+    end
+    
+  end
+  
+#===============resume end=================
   
   #=====class end==============
   

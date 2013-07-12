@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20130711143737) do
+ActiveRecord::Schema.define(:version => 20130712063421) do
 
   create_table "call_lists", :force => true do |t|
     t.string   "name"
@@ -54,6 +54,17 @@ ActiveRecord::Schema.define(:version => 20130711143737) do
   create_table "candidates_tags", :force => true do |t|
     t.integer "candidate_id"
     t.integer "tag_id"
+  end
+
+  create_table "docs", :force => true do |t|
+    t.string   "resume_file_name"
+    t.string   "resume_content_type"
+    t.integer  "resume_file_size"
+    t.datetime "resume_updated_at"
+    t.string   "status"
+    t.integer  "user_id"
+    t.datetime "created_at",          :null => false
+    t.datetime "updated_at",          :null => false
   end
 
   create_table "excels", :force => true do |t|
