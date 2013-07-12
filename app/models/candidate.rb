@@ -16,14 +16,17 @@ validates_attachment_content_type :resume, :content_type => ["application/pdf", 
              "application/vnd.openxmlformats-officedocument.wordprocessingml.document", 
              "text/plain"]
 
- validates :email, :presence => true
- validates :email, :email => true
- 
+
  validates :contact_number, :length => {:minimum => 6, :maximum => 25}, :format => { :with => /\A\S[0-9\+\/\(\)\s\-]*\z/i }, :allow_blank => true
+
+ validates :email, :presence => true
+ validates :email, :email => true, :uniqueness=>true
+
  
  belongs_to :user
  belongs_to :team
  has_and_belongs_to_many :tags
+
  before_create :save_image
  
  
@@ -31,6 +34,18 @@ validates_attachment_content_type :resume, :content_type => ["application/pdf", 
    
  end
 
-
+ attr_reader :get_tags, :profile_pic_url
+ def as_json options=nil
+    options ||= {}
+    options[:methods] = ((options[:methods] || []) + [:get_tags,:profile_pic_url])
+    super options
+  end
+ def get_tags
+    self.tags.select(:name).map(&:name).join(",")
+ end
+ 
+ def profile_pic_url
+    self.profile_pic(:small)
+  end
 
 end

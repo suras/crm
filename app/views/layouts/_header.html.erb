@@ -1,0 +1,21 @@
+    <div class="header">
+      <div class="container">
+        <div class="row">
+          <div class="span12">
+            <div class="navLeft">
+              <ul>
+                <li><a href="search.html"><a href="/search"><img src="/assets/search_tab.jpg">Search</a></li>
+                <li><%=link_to image_tag("/assets/add.jpg")+" Add", new_candidate_path %></li>
+                <li><%=link_to image_tag('/assets/call_list.jpg')+" Call List", "#" %></li>
+              </ul>
+            </div>
+            <div class="navRight">
+              <ul>
+                <li><%= link_to 'Logout', destroy_user_session_path, :method=>'delete' %></li>
+                <li><%= link_to 'Edit account', edit_user_registration_path %></li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
