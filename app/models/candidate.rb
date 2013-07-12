@@ -11,6 +11,7 @@ class Candidate < ActiveRecord::Base
                   :path => ":rails_root/public/assets/candidates/:id/resume/:basename.:extension"                 
  
  validates :email, :first_name, :presence => true
+ validates :email, :uniqueness=>true
  
  belongs_to :user
  belongs_to :team

@@ -19,7 +19,6 @@ class CandidatesController < ApplicationController
     else 
       render :action => "new"
     end
-    
   end
 
   def show
@@ -31,15 +30,24 @@ class CandidatesController < ApplicationController
   end
 
   def search
-    @candidates = []
-    if params[:keywords]
-      @tags = Tag.where(:id=>params[:keywords].split(",").to_i)
-      @tags.each do |tag|
-        @candidates << tag.candidates
+    @result = []
+    @candidates = current_team.candidates
+    if params[:query]
+      tag_ids = params[:query].split(",").map{ |t| t.to_i }.uniq
+      @tags = Tag.includes(:candidates).where(:id=> tag_ids)
+      @candidates.each do |candidate|
+        puts (candidate.tags & @tags).count.to_s + "------" + @tags.count.to_s
+        @result << candidate if(candidate.tags & @tags).count == tag_ids.count
       end
     else
-      @candidates = Candidate.all
+      @result = @candidates
     end
+    puts @result.inspect
+    respond_to do |format|
+      format.html
+      format.json { render :json => @result.to_json }
+    end
+
   end
 
   def edit

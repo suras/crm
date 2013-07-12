@@ -12,7 +12,7 @@ window.candidates = <%= raw @candidates.to_json %>
     </div>
     <div class="row">
       <div class="span12">
-        <input type="text" class="search-input" ng-model="search_data" id="keywords" name="search-input">
+        <input type="text" class="search-input" tagsinput ng-model="search_data" id="keywords" name="search-input">
       </div>
     </div>
   </div>
@@ -55,50 +55,50 @@ window.candidates = <%= raw @candidates.to_json %>
       </div>
       <div class="span4 quick-view-box">
         <div class="row">
-          <div class="span4 headLink"><a href="">Edit</a></div>
+          <div class="span4 headLink"><a href="" ng-model="edit" ng-click="make_editable()" id="make_editable">Edit</a></div>
         </div>
         <div class="row QV-content" id="view-can{{ can.id}}" >
           <div class="span4">
             <div class="row NameDiv">
               <div class="span4">
-                <span class="name"><a href="">{{ can.first_name}} {{ can.last_name}}</a></span>
+                <div class="name"><a href="#"><span class="make_edit" ng-blur="save()">{{ can.first_name}}</span><span class="make_edit">{{ can.last_name}}</span></a></div>
                 <span class="title">{{ can.position}}</span>
               </div>
             </div>
             <div class="innerDiv row">
               <div class="span4">
                 <span class="bold">Company:</span>
-                <span>{{ can.company}}</span>
+                <span class="make_edit">{{ can.company}}</span>
               </div>
             </div>
             <div class="innerDiv row">
               <div class="span4">
                 <span class="bold">expereience:</span>
-                <span >{{ can.experience}} years</span>
+                <span class="make_edit">{{ can.experience}} years</span>
               </div>
             </div>
             <div class="innerDiv row">
               <div class="span4">
                 <span class="bold">tags:</span>
-                <span>{{ can.get_tags}}</span>
+                <span >{{ can.get_tags}}</span>
               </div>
             </div>
             <div class="innerDiv row">
               <div class="span4">
                 <span class="bold">location:</span>
-                <span>{{ can.city}} {{can.state}}</span>
+                <div><span class="make_edit">{{ can.city}}</span><span class="make_edit"> {{can.state}}</span></div>
               </div>
             </div>
             <div class="innerDiv row">
               <div class="span4">
                 <span class="bold">cell phone:</span>
-                <span>{{ can.contact_number}}</span>
+                <span class="make_edit">{{ can.contact_number}}</span>
               </div>
             </div>
             <div class="innerDiv row">
               <div class="span4">
                 <span class="bold">email:</span>
-                <span>{{ can.email}} | <a href="">send email</a></span>
+                <span class="make_edit">{{ can.email}}</span> | <a href="">send email</a></span>
               </div>
             </div>
             <div class="innerDiv row">
@@ -150,37 +150,119 @@ window.candidates = <%= raw @candidates.to_json %>
 </div>
 </div>
 <script>
+
+
+
 var app = angular.module('app', ['ngResource']);
+
+app.directive( [ 'focus', 'blur', 'keyup', 'keydown', 'keypress' ].reduce( function ( container, name ) {
+    var directiveName = 'ng' + name[ 0 ].toUpperCase( ) + name.substr( 1 );
+
+    container[ directiveName ] = [ '$parse', function ( $parse ) {
+        return function ( scope, element, attr ) {
+            var fn = $parse( attr[ directiveName ] );
+            element.bind( name, function ( event ) {
+                scope.$apply( function ( ) {
+                    fn( scope, {
+                        $event : event
+                    } );
+                } );
+            } );
+        };
+    } ];
+
+    return container;
+}, { } ) );
+
+// angular.module('app.directives', []).directive('tagsinput', function() {
+// return {
+//   link: function(scope, element, attrs, ngModel) {
+//     if (!ngModel) return;
+//     var optionsObj = {theme:"facebook"};
+
+//     var updateModel = function(dataTxt) {
+//     scope.$apply(function () {
+//     // Call the internal AngularJS helper to
+//     // update the two-way binding
+//     ngModel.$setViewValue(dataTxt);
+//     });
+//     };
+
+//     optionsObj.onResult = function(dataTxt, picker) {
+//     updateModel(dataTxt);
+//     scope.$apply(function() {
+//     scope.select({date: dateTxt});
+//     });
+//     };
+//     ngModel.$render = function() {
+//     // Use the AngularJS internal 'binding-specific' variable
+//     element.tokenInput(ngModel.$viewValue || window.tags ,{theme: "facebook"});
+//     };
+//     element.tokenInput(optionsObj);
+
+//   };
+// });
+
+
 app.factory('Candidate',['$resource', function($resource) {
   return $resource('/candidates/:id', {id: '@id'});
 }]);
-
 app.controller('candidates_controller', ['$scope', '$location', 'Candidate','$http',
-  function($scope, $location, Candidate) {
-     $scope.$watch('search_data', function() {
-       console.log("cnages");
-     }); // initialize the watch
-     $scope.$apply()
+  function($scope, $location, Candidate,$http) {
+
+
+   
+    // angular.element(element).tokenInput(window.tags,
+    //   {theme: "facebook"});
+    $scope.edit = "Edit";
+    $scope.$watch('search_data',function(){
+      $scope.search();
+    });
+
     $scope.candidates=window.candidates;
+    
+
     $scope.view = function(candidate){
       $scope.can = candidate;
     };
+    
     $scope.search = function(){
-      alert("searched");
-       $http({method: "GET", url: "/search/:query"}).
+        console.log("Entered search");
+        console.log($scope.search_data);
+      if($scope.search_data !="")
+      {
+       $http.get("/search/"+$scope.search_data).
           success(function(data, status) {
-            $scope.candidates = data;
+            if(data.length>0)
+              $scope.candidates = data;
+            else{
+              $scope.candidates = [];
+              alert("NO more data");
+            }
           }).
           error(function(data, status) {
           $scope.candidates = [];
           alert("No more data");
         });
-      };
-     
+      }
+      console.log("End of search");
+    };
+    
+    $scope.make_editable=function(){
+      console.log($scope.edit);
+      if($scope.edit == "Edit"){
+        $(".make_edit").attr("contenteditable",true);
+        $scope.edit = "Save";
+      }
+      else{
+        $scope.save();
+        $scope.edit="Edit";
+      }
+    };
+
     $scope.save = function() {
-      $scope.candidate.$save(function(candidate) {
-        $location.path('/update/' + candidate.id);
-      });
+      console.log($scope.can);
+      $scope.can.$save
     };
   }
 ]);
