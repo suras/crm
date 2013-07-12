@@ -1,9 +1,9 @@
 class StaticPagesController < ApplicationController
   def faq
-  	render layout :false
+  	render layout: false
   end
 
   def billing_info
-  	render layout :false
+  render layout: false
   end
 end
