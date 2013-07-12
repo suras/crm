@@ -3,6 +3,10 @@ HootQuest::Application.routes.draw do
 
 
 
+  # get "static_pages/faq"
+
+  # get "static_pages/billing_info"
+
   root :to => "home#index"
 
   devise_for :users
@@ -26,6 +30,9 @@ HootQuest::Application.routes.draw do
   
    get "uploads/docs", :to => "uploads#new_upload_doc", :as => "new_upload_doc"
   post "uploads/docs", :to => "uploads#upload_doc", :as => "upload_doc"
+
+  match "/faq" => "static_pages#faq" 
+  match "/pricing" => "static_pages#billing_info" 
   # The priority is based upon order of creation:
   # first created -> highest priority.
 
