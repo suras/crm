@@ -50,6 +50,15 @@ class CandidatesController < ApplicationController
 
   end
 
+  def update
+    @candidate = Candidate.find(params[:id])
+    @candidate.update_attributes(params[:candidate].except(:id, :profile_pic_url, :get_tags,:notes))
+    respond_to do |f|
+      f.html { redirect_to candidates_path }
+      f.json { render :json => @candidate.to_json}
+    end
+  end
+
   def edit
     
   end

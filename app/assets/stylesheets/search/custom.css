@@ -39,7 +39,18 @@ line-height: 18px;
 
 .key-search{
   margin-top: 100px;
-  margin-bottom: 50px;
+  margin-bottom: 10px;
+  padd
+}
+.display_result{
+background: #ddd;
+margin-bottom: 10px;
+color: green;
+padding: 10px;
+font-size: 14px;
+}
+.error{
+  color:red;
 }
 .search-input{
   width:75%;
@@ -110,7 +121,7 @@ line-height: 18px;
   padding: 5px 0px 5px 10px;
   outline: #eee solid 1px;
 }
-.QV-content{
+.QV-content,.edit-content{
   margin: 10px 0px 25px 0px;
   position: relative;
 }
@@ -139,4 +150,13 @@ background: -ms-linear-gradient(top,  #8cc1d3 0%,#65afc8 100%);
 background: linear-gradient(to bottom,  #8cc1d3 0%,#65afc8 100%);
 filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#8cc1d3', endColorstr='#65afc8',GradientType=0 );
 
+}
+.edit-content{
+  display: none;
+  padding-left:20px;
+}
+.edit-content input {display: inline;
+width: auto !important; }
+.new-note-form{
+  display: none;
 }

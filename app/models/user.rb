@@ -13,7 +13,7 @@ class User < ActiveRecord::Base
   # attr_accessible :title, :body
   belongs_to :team
   has_many :call_lists
-  has_many :notes
+  has_many :notes ,:foreign_key=>"creater_id"
   
  def create_team
    if register_type.blank? 

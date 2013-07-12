@@ -16,6 +16,8 @@ window.candidates = <%= raw @candidates.to_json %>
       </div>
     </div>
   </div>
+      <p class="display_result" ng-bind-html-unsafe="display_result"></p>
+
   <div class="content" >
     <div class="row">
       <div class="span12">
@@ -29,7 +31,7 @@ window.candidates = <%= raw @candidates.to_json %>
             </ul>
           </div>
           <div class="span1 selectAll">
-            <a href="#" id="selectAll">Select All</a>
+            <a ng-click="select_all()">Select All</a>
           </div>
         </div>
       </div>
@@ -38,7 +40,7 @@ window.candidates = <%= raw @candidates.to_json %>
       <div class="span8 candidate-list-box">
         <ul class ="candidate-list">
           <li ng-repeat="candidate in candidates | orderBy:predicate:reverse">
-            <div class="row" ng-mouseover="view(candidate)">
+            <div class="row" ng-click="view($index)">
                 <div class="span1">
                   <img src="{{candidate.profile_pic_url}}">
                 </div>
@@ -48,91 +50,135 @@ window.candidates = <%= raw @candidates.to_json %>
                 </div>
                 <div class="span2">{{candidate.get_tags}}</div>
                 <div class="span2">{{candidate.contact_number}}</div>
-                <div class="span1 selectcheck"><input type="checkbox"></div>
+                <div class="span1 selectcheck"><input type="checkbox" ng-click="make_selection($index,$event)" class="select_check"></div>
             </div>
           </li>
         </ul>
       </div>
       <div class="span4 quick-view-box">
         <div class="row">
-          <div class="span4 headLink"><a href="" ng-model="edit" ng-click="make_editable()" id="make_editable">Edit</a></div>
+          <div class="span4 headLink"><a href="" ng-bind="edit" ng-click="make_editable(can)" id="make_editable">Edit</a></div>
         </div>
-        <div class="row QV-content" id="view-can{{ can.id}}" >
-          <div class="span4">
-            <div class="row NameDiv">
-              <div class="span4">
-                <div class="name"><a href="#"><span class="make_edit" ng-blur="save()">{{ can.first_name}}</span><span class="make_edit">{{ can.last_name}}</span></a></div>
-                <span class="title">{{ can.position}}</span>
+          <div class="row QV-content" id="view-can{{ can.id}}" >
+            <div class="span4">
+              <div class="row NameDiv">
+                <div class="span4">
+                  <div class="name"><a href="#"><span class="make_edit">{{ can.first_name}}</span><span class="make_edit">{{ can.last_name}}</span></a></div>
+                  <span class="title">{{ can.position}}</span>
+                </div>
+              </div>
+              <div class="innerDiv row">
+                <div class="span4">
+                  <span class="bold">Company:</span>
+                  <span class="make_edit">{{ can.company}}</span>
+                </div>
+              </div>
+              <div class="innerDiv row">
+                <div class="span4">
+                  <span class="bold">expereience:</span>
+                  <span class="make_edit">{{ can.experience}} years</span>
+                </div>
+              </div>
+              <div class="innerDiv row">
+                <div class="span4">
+                  <span class="bold">tags:</span>
+                  <span >{{ can.get_tags}}</span>
+                </div>
+              </div>
+              <div class="innerDiv row">
+                <div class="span4">
+                  <span class="bold">location:</span>
+                  <div><span class="make_edit">{{ can.city}}</span><span class="make_edit"> {{can.state}}</span></div>
+                </div>
+              </div>
+              <div class="innerDiv row">
+                <div class="span4">
+                  <span class="bold">cell phone:</span>
+                  <span class="make_edit">{{ can.contact_number}}</span>
+                </div>
+              </div>
+              <div class="innerDiv row">
+                <div class="span4">
+                  <span class="bold">email:</span>
+                  <span class="make_edit">{{ can.email}}</span> | <a href="">send email</a></span>
+                </div>
+              </div>
+              <div class="innerDiv row">
+                <div class="span4">
+                  <span><a href="">view resume</a></span>
+                </div>
+              </div>
+              <div class="innerDiv row">
+                <div class="span4">
+                  <span><a href="">attach resume to email</a></span>
+                </div>
               </div>
             </div>
-            <div class="innerDiv row">
-              <div class="span4">
-                <span class="bold">Company:</span>
-                <span class="make_edit">{{ can.company}}</span>
-              </div>
+            <div class="profile-box">
+              <img src="{{can.profile_pic_url}}">
             </div>
-            <div class="innerDiv row">
-              <div class="span4">
-                <span class="bold">expereience:</span>
-                <span class="make_edit">{{ can.experience}} years</span>
+          </div>
+          <div class="row edit-content">
+            <div class="span4">
+              <div class="row NameDiv">
+                <div class="span4">
+                  <span class="bold">First Name:</span>
+                  <div class="name"><span><input ng-model="can.first_name"></span>
+                  <span class="bold">Last Name:</span>
+                  <span><input ng-model="can.last_name"></span></div>
+                  <span class="bold">Position:</span>
+
+                  <span class="title"><input ng-model="can.position"</span>
+                </div>
               </div>
-            </div>
-            <div class="innerDiv row">
-              <div class="span4">
-                <span class="bold">tags:</span>
-                <span >{{ can.get_tags}}</span>
+              <div class="innerDiv row">
+                <div class="span4">
+                  <span class="bold">Company:</span>
+                  <span class="make_edit"><input ng-model="can.company"></span>
+                </div>
               </div>
-            </div>
-            <div class="innerDiv row">
-              <div class="span4">
-                <span class="bold">location:</span>
-                <div><span class="make_edit">{{ can.city}}</span><span class="make_edit"> {{can.state}}</span></div>
+              <div class="innerDiv row">
+                <div class="span4">
+                  <span class="bold">expereience:</span>
+                  <span class="make_edit"><input ng-model="can.experience"> years</span>
+                </div>
               </div>
-            </div>
-            <div class="innerDiv row">
-              <div class="span4">
-                <span class="bold">cell phone:</span>
-                <span class="make_edit">{{ can.contact_number}}</span>
+              <div class="innerDiv row">
+                <div class="span4">
+                  <span class="bold">location:</span>
+                  <div><span><input ng-model="can.city"></span><span > <input ng-model="can.state"></span></div>
+                </div>
               </div>
-            </div>
-            <div class="innerDiv row">
-              <div class="span4">
-                <span class="bold">email:</span>
-                <span class="make_edit">{{ can.email}}</span> | <a href="">send email</a></span>
+              <div class="innerDiv row">
+                <div class="span4">
+                  <span class="bold">cell phone:</span>
+                  <span ><input ng-model="can.contact_number"></span>
+                </div>
               </div>
-            </div>
-            <div class="innerDiv row">
-              <div class="span4">
-                <span><a href="">view resume</a></span>
-              </div>
-            </div>
-            <div class="innerDiv row">
-              <div class="span4">
-                <span><a href="">attach resume to email</a></span>
+              <div class="innerDiv row">
+                <div class="span4">
+                  <span class="bold">email:</span>
+                  <span><input ng-model="can.email"></span></span>
+                </div>
               </div>
             </div>
           </div>
-          <div class="profile-box">
-            <img src="{{can.profile_pic_url}}">
-          </div>
+        <div class="row">
+          <div class="span4 headLink">Notes &nbsp;&nbsp;&nbsp;<a ng-click="add_note()" href="">Add Note</a></div>
         </div>
         <div class="row">
-          <div class="span4 headLink">Notes &nbsp;&nbsp;&nbsp;<a href="">Add Note</a></div>
-        </div>
-        <div class="row QV-content">
+          
           <div class="span4">
-            <div class="innerDiv row">
+            <div class="innerDiv row " ng-repeat ="note in can.notes">
               <div class="span4">
-                <span>2/01/2013</span>
-                <span>She is open to relocating to FL, GA, SC as she has family in those areas. Seeking family, geriatric and urgent care opportunities.</span>
+                <span>{{note.created_by}}</span>
+                <span>{{note.candidate_note}}</span>
               </div>
             </div>
-            <div class="innerDiv row">
-              <div class="span4">
-                <span>2/01/2013</span>
-                <span>She is open to relocating to FL, GA, SC as she has family in those areas. Seeking family, geriatric and urgent care opportunities.</span>
-              </div>
-            </div>
+          </div>
+          <div class='new-note-form'>
+            <textarea ng-model='note.candidate_note'></textarea>
+            <p><a ng-click='create_note()'>Create</a></p>
           </div>
         </div>
       </div>
@@ -150,9 +196,6 @@ window.candidates = <%= raw @candidates.to_json %>
 </div>
 </div>
 <script>
-
-
-
 var app = angular.module('app', ['ngResource']);
 
 app.directive( [ 'focus', 'blur', 'keyup', 'keydown', 'keypress' ].reduce( function ( container, name ) {
@@ -174,95 +217,111 @@ app.directive( [ 'focus', 'blur', 'keyup', 'keydown', 'keypress' ].reduce( funct
     return container;
 }, { } ) );
 
-// angular.module('app.directives', []).directive('tagsinput', function() {
-// return {
-//   link: function(scope, element, attrs, ngModel) {
-//     if (!ngModel) return;
-//     var optionsObj = {theme:"facebook"};
-
-//     var updateModel = function(dataTxt) {
-//     scope.$apply(function () {
-//     // Call the internal AngularJS helper to
-//     // update the two-way binding
-//     ngModel.$setViewValue(dataTxt);
-//     });
-//     };
-
-//     optionsObj.onResult = function(dataTxt, picker) {
-//     updateModel(dataTxt);
-//     scope.$apply(function() {
-//     scope.select({date: dateTxt});
-//     });
-//     };
-//     ngModel.$render = function() {
-//     // Use the AngularJS internal 'binding-specific' variable
-//     element.tokenInput(ngModel.$viewValue || window.tags ,{theme: "facebook"});
-//     };
-//     element.tokenInput(optionsObj);
-
-//   };
-// });
-
 
 app.factory('Candidate',['$resource', function($resource) {
   return $resource('/candidates/:id', {id: '@id'});
 }]);
 app.controller('candidates_controller', ['$scope', '$location', 'Candidate','$http',
-  function($scope, $location, Candidate,$http) {
-
-
-   
-    // angular.element(element).tokenInput(window.tags,
-    //   {theme: "facebook"});
+  function($scope, $location,Candidate,$http) {
     $scope.edit = "Edit";
+    $scope.checked= true;
+    $scope.selected_candidates=[];
     $scope.$watch('search_data',function(){
       $scope.search();
     });
-
     $scope.candidates=window.candidates;
-    
-
-    $scope.view = function(candidate){
-      $scope.can = candidate;
+    $scope.view = function(index){
+      $(".make_edit").removeAttr("contenteditable");
+      $scope.can = $scope.candidates[index];
     };
-    
     $scope.search = function(){
-        console.log("Entered search");
-        console.log($scope.search_data);
+      console.log($scope.search_data);
       if($scope.search_data !="")
       {
+       $scope.display_result = "Getting candidates details......";
        $http.get("/search/"+$scope.search_data).
           success(function(data, status) {
-            if(data.length>0)
+            if(data.length>0){
+              $scope.display_result = "Found <span class='bold'>" + data.length + "</span> Candidates";
               $scope.candidates = data;
+            }
             else{
               $scope.candidates = [];
-              alert("NO more data");
+              $scope.display_result = "<span class='error' >No more candidates matching the search criteria</span>";
             }
           }).
           error(function(data, status) {
           $scope.candidates = [];
-          alert("No more data");
+          $scope.display_result = "<span class='error' >No more candidates matching the search criteria</span>";
         });
       }
       console.log("End of search");
     };
     
-    $scope.make_editable=function(){
-      console.log($scope.edit);
+    $scope.make_selection = function(index,event){
+      console.log(status);
+      if(event.target.checked)
+        $scope.selected_candidates.push($scope.candidates[index]);
+      else
+        $scope.selected_candidates(index,1);
+      console.log($scope.selected_candidates);
+    };
+
+    $scope.make_editable=function(candidate){
+      $scope.can = candidate;
       if($scope.edit == "Edit"){
-        $(".make_edit").attr("contenteditable",true);
+        $(".edit-content").show();
+        $(".QV-content").hide();
         $scope.edit = "Save";
       }
       else{
         $scope.save();
+        $(".edit-content").hide();
+        $(".QV-content").show();
         $scope.edit="Edit";
       }
     };
+    $scope.create_note = function(){
+      $scope.note.candidate_id = $scope.can.id;
+      $http({method:"POST",
+        url:"/notes",
+        data:{note:$scope.note},
+        headers:{'X-CSRF-Token': $('meta[name=csrf-token]').attr('content')}
+        }).
+          success(function(data, status) {
+          $(".new-note-form").hide();
+            $scope.can.notes.push(data);
+            }).
+          error(function(data, status) {
+            console.log(data);
+        });
+
+    };
+    $scope.add_note = function(){
+      $(".new-note-form").show();
+    };
+    $scope.select_all=function(){
+      var checkboxes = $(":checkbox");
+      checkboxes.each(function(){this.checked= $scope.checked;}); 
+      if($scope.checked)
+        $scope.selected_candidates= $scope.candidates;
+      else
+        $scope.selected_candidates = [];
+      $scope.checked = !($scope.checked);     
+      console.log($scope.checked);
+      console.log($scope.selected_candidates)    ;
+    };
 
     $scope.save = function() {
-      console.log($scope.can);
-      $scope.can.$save
+      $http({method:"PUT",
+        url:"/candidates/"+$scope.can.id,
+        headers:{'X-CSRF-Token': $('meta[name=csrf-token]').attr('content')},
+        data: {candidate:$scope.can} }).
+          success(function(data, status) {
+            }).
+          error(function(data, status) {
+            console.log(data);
+        });
     };
   }
 ]);
