@@ -1,0 +1,45 @@
+<script type="text/javascript">
+  window.call_lists = <%= get_call_list%>;
+</script>
+<div class="container" ng-app="app">
+  <div class="row">
+    <p><span class="bold span4">Call Lists</span><span class="span4"></span><span class="span4"><a class= "pull-right"> Delete Call List </a> <a class="pull-right"> Stop Here and save my place </a> </p>
+  </div>
+  <div class="row" ng-controller="call_list_controller">
+    <div class="span4">
+      <div class="call_list">
+        <ul>
+          <li ng-repeat="call_list in call_lists">
+            <h4><a ng-click="show_candidates($index)">{{ call_list.name}}</a></h4>
+          </li>
+        </ul>
+      </div>
+    </div>
+    <div class="span4">
+      <div class="candidates_list">
+        <ul>
+          <li ng-repeat="candidate in candidates_list">
+            <div class="row">
+              <div class="span1"><img class="img-circle" src="{{candidate.profile_pic}}"></div>
+              <div class="span2"><img class=""
+            <h4><a ng-click="view_candidate($index)">{{ call_list.name}}</a></h4>
+          </li>
+        </ul>
+      </div>
+    </div>
+    <div class="span4">
+    </div>
+  </div>
+</div>
+<script type="text/javascript">
+var app = angular.module("app",["ngResource"]);
+app.controller('call_list_controller', ['$scope','$http',
+  function($scope, $location,Candidate,$http,$dialog,$filter) {
+    $scope.call_lists=window.call_lists;
+
+    $scope.show_candidates = function() {
+      $scope.candidates=
+    };
+  }
+]);
+</script>

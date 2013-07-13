@@ -58,7 +58,6 @@ class CandidatesController < ApplicationController
       f.json { render :json => @candidate.to_json}
     end
   end
-
   def edit
     
   end
@@ -70,7 +69,9 @@ class CandidatesController < ApplicationController
   def index
     
   end
-  
+  def candidates
+
+  end
   def get_team
     @team = current_user.team
   end

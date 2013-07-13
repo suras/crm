@@ -8,6 +8,7 @@ HootQuest::Application.routes.draw do
   devise_for :users
   
   match "/search(/:query)" =>"candidates#search"
+  match "/call_list" => "call_lists#index"
   match "/shortlists/bulk_update"=>"shortlists#bulk_update"
   resources :candidates,:notes,:shortlists
   
