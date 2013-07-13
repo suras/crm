@@ -40,7 +40,6 @@ line-height: 18px;
 .key-search{
   margin-top: 100px;
   margin-bottom: 10px;
-  padd
 }
 .display_result{
 background: #ddd;
@@ -67,10 +66,9 @@ font-size: 14px;
   height: 500px;
   outline:  #eee solid 1px;
   margin-left: 5px;
-  width: 315px;
   height: 500px;
-  overflow-y: scroll;
-  overflow-x: hidden;
+  overflow-y: auto;
+  overflow-x:hidden;
 }
 .candidate-list-box span,.candidate-list span,.NameDiv span{
   display: block;
@@ -122,12 +120,12 @@ font-size: 14px;
   outline: #eee solid 1px;
 }
 .QV-content,.edit-content{
-  margin: 10px 0px 25px 0px;
+  padding: 20px 15px 25px 15px;
   position: relative;
 }
 .innerDiv{
-  padding:5px 0px 0px 0px;
-  display: block;
+padding: 0px 0px 0px 15px;  
+
 }
 .bold{
   font-weight: bold;
@@ -160,3 +158,9 @@ width: auto !important; }
 .new-note-form{
   display: none;
 }
+
+.notes_date{color: #0088cc;
+margin-bottom: 0px;}
+
+.notes_note{text-indent: 20px;
+margin-bottom: 15px;}

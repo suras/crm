@@ -1,10 +1,5 @@
-  $(document).ready ->
-    checked = true
-    $("#selectAll").click () ->
-      if(checked)
-        $("#search_result input[type=checkbox]").attr("checked","checked")
-      else
-        $("#search_result input[type=checkbox]:checked").removeAttr("checked")
-      checked= !checked
-    false
-    
+$(document).ready ->
+  $("#keywords").tokenInput(window.tags,theme:"facebook", preventDuplicates:true)
+  $("#keywords").change () ->
+    $("#keywords").trigger('input');
+  

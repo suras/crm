@@ -15,6 +15,8 @@ class Candidate < ActiveRecord::Base
  has_many :notes
  belongs_to :user
  belongs_to :team
+ has_many :shortlists
+ delegate :name, :to=>:user, :prefix=>true
  has_and_belongs_to_many :tags
  attr_reader :get_tags, :profile_pic_url,:get_notes
  def as_json options={}
@@ -36,7 +38,9 @@ class Candidate < ActiveRecord::Base
     linked_in: self.linked_in,
     facebook: self.facebook,
     twitter: self.twitter,
-    notes: self.get_notes
+    notes: self.get_notes,
+    resume: self.resume,
+    added_by: self.user_name
   }
     # options ||= {}
     # options[:methods] = ((options[:methods] || []) + [:get_tags,:profile_pic_url])

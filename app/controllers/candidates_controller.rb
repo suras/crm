@@ -31,7 +31,7 @@ class CandidatesController < ApplicationController
 
   def search
     @result = []
-    @candidates = current_team.candidates
+    @candidates = current_team.candidates.order("first_name")
     if params[:query]
       tag_ids = params[:query].split(",").map{ |t| t.to_i }.uniq
       @tags = Tag.includes(:candidates).where(:id=> tag_ids)

@@ -23,6 +23,7 @@ group :assets do
   gem 'angularjs-rails'
 end
   gem 'jquery-tokeninput-rails'
+  gem 'angular-ui-bootstrap-rails'
 
 group :development do
   gem "better_errors"

@@ -7,8 +7,11 @@ class User < ActiveRecord::Base
 
   # Setup accessible (or protected) attributes for your model
   attr_accessible :email, :password, :password_confirmation, :remember_me, :first_name, :last_name, :company,
-                   :user_type, :status, :team_id, :plan_id, :register_type 
-  attr_accessor :plan_id, :register_type   
+                   :user_type, :status, :team_id, :plan_id, :register_type,:name
+  attr_accessor :plan_id, :register_type, :name
+  def name
+    "#{first_name.to_s} #{last_name.to_s}" 
+  end
   after_create :create_team              
   # attr_accessible :title, :body
   belongs_to :team
