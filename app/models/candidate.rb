@@ -1,7 +1,7 @@
 class Candidate < ActiveRecord::Base
   attr_accessible :company, :experience, :first_name, :last_name, :profile_pic, :resume, :first_name,
                   :last_name, :email, :address, :city, :state, :zip, :contact_number, :team_id, :user_id,
-                  :added_from, :linked_in, :twitter, :facebook, :position
+                  :added_from, :linked_in, :twitter, :facebook, :position,:name
 
  has_attached_file :profile_pic, :styles => { :small => "150x150>" },
                   :url  => "/assets/candidates/:id/avatar/:style/:basename.:extension",
@@ -18,7 +18,9 @@ class Candidate < ActiveRecord::Base
  has_many :shortlists
  delegate :name, :to=>:user, :prefix=>true
  has_and_belongs_to_many :tags
- attr_reader :get_tags, :profile_pic_url,:get_notes
+ attr_reader :get_tags, :profile_pic_url,:get_notes, :name
+ 
+
  def as_json options={}
   {
     id: self.id,
@@ -40,12 +42,14 @@ class Candidate < ActiveRecord::Base
     twitter: self.twitter,
     notes: self.get_notes,
     resume: self.resume,
-    added_by: self.user_name
   }
     # options ||= {}
     # options[:methods] = ((options[:methods] || []) + [:get_tags,:profile_pic_url])
     # super options
  end
+ def name
+    "#{self.first_name} #{self.last_name}"
+  end
  def get_tags
     self.tags.select(:name).map(&:name).join(",")
  end

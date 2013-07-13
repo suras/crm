@@ -2,6 +2,7 @@
 window.tags = <%=  get_tags%>;
 window.candidates = <%= raw @candidates.to_json %>
 window.call_lists = <%= get_call_list %>
+window.candidate_url = '<%= "#{root_url}"+"candidates/"%>';
 </script>
 <div ng-app="app">
   <div class="container" ng-controller="candidates_controller">
@@ -116,7 +117,7 @@ window.call_lists = <%= get_call_list %>
                 </div>
                 <div class="innerDiv row">
                   <div class="span4">
-                    <span><a ng-click="send_mail(can.email,can.resume)" href="">attach resume to email</a></span>
+                    <span><a ng-click="send_mail(can.email,can.id)" href="">attach resume to email</a></span>
                   </div>
                 </div>
               </div>
@@ -395,11 +396,15 @@ app.controller('candidates_controller', ['$scope', '$location', 'Candidate','$ht
       }
     };
 
-    $scope.send_mail = function(email,attachment){
+    $scope.send_mail = function(email,id){
       var emails=[];
       console.log(email);
       var to = "email@email.com";
-      var attachment = (attachment!=undefined)? "&attachment='"+attachment : "'"
+      var body="";
+      if(id!=undefined)
+      {
+          body="&body="+window.candidate_url+id+"?dl=1";
+      }
       if (email != undefined)
         to= email;
       else
@@ -408,7 +413,7 @@ app.controller('candidates_controller', ['$scope', '$location', 'Candidate','$ht
           emails.push($scope.selected_candidates[i].email);
         }
       }
-      location.href="mailto:"+to+ "?cc="+emails.join(",")+attachment;
+      location.href="mailto:"+to+ "?cc="+emails.join(",")+body;
     };
 
     $scope.create_note = function(){

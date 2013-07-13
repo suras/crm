@@ -23,6 +23,13 @@ class CandidatesController < ApplicationController
 
   def show
     @candidate = Candidate.find(params[:id])
+    if params[:dl]
+      send_file(@candidate.resume.path, 
+        :filename=>"#{@candidate.name.gsub(/\s+/,'_')}.#{File.extname(@candidate.resume_file_name)}",
+        :type => @candidate.resume.content_type,
+        :disposition => "attachment")
+      return
+    end
     respond_to do |format|
       format.html
       format.json { render :json => @candidate.to_json }
@@ -59,7 +66,6 @@ class CandidatesController < ApplicationController
     end
   end
   def edit
-    
   end
 
   def destroy
