@@ -14,7 +14,7 @@ class User < ActiveRecord::Base
   belongs_to :team
   has_many :call_lists
   has_many :notes
-  
+    
  def create_team
    if register_type.blank? 
      return

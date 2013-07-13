@@ -33,6 +33,8 @@ HootQuest::Application.routes.draw do
 
   match "/faq" => "static_pages#faq" 
   match "/pricing" => "static_pages#billing_info" 
+  match "/users/accountSettings" => "users#acc_settings"
+  post "/users/addMoreUser" => "users#add_more_user", :as =>"add_more_user"
   # The priority is based upon order of creation:
   # first created -> highest priority.
 

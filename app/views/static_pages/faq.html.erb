@@ -1,2 +1,73 @@
 <h1>Under the Construction</h1>
 
+
+<a href="#add-user-modal" role="button" class="btn" data-toggle="modal">Add More User</a>
+
+<div id="add-user-modal" class="modal hide fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+  <div class="modal-header">
+    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+    <h3 id="myModalLabel">Modal header</h3>
+  </div>
+  <div class="modal-body">
+    <form action="billing" method="post" class="form-horizontal" id="billingform" accept-charset="utf-8">
+			<div class="control-group">
+				<label for="email" class="control-label">	
+					Billing E-Mail 
+				</label>
+				<div class="controls">
+					<input name="email" type="email" value="" id="email">
+					<span class="help-inline">  Where should we send invoices?</span>
+				</div>
+			</div>
+ 
+			<div class="control-group">
+				<label for="address" class="control-label">	
+					Street Address
+				</label>
+				<div class="controls"><input name="address" placeholder="W 123 Street" type="text" value="" id="address"><span class="help-inline">  Street Name and/or apartment number</span>
+				</div>
+			</div>
+ 
+			<div class="control-group">
+				<label for="zip" class="control-label">	
+					Zip Code
+				</label>
+				<div class="controls"><input name="zip" type="text" value="" id="zip">
+				</div>
+			</div>
+ 
+			<div class="control-group">
+				<label for="city" class="control-label">	
+					City
+				</label>
+				<div class="controls"><input name="city" type="text" value="" id="city">
+				</div>
+			</div>
+			
+			<div class="control-group">
+				<label for="country" class="control-label">	
+					Country
+				</label>
+				<div class="controls">
+					<select name="country" id="country">
+						<option value=""></option>
+						<option value="AR">Argentina</option>
+						<option value="AU">Australia</option>
+						<option value="AT">Austria</option>
+						<option value="BY">Belarus</option>
+						
+					</select>
+				</div>
+			</div>
+ 
+			<div class="form-actions">
+				<button type="submit" class="btn btn-large btn-primary">Save Billing Address</button>
+			</div>
+		</form>
+
+
+
+
+  </div>
+
+</div>
