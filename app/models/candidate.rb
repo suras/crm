@@ -5,7 +5,8 @@ class Candidate < ActiveRecord::Base
 
  has_attached_file :profile_pic, :styles => { :small => "150x150>" },
                   :url  => "/assets/candidates/:id/avatar/:style/:basename.:extension",
-                  :path => ":rails_root/public/assets/candidates/:id/avatar/:style/:basename.:extension"
+                  :path => ":rails_root/public/assets/candidates/:id/avatar/:style/:basename.:extension",
+                   :default_url => "/assets/images/company.jpg"
  has_attached_file :resume,
                   :url  => "/assets/candidates/:id/resume/:basename.:extension",
                   :path => ":rails_root/public/assets/candidates/:id/resume/:basename.:extension" 
