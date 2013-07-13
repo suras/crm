@@ -17,8 +17,7 @@ class User < ActiveRecord::Base
   belongs_to :team
   has_many :call_lists
   has_many :notes ,:foreign_key=>"creater_id"
-  
- def create_team
+  def create_team
    if register_type.blank? 
      return
     else
@@ -27,7 +26,7 @@ class User < ActiveRecord::Base
      self.user_type = 'owner'
      self.team_id = @team.id
      self.save
-   end
- end
+  end
+end
   
 end

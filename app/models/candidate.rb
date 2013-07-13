@@ -8,11 +8,21 @@ class Candidate < ActiveRecord::Base
                   :path => ":rails_root/public/assets/candidates/:id/avatar/:style/:basename.:extension"
  has_attached_file :resume,
                   :url  => "/assets/candidates/:id/resume/:basename.:extension",
-                  :path => ":rails_root/public/assets/candidates/:id/resume/:basename.:extension"                 
- 
- validates :email, :first_name, :presence => true
- validates :email, :uniqueness=>true
+                  :path => ":rails_root/public/assets/candidates/:id/resume/:basename.:extension" 
+                  
+                                  
+validates_attachment_content_type :profile_pic, :content_type => ['image/jpeg', 'image/png', 'image/gif']
+validates_attachment_content_type :resume, :content_type => ["application/pdf", "application/msword", 
+             "application/vnd.openxmlformats-officedocument.wordprocessingml.document", 
+             "text/plain"]
+
+
+ validates :contact_number, :length => {:minimum => 6, :maximum => 25}, :format => { :with => /\A\S[0-9\+\/\(\)\s\-]*\z/i }, :allow_blank => true
+
+ validates :email,  :first_name, :presence => true
+ validates :email, :email => true, :uniqueness=>true
  has_many :notes
+
  belongs_to :user
  belongs_to :team
  has_many :shortlists
@@ -50,13 +60,21 @@ class Candidate < ActiveRecord::Base
  def name
     "#{self.first_name} #{self.last_name}"
   end
+ before_create :save_image
+  
+ def save_image
+   
+ end
+
  def get_tags
     self.tags.select(:name).map(&:name).join(",")
  end
  def get_notes
     self.notes
  end
+
   def profile_pic_url
     self.profile_pic(:small)
   end
+
 end

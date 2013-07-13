@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20130710070011) do
+ActiveRecord::Schema.define(:version => 20130713062958) do
 
   create_table "call_lists", :force => true do |t|
     t.string   "name"
@@ -23,6 +23,7 @@ ActiveRecord::Schema.define(:version => 20130710070011) do
 
   create_table "candidates", :force => true do |t|
     t.string   "first_name"
+    t.string   "middle_name"
     t.string   "last_name"
     t.string   "email"
     t.string   "company"
@@ -40,12 +41,15 @@ ActiveRecord::Schema.define(:version => 20130710070011) do
     t.string   "state"
     t.string   "zip"
     t.string   "contact_number"
+    t.string   "home_phone"
+    t.string   "business_phone"
     t.integer  "team_id"
     t.integer  "user_id"
     t.string   "added_from"
     t.string   "linked_in"
     t.string   "twitter"
     t.string   "facebook"
+    t.string   "referred_by"
     t.string   "position"
     t.datetime "created_at",               :null => false
     t.datetime "updated_at",               :null => false
@@ -54,6 +58,39 @@ ActiveRecord::Schema.define(:version => 20130710070011) do
   create_table "candidates_tags", :force => true do |t|
     t.integer "candidate_id"
     t.integer "tag_id"
+  end
+
+  create_table "docs", :force => true do |t|
+    t.string   "resume_file_name"
+    t.string   "resume_content_type"
+    t.integer  "resume_file_size"
+    t.datetime "resume_updated_at"
+    t.string   "status"
+    t.integer  "user_id"
+    t.datetime "created_at",          :null => false
+    t.datetime "updated_at",          :null => false
+  end
+
+  create_table "excels", :force => true do |t|
+    t.string   "excel_sheet_file_name"
+    t.string   "excel_sheet_content_type"
+    t.integer  "excel_sheet_file_size"
+    t.datetime "excel_sheet_updated_at"
+    t.datetime "created_at",                                :null => false
+    t.datetime "updated_at",                                :null => false
+    t.integer  "user_id"
+    t.string   "status",                   :default => "0"
+  end
+
+  create_table "linkedins", :force => true do |t|
+    t.string   "linkedin_sheet_file_name"
+    t.string   "linkedin_sheet_content_type"
+    t.integer  "linkedin_sheet_file_size"
+    t.datetime "linkedin_sheet_updated_at"
+    t.integer  "user_id"
+    t.string   "status"
+    t.datetime "created_at",                  :null => false
+    t.datetime "updated_at",                  :null => false
   end
 
   create_table "notes", :force => true do |t|
@@ -66,12 +103,24 @@ ActiveRecord::Schema.define(:version => 20130710070011) do
 
   add_index "notes", ["candidate_id"], :name => "index_notes_on_candidate_id"
 
+  create_table "outlooks", :force => true do |t|
+    t.string   "outlook_sheet_file_name"
+    t.string   "outlook_sheet_content_type"
+    t.integer  "outlook_sheet_file_size"
+    t.datetime "outlook_sheet_updated_at"
+    t.integer  "user_id"
+    t.string   "status"
+    t.datetime "created_at",                 :null => false
+    t.datetime "updated_at",                 :null => false
+  end
+
   create_table "plans", :force => true do |t|
     t.string   "name"
     t.string   "amount"
     t.text     "description"
     t.datetime "created_at",  :null => false
     t.datetime "updated_at",  :null => false
+    t.integer  "max_user"
   end
 
   create_table "shortlists", :force => true do |t|

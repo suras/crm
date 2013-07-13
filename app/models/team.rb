@@ -3,4 +3,5 @@ class Team < ActiveRecord::Base
   has_many :users
   has_many :candidates
   has_many :call_lists, :through => :users
+  belongs_to :plan
 end

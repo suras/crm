@@ -3,6 +3,10 @@ HootQuest::Application.routes.draw do
 
 
 
+  # get "static_pages/faq"
+
+  # get "static_pages/billing_info"
+
   root :to => "home#index"
 
   devise_for :users
@@ -13,7 +17,26 @@ HootQuest::Application.routes.draw do
   resources :candidates,:notes,:shortlists
   
   get "users/index", :to =>"users#index", :as => "users_index"
+  
+  get "uploads/excel", :to => "uploads#new_upload_excel", :as => "new_upload_excel"
+  
+  post "uploads/excel", :to => "uploads#upload_excel", :as => "upload_excel"
+  get  "uploads/excel_jobs", :to => "uploads#excel_jobs"
+  
+  get "uploads/linkedin", :to => "uploads#new_upload_linkedin", :as => "new_upload_linkedin"
+  
+  post "uploads/linkedin", :to => "uploads#upload_linkedin", :as => "upload_linkedin"
+  
+  get "uploads/outlook", :to => "uploads#new_upload_outlook", :as => "new_upload_outlook"
+  post "uploads/outlook", :to => "uploads#upload_outlook", :as => "upload_outlook"
+  
+   get "uploads/docs", :to => "uploads#new_upload_doc", :as => "new_upload_doc"
+  post "uploads/docs", :to => "uploads#upload_doc", :as => "upload_doc"
 
+  match "/faq" => "static_pages#faq" 
+  match "/pricing" => "static_pages#billing_info" 
+  match "/users/accountSettings" => "users#acc_settings"
+  post "/users/addMoreUser" => "users#add_more_user", :as =>"add_more_user"
   # The priority is based upon order of creation:
   # first created -> highest priority.
 
