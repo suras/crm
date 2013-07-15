@@ -1,8 +1,5 @@
 HootQuest::Application.routes.draw do
-  
-
-
-
+ 
   # get "static_pages/faq"
 
   # get "static_pages/billing_info"
@@ -39,6 +36,9 @@ HootQuest::Application.routes.draw do
   match "/pricing" => "static_pages#billing_info" 
   match "/users/accountSettings" => "users#acc_settings"
   post "/users/addMoreUser" => "users#add_more_user", :as =>"add_more_user"
+  #get "users/edit/:id" => "users#edit_user" :as => "edit_user"
+  #post "users/edit/:id/update" => "users#update_user" ,:as => "update_user"
+
   # The priority is based upon order of creation:
   # first created -> highest priority.
 

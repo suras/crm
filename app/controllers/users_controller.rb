@@ -31,4 +31,6 @@ class UsersController < ApplicationController
 	 end 	
   	render :json => {"status"=>status,"visible"=>@more_visibility}
   end
+
+  
 end
