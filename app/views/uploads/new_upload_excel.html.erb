@@ -1,4 +1,4 @@
-<%=form_for @excel, url: upload_excel_path do |f|%>
+<%=form_for @excel, url: upload_excel_path, :html => { :multipart => true } do |f|%>
 <% if(@excel.errors.any?)%>
 <% @excel.errors.full_messages.each do |msg|%>
 <%=msg%>

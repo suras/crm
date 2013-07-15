@@ -1,4 +1,4 @@
-<%=form_for @outlook, url: upload_outlook_path do |f|%>
+<%=form_for @outlook, url: upload_outlook_path, :html => { :multipart => true }  do |f|%>
 <% if(@outlook.errors.any?)%>
 <% @outlook.errors.full_messages.each do |msg|%>
 <%=msg%>
@@ -7,7 +7,7 @@
 <h4>Upload Candidates from Outlook</h4>
 <p>Important: Before you can import your Outlook contacts, you'll need to convert them into a format this software can read. 
 	If the contacts are not in the proper format they will not be imported.</p>
-<%=f.file_field :outlook_sheet%></br>
+<%=f.file_field :outlook_sheet %></br>
 <%=f.submit :"upload and import"%>
 
 

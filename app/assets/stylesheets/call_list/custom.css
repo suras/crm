@@ -1,0 +1,139 @@
+.key-search{
+  margin-top: 100px;
+  margin-bottom: 10px;
+}
+.display_result{
+background: #ddd;
+margin-bottom: 10px;
+color: green;
+padding: 10px;
+font-size: 14px;
+}
+.error{
+  color:red;
+}
+.search-input{
+  width:75%;
+  height:30px !important;
+}
+
+.content{
+  outline: #eee solid 1px;
+  background: #eee;
+}
+
+.quick-view-box{
+  background: #fff;
+  height: 500px;
+  outline:  #eee solid 1px;
+  margin-left: 5px;
+  height: 500px;
+  overflow-y: auto;
+  overflow-x:hidden;
+}
+.candidate-list-box span,.candidate-list span,.NameDiv span{
+  display: block;
+}
+.candidate-list{
+  font-size: 12px;
+  background: #fff;
+  height: 500px;
+  outline:  #eee solid 1px;
+  margin-left: 0px;
+  list-style: none;
+  height: 500px;
+  overflow: auto;
+
+}
+.candidate-list li{
+  padding:10px 0px 10px 0px;
+  outline: #eee solid 1px;
+}
+.candidate-list li img{
+  padding:0px 0px 0px 10px;
+}
+.name{
+  font-weight: bold;
+}
+.selectcheck{
+  width:15px;
+}
+
+.sortBy{
+  display: inline-block;
+  margin-top: 5px;
+}
+.bottomLink{
+  margin-left: 10px;
+  margin-top: 5px;
+}
+.sortBy li,.bottomLink li{
+  float: left;
+  padding:0px 25px 0px 0px;
+}
+.selectAll{
+  margin-left: 0px;
+  margin-top: 5px;
+}
+.headLink{
+  background: #F7F7F7;
+  padding: 5px 0px 5px 10px;
+  outline: #eee solid 1px;
+}
+.QV-content,.edit-content{
+  padding: 20px 15px 25px 15px;
+  position: relative;
+}
+.innerDiv{
+padding: 0px 0px 0px 15px;  
+
+}
+.bold{
+  font-weight: bold;
+}
+.innerDiv span{
+  display: block;
+  font-size: 12px;
+}
+.profile-box{
+  position: absolute;
+  right: 25px;
+}
+
+.edit-content{
+  display: none;
+  padding-left:20px;
+}
+.edit-content input {display: inline;
+width: auto !important; }
+.new-note-form{
+  display: none;
+}
+
+.notes_date{color: #0088cc;
+margin-bottom: 0px;}
+
+.notes_note{text-indent: 20px;
+margin-bottom: 15px;}
+.actions i{
+padding: 0px 2px;
+font-size: 25px;
+}
+
+.candidates_list li {
+  padding: 20px 0px;
+border-radius: 10px;
+margin-bottom: 10px;
+box-shadow: 0px 0px 5px #000;
+}
+.approved{
+  background: rgb(160, 221, 148);
+}
+.rejected{
+  background: rgb(223, 223, 223);
+  color:#AAA;
+}
+.newly_added{
+  background: #FFFFFF;
+
+}

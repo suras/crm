@@ -1,0 +1,158 @@
+<h2>Accouts & settings</h2>
+<div class="row">
+<div class="span8 acc_settings_container">
+	<div class="row" id="headings_container">
+		<div class="span2 headings"><h3><%= @user.first_name %> <%= @user.last_name %> </h3></div>
+		<div class="span6 headings">
+			
+		</div>
+	</div>
+	<div class="row" id="user_informations">
+		<div class="span2"><a href="http://critterapp.pagodabox.com/others/admin" class="pad0"><img src="/assets/steve-jobs.jpg" alt="" class="img-circle"></a></div>
+		<div class="span6">
+			<p class="pull-right"> | admin</p>
+			<p class="pull-right"> <a href="/users/edit"> Edit my profile</a></p> 
+          	<p><strong>Name :</strong><%= @user.first_name %></p>
+          	 <p><strong>E-Mail:</strong><%= @user.email %></p>
+			
+		</div>
+	</div>
+	<div class="row" id="user_hoot">
+		<div class="span2"></div>
+		<div class="span6">
+			<!-- <p>admin</p>
+          	<p><strong>First Last Name</strong></p>
+			<span class=" badge badge-warning">8 messages</span> <span class=" badge badge-info">15 followers</span> -->
+			<p class="sub-title">Your personal HootQuest email</p>
+			<p>Forward or BCC email to this address to attach it to a contact's page </p>
+			<p class="sub-title">chris.holtzhauer@hootquest.com <span class="warning">(their HootQuest email)<span></span></p>
+		</div>
+	</div>
+
+	<div class="row top-padding5">
+		<div class="span3">
+			<% if @more_visibility%>
+		   <a href="#add-user-modal" id="add_user_button" role="button" class="btn btn-primary" data-toggle="modal"><i class="icon-plus-sign"></i>Add More User</a>
+		   <% end %>
+		</div>
+
+		<div class="span4">
+			<button class="btn btn-success"><i class="icon-upload"></i>Upgrade</button>
+		</div>
+	</div>
+</div>
+ <div class="span3">
+ 	<p><a href="#">Edit Billing Information </a></p>
+    <p><a href="#">cancel account</a></p>
+ </div>
+</div>
+<div class="row">
+	<div class="span8">
+		<p></p>
+		<p class="sub-title">How does my HootQuest email work?</p>
+		<font face="'Lucida Sans Unicode', sans-serif" color="#000000" class="span8">FORWARD an email to your HootQuest email and HootQuest will find the candidate who wrote the email and attach the email to that candidate's notes in their profile. 
+			<p></p>
+		<p>BCC your HootQuest email when you send an email and the email will be attached to the person receiving the email. Watch a video to see how it all works.</p></font>
+  </div>
+  <div class="span3"></div>
+  
+</div>
+
+
+
+
+<!-- modal -->
+
+
+
+<div id="add-user-modal" class="modal hide fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+  <div class="modal-header">
+    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+    <h3 id="myModalLabel">User Information</h3>
+  </div>
+  <div class="modal-body">
+	<%= form_for(User.create, :remote=>true, :url => "/users/addMoreUser") do |f| %>
+			<div class="control-group">
+				<label for="email" class="control-label">	
+					User E-Mail 
+				</label>
+				<div class="controls">
+					<%= f.text_field :email %>
+				</div>
+			</div>
+ 
+			<div class="control-group">
+				<label for="address" class="control-label">	
+					<%= f.label :first_name %>
+				</label>
+				<div class="controls"><%= f.text_field :first_name %>
+				</div>
+			</div>
+              
+              <div class="control-group">
+				<label for="zip" class="control-label">	
+					<%= f.label :last_name %>
+				</label>
+				<div class="controls"><%= f.text_field :last_name %>
+				</div>
+			</div>
+ 
+			<div class="control-group">
+				<label for="zip" class="control-label">	
+					<%= f.label :company %>
+				</label>
+				<div class="controls"><%= f.text_field :company %>
+				</div>
+			</div>
+ 
+			
+			<div class="control-group">
+				<label for="zip" class="control-label">	
+					<%= f.label :password %>
+				</label>
+				<div class="controls">
+					<%= f.password_field :password %>
+				</div>
+			</div>
+
+
+			<div class="control-group">
+				<label for="zip" class="control-label">	
+					<%= f.label :password_confirmation %>
+				</label>
+				<div class="controls">
+					<%= f.password_field :password_confirmation %>
+				</div>
+			</div>
+
+           
+			
+ 
+			<div class="form-actions">
+				<div><%= f.submit "Add User",:class=>"btn btn-large btn-primary" %></div>
+			
+			</div>
+		<% end %>
+	
+
+  </div>
+
+</div>
+
+
+<script type="text/javascript">
+$(document).ready(function(){
+	$('form#new_user').bind('ajax:success', function(evt, data, status, xhr){
+//do some stuff on success
+   alert(data);
+    if(data.status=="1"){
+    	$("#new_user input[type=text]").val("");
+    	$("#add-user-modal").modal("hide");
+    }
+    if(!data.visible){
+    	$("#add_user_button").hide();
+    }
+    
+});
+});
+</script>

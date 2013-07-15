@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20130711143737) do
+ActiveRecord::Schema.define(:version => 20130715142200) do
 
   create_table "call_lists", :force => true do |t|
     t.string   "name"
@@ -23,6 +23,7 @@ ActiveRecord::Schema.define(:version => 20130711143737) do
 
   create_table "candidates", :force => true do |t|
     t.string   "first_name"
+    t.string   "middle_name"
     t.string   "last_name"
     t.string   "email"
     t.string   "company"
@@ -40,12 +41,15 @@ ActiveRecord::Schema.define(:version => 20130711143737) do
     t.string   "state"
     t.string   "zip"
     t.string   "contact_number"
+    t.string   "home_phone"
+    t.string   "business_phone"
     t.integer  "team_id"
     t.integer  "user_id"
     t.string   "added_from"
     t.string   "linked_in"
     t.string   "twitter"
     t.string   "facebook"
+    t.string   "referred_by"
     t.string   "position"
     t.datetime "created_at",               :null => false
     t.datetime "updated_at",               :null => false
@@ -54,6 +58,17 @@ ActiveRecord::Schema.define(:version => 20130711143737) do
   create_table "candidates_tags", :force => true do |t|
     t.integer "candidate_id"
     t.integer "tag_id"
+  end
+
+  create_table "docs", :force => true do |t|
+    t.string   "resume_file_name"
+    t.string   "resume_content_type"
+    t.integer  "resume_file_size"
+    t.datetime "resume_updated_at"
+    t.string   "status"
+    t.integer  "user_id"
+    t.datetime "created_at",          :null => false
+    t.datetime "updated_at",          :null => false
   end
 
   create_table "excels", :force => true do |t|
@@ -105,14 +120,16 @@ ActiveRecord::Schema.define(:version => 20130711143737) do
     t.text     "description"
     t.datetime "created_at",  :null => false
     t.datetime "updated_at",  :null => false
+    t.integer  "max_user"
   end
 
   create_table "shortlists", :force => true do |t|
-    t.string   "status"
+    t.string   "status",       :default => "newly_added"
     t.integer  "candidate_id"
     t.integer  "call_list_id"
-    t.datetime "created_at",   :null => false
-    t.datetime "updated_at",   :null => false
+    t.datetime "created_at",                              :null => false
+    t.datetime "updated_at",                              :null => false
+    t.date     "left_on"
   end
 
   add_index "shortlists", ["call_list_id"], :name => "index_shortlists_on_call_list_id"
@@ -130,15 +147,6 @@ ActiveRecord::Schema.define(:version => 20130711143737) do
     t.integer  "plan_id"
     t.datetime "created_at", :null => false
     t.datetime "updated_at", :null => false
-  end
-
-  create_table "uploads", :force => true do |t|
-    t.string   "excel_file_name"
-    t.string   "excel_content_type"
-    t.integer  "excel_file_size"
-    t.datetime "excel_updated_at"
-    t.datetime "created_at",         :null => false
-    t.datetime "updated_at",         :null => false
   end
 
   create_table "users", :force => true do |t|

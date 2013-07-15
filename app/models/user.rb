@@ -7,15 +7,17 @@ class User < ActiveRecord::Base
 
   # Setup accessible (or protected) attributes for your model
   attr_accessible :email, :password, :password_confirmation, :remember_me, :first_name, :last_name, :company,
-                   :user_type, :status, :team_id, :plan_id, :register_type 
-  attr_accessor :plan_id, :register_type   
+                   :user_type, :status, :team_id, :plan_id, :register_type,:name
+  attr_accessor :plan_id, :register_type, :name
+  def name
+    "#{first_name.to_s} #{last_name.to_s}" 
+  end
   after_create :create_team              
   # attr_accessible :title, :body
   belongs_to :team
   has_many :call_lists
-  has_many :notes
-  
- def create_team
+  has_many :notes ,:foreign_key=>"creater_id"
+  def create_team
    if register_type.blank? 
      return
     else
@@ -24,7 +26,7 @@ class User < ActiveRecord::Base
      self.user_type = 'owner'
      self.team_id = @team.id
      self.save
-   end
- end
+  end
+end
   
 end

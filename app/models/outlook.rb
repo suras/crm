@@ -3,4 +3,6 @@ class Outlook < ActiveRecord::Base
    has_attached_file :outlook_sheet,
   :url  => "/jobs/outlook/:basename.:extension",
                   :path => ":rails_root/public/jobs/outlook/:basename.:extension" 
+   validates_attachment_content_type :outlook_sheet, :content_type => ["application/vnd.ms-excel",     
+             "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet"]               
 end
