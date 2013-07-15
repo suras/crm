@@ -13,8 +13,10 @@ HootQuest::Application.routes.draw do
   
   match "/search(/:query)" =>"candidates#search"
   match "/call_list" => "call_lists#index"
+  match "/approval/:candidate_id"=> "call_lists#approval"
   match "/shortlists/bulk_update"=>"shortlists#bulk_update"
-  resources :candidates,:notes,:shortlists
+  match "/get_candidates/:call_list_id" => "candidates#index"
+  resources :candidates,:notes,:shortlists,:call_lists
   
   get "users/index", :to =>"users#index", :as => "users_index"
   
@@ -30,7 +32,7 @@ HootQuest::Application.routes.draw do
   get "uploads/outlook", :to => "uploads#new_upload_outlook", :as => "new_upload_outlook"
   post "uploads/outlook", :to => "uploads#upload_outlook", :as => "upload_outlook"
   
-   get "uploads/docs", :to => "uploads#new_upload_doc", :as => "new_upload_doc"
+  get "uploads/docs", :to => "uploads#new_upload_doc", :as => "new_upload_doc"
   post "uploads/docs", :to => "uploads#upload_doc", :as => "upload_doc"
 
   match "/faq" => "static_pages#faq" 

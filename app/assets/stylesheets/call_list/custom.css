@@ -115,3 +115,24 @@ margin-bottom: 0px;}
 
 .notes_note{text-indent: 20px;
 margin-bottom: 15px;}
+.actions i{
+padding: 0px 2px;
+font-size: 25px;
+}
+
+.candidates_list li{
+  padding: 20px 0px;
+border-radius: 10px;
+margin-bottom: 10px
+}
+.approved{
+  background: rgb(160, 221, 148);
+}
+.rejected{
+  background: rgb(223, 223, 223);
+  color:#AAA;
+}
+.newly_added{
+  background: rgb(221, 221, 221);
+
+}

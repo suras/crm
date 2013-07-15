@@ -26,7 +26,11 @@ validates_attachment_content_type :resume, :content_type => ["application/pdf", 
 
  belongs_to :user
  belongs_to :team
- has_many :shortlists
+ has_one :call_list, :through=> :shortlist
+ has_one :shortlist
+
+ scope :status, lambda{ |status| where("shortlists.status=?",status)}
+
  delegate :name, :to=>:user, :prefix=>true
  has_and_belongs_to_many :tags
  attr_reader :get_tags, :profile_pic_url,:get_notes, :name
@@ -37,6 +41,7 @@ validates_attachment_content_type :resume, :content_type => ["application/pdf", 
     id: self.id,
     company: self.company,
     experience: self.experience,
+    name: "#{self.first_name} #{self.last_name}",
     first_name: self.first_name,
     last_name: self.last_name,
     profile_pic_url: self.profile_pic_url,
