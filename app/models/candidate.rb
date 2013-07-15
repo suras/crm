@@ -29,8 +29,7 @@ validates_attachment_content_type :resume, :content_type => ["application/pdf", 
  has_one :call_list, :through=> :shortlist
  has_one :shortlist
 
- scope :status, lambda{ |status| where("shortlists.status=?",status)}
-
+ scope :status, lambda{ |status| where("shortlists.status"=>status)}
  delegate :name, :to=>:user, :prefix=>true
  has_and_belongs_to_many :tags
  attr_reader :get_tags, :profile_pic_url,:get_notes, :name
@@ -58,6 +57,7 @@ validates_attachment_content_type :resume, :content_type => ["application/pdf", 
     twitter: self.twitter,
     notes: self.get_notes,
     resume: self.resume,
+    added_by: self.name
   }
     # options ||= {}
     # options[:methods] = ((options[:methods] || []) + [:get_tags,:profile_pic_url])

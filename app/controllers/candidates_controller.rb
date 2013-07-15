@@ -80,7 +80,7 @@ class CandidatesController < ApplicationController
       @candidates = @call_list.candidates  if @call_list
       @candidates_list[:approved] = @candidates.status('approved')
       @candidates_list[:rejected] = @candidates.status('rejected')
-      @candidates_list[:newly_added] = @candidates.status(nil)
+      @candidates_list[:newly_added] = @candidates.status('newly_added')
     end
     respond_to do |f|
       f.html

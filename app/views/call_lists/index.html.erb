@@ -144,7 +144,7 @@ app.controller('call_list_controller', ['$scope','$http','$filter',
       success(function(data, status) {
         $scope.approved_candidates = data.approved;
         $scope.rejected_candidates = data.rejected;
-        $scope.new_candidates = data.newly_added;
+        $scope.newly_added_candidates = data.newly_added;
         console.log($scope.accepted_candidates)
       }).
       error(function(data, status) {

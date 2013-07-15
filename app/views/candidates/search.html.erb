@@ -55,7 +55,7 @@ window.candidate_url = '<%= "#{root_url}"+"candidates/"%>';
                 </div>
                 <div class="span2">{{candidate.get_tags}}</div>
                 <div class="span2">{{candidate.contact_number}}</div>
-                <div class="span1 selectcheck"><input type="checkbox" ng-click="make_selection($index,$event)" class="select_check"></div>
+                <div class="span1 selectcheck"><input type="checkbox" ng-click="make_selection(candidate.id,$event)" class="select_check"></div>
               </div>
             </li>
           </ul>
@@ -233,9 +233,6 @@ window.candidate_url = '<%= "#{root_url}"+"candidates/"%>';
   </div>
 </div>
 
-
-
-
 <script>
 var app = angular.module('app', ['ngResource','ui.bootstrap']);
 
@@ -258,12 +255,12 @@ app.directive( [ 'focus', 'blur', 'keyup', 'keydown', 'keypress','change'].reduc
     return container;
 }, { } ) );
 
-app.filter('getById', function() {
+app.filter('getIndexById', function() {
   return function(input, id) {
     var i=0, len=input.length;
     for (; i<len; i++) {
       if (+input[i].id == +id) {
-        return input[i];
+        return i;
       }
     }
     return null;
@@ -326,6 +323,7 @@ app.controller('candidates_controller', ['$scope', '$location', 'Candidate','$ht
     };
 
     $scope.create_call_list = function(){
+      console.log($scope.selected_candidates);
       var candidate_ids =[];
       for(cand in $scope.selected_candidates)
       {        candidate_ids.push($scope.selected_candidates[cand].id); }
@@ -354,6 +352,7 @@ app.controller('candidates_controller', ['$scope', '$location', 'Candidate','$ht
 
     $scope.update_call_list=function(index){
             var candidate_ids =[];
+      console.log($scope.selected_candidates);
       for(cand in $scope.selected_candidates)
       {        candidate_ids.push($scope.selected_candidates[cand].id); }
       $http({method:"POST",
@@ -364,8 +363,6 @@ app.controller('candidates_controller', ['$scope', '$location', 'Candidate','$ht
         success(function(data, status) {
           if(data.count>0){
             alert("Added "+data.count+" candidates to call list");
-            can = $filter('getById')($scope.candidates,candidate_ids[0]);
-            console.log(can);
           }
           else
             alert("Already in call list");
@@ -375,12 +372,18 @@ app.controller('candidates_controller', ['$scope', '$location', 'Candidate','$ht
         });
 
     };
-    $scope.make_selection = function(index,event){
-      console.log(event.target.checked);
+    $scope.make_selection = function(id,event){
+      var cand_index=$filter('getIndexById')($scope.candidates,id);
+      var sel_index=$filter('getIndexById')($scope.selected_candidates,id);
+      console.log(cand_index+" _  "+ sel_index);
       if(event.target.checked==true)
-        $scope.selected_candidates.push($scope.candidates[index]);
+      {
+        $scope.selected_candidates.push($scope.candidates[cand_index]);
+      }
       else
-        $scope.selected_candidates.splice(index,1);
+      {
+        $scope.selected_candidates.splice(sel_index,1);
+      }
       console.log($scope.selected_candidates);
     };
 
