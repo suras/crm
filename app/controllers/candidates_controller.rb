@@ -74,7 +74,18 @@ class CandidatesController < ApplicationController
   end
 
   def index
-    
+    @candidates_list = Hash.new
+    if params[:call_list_id]
+      @call_list = current_user.call_lists.find(params[:call_list_id])
+      @candidates = @call_list.candidates  if @call_list
+      @candidates_list[:approved] = @candidates.status('approved')
+      @candidates_list[:rejected] = @candidates.status('rejected')
+      @candidates_list[:newly_added] = @candidates.status(nil)
+    end
+    respond_to do |f|
+      f.html
+      f.json { render :json=> @candidates_list.to_json}
+    end
   end
   def candidates
 

@@ -4,6 +4,9 @@ window.candidates = <%= raw @candidates.to_json %>
 window.call_lists = <%= get_call_list %>
 window.candidate_url = '<%= "#{root_url}"+"candidates/"%>';
 </script>
+<%= stylesheet_link_tag "search/application"%>
+<%= javascript_include_tag "search/application"%>
+
 <div ng-app="app">
   <div class="container" ng-controller="candidates_controller">
     <div class="key-search">
