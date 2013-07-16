@@ -26,10 +26,19 @@ validates_attachment_content_type :resume, :content_type => ["application/pdf", 
 
  belongs_to :user
  belongs_to :team
- has_one :call_list, :through=> :shortlist
- has_one :shortlist
+ has_many :call_lists, :through=> :shortlists
+ has_many :shortlists
 
- scope :status, lambda{ |status| where("shortlists.status"=>status)}
+ scope :status, (lambda do  |status,date=nil| 
+    cond = "shortlists.status = '#{status}' "
+    if date.nil? && date.blank?
+      cond += "and shortlists.left_on is NULL"
+    elsif !(date.nil? || date.blank?)
+      cond += "and shortlists.left_on = '#{date}'"
+    end
+    where(cond)
+  end)
+
  delegate :name, :to=>:user, :prefix=>true
  has_and_belongs_to_many :tags
  attr_reader :get_tags, :profile_pic_url,:get_notes, :name
