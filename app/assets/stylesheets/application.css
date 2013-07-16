@@ -92,7 +92,7 @@ ul.nav li {
 .center-page
 {
 
-    width: 241px;
+    width: 275px;
     height: 245px;
     position: absolute;
     top:0;
@@ -137,4 +137,118 @@ ul.nav li {
 {
 	 padding: 6px 13px 2px 27px;
 	
+}
+
+/* Home Page */
+.pos_rel{
+  position: relative;
+}
+.hootquest{
+  font-size: 25px;
+}
+
+/* register Page */
+.register-box{
+  outline: 1px #eee solid;
+}
+.condition{
+  font-size: 11px;
+  margin-top: 25px;
+  text-align: justify;
+}
+.fields-register-left{
+  padding: 15px;
+}
+.fields-register-right{
+  padding: 15px;
+  border-bottom: 1px #eee solid;
+  text-align: center;
+}
+.fields-register-right h4,.fields-trail h4{
+  font-family: "Lucida Sans Unicode";
+  font-size: 20px;
+  line-height: 23px;
+  min-height: 23px;
+}
+.fields-register-right label,.fields-trail label{
+  font-family: "Lucida Sans Unicode";
+  font-size: 14px;
+  line-height: 17px;
+  min-height: 17px;
+}
+.fields-trail{
+  padding-top: 300px;
+  padding-bottom: 50px;
+  text-align: center;
+}
+.btn-submit{
+  padding: 25px;
+}
+.error{
+  font-size: 12PX;
+  color: red;
+  margin-top: 0px;
+}
+
+
+/* ==  Add Form == */
+.add-form-content{
+  margin-top: 75px;
+}
+.otherways span{
+  display: block;
+  padding-bottom: 5px;
+}
+.head
+{
+  padding-bottom: 15px !important; 
+}
+.headLine
+{
+  font-size: 20px;
+  padding-bottom: 10px;
+}
+
+.add-candidate-list{
+  list-style: none;
+}
+.add-candidate-list li{
+  padding-top: 10px;
+}
+.add-form{
+  outline: 1px solid #eee;
+}
+#preview{
+  border-radius: 65px;
+  width: 125px;
+  height:125px;
+  margin-right: 60px;
+  float: right;
+  margin-top: -25px;
+}
+#filetag{
+  float: right;
+  margin-right: 75px;
+  margin-top: 20px;
+}
+
+.section{
+  /*border-top:  #eee solid 1px;*/
+  border-bottom:  #eee solid 2px;
+  padding-top: 10px;
+  padding-bottom: 25px;
+  /*padding-left: 10px;*/
+}
+
+.section .row{
+  /*padding-left: 10px;*/
+}
+
+input.span2{
+  width: 206px !important;
+}
+.new-note-form{
+
+  margin-left: 30px;
+margin-top: 10px;
 }

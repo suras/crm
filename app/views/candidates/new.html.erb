@@ -1,14 +1,303 @@
-<br />
+<script type="text/javascript">
+$(document).ready(function(){
+        $("#tags").addClass("hide");
+        $(document).on("change","#candidate_profile_pic",function(){
+          // console.log("aaaa");
+          var file_type =this.files[0].type;
+          if (file_type.indexOf("image") !== -1)
+          {
+            if (this.files && this.files[0]) {
+                  var reader = new FileReader();
+
+                  reader.onload = function (e) {
+                      $('#preview').attr('src', e.target.result);
+                  }
+
+                  reader.readAsDataURL(this.files[0]);
+              }
+          }
+          else
+          {
+        // alert("select Image File only...");
+        // var msg='<input type="file" name="thumb_file" id="thumb_file" accept="image/*" /><button class="btn" id="chooseFile">Choose file</button><button class="btn" id="">Add</button>';
+        // $('#preview').attr('src', '#');
+        // $('#filetag').html(msg);
+          }
+
+        });
+        $(document).on("click","#chooseProfile",function(){
+          $("#candidate_profile_pic").trigger("click");
+          return false;
+        });
+        $(document).on("click","#chooseResume",function(){
+          $("#candidate_resume").trigger("click");
+          return false;
+        });
+
+
+  $("#new_candidate").validate({
+        rules:{
+          // uname:"required",
+          'candidate[first_name]':{
+            required:true
+          },
+          'candidate[last_name]':{
+            required:true
+          },
+          'candidate[company]':{
+            required:true
+          },
+          'candidate[position]':{
+            required:true
+          },
+          'candidate[email]':{
+              required:true,
+              email: true
+          },
+          'candidate[address]':{
+            required:true
+          },
+          'candidate[city]':{
+            required:true
+          },
+          'candidate[state]':{
+            required:true
+          },
+          'candidate[zip]':{
+            required:true
+          },
+          'candidate[linked_in]':{
+            url:true
+          },
+          'candidate[facebook]':{
+            url:true
+          },
+          'candidate[twitter]':{
+            url:true
+          },
+          
+          
+          tags:{
+              required:true
+          },
+          'candidate[contact_number]':{
+            required:true,
+            minlength: 10,
+            maxlength: 13,
+            number:true
+          }
+        },
+        messages:{
+          'candidate[email]':"Enter Valid Email",
+          'candidate[first_name]':"Enter the First Name",
+          'candidate[last_name]':"Enter the Last Name",
+          'candidate[company]':"Enter Your Company",
+          'candidate[position]':"Enter the Title",
+          'candidate[city]':"Enter the City",
+          'candidate[state]':"Enter Your State",
+          'candidate[zip]':"Enter the Zip",
+          'candidate[city]':"Enter the City",
+          tags:"Enter the Tags",
+          'candidate[contact_number]':{
+            required:"Enter Valid Phone Number",
+            minlength:"Phone Number must be atleast 10 digits",
+            maxlength:"Phone Number must be lessthan 13 digits",
+            number:"Enter Valid Phone Number"
+          }
+        },
+       errorPlacement: function (error, element) {
+           error.insertAfter(element);
+       }
+   });
+
+
+
+// Submit button clicks
+   $(document).on("click","#submit_button",function(){
+       if($("#new_candidate").valid()){
+              document.new_user.submit();
+       }
+ 
+    });
+});
+    </script>
+
+
+<%= form_for(@candidate) do |f| %>
+  <% if @candidate.errors.any? %>
+  <p>Please Correct The Following Errors</p>
+    <% @candidate.errors.full_messages.each do |msg| %>
+    <%= msg %><br />
+
+    <% end %>
+  <% end %>
+<div class="container add-form-content">
+  <div class="row">
+    <div class="span8 add-form">
+      <div class="row">
+        <div class="span8 headLine">
+          Add a New Candidate
+        </div>
+      </div>
+      <div class="row">
+        <div class="span8 section">
+          <div class="row">
+            <div class="span4">
+              <div class="row">
+                <div class="span2"><%= f.label :first_name %></div>
+                <div class="span2"><%= f.text_field :first_name %></div>
+              </div>
+              <div class="row">
+                <div class="span2"><%= f.label :last_name %></div>
+                <div class="span2"><%= f.text_field :last_name %></div>
+              </div>
+              <div class="row">
+                <div class="span2"><%= f.label :title %></div>
+                <div class="span2"><%= f.text_field :position %></div>
+              </div>
+              <div class="row">
+                <div class="span2"><%= f.label :company %></div>
+                <div class="span2"><%= f.text_field :company %></div>
+              </div>
+            </div>
+            <div class="span4">
+              <div class="row">
+                <img id="preview" src="#" width="125" height="125" alt="Thumnail image" />
+              </div>
+              <div id="filetag">
+                <input class="hide" type="file" name="thumb_file" id="thumb_file" accept="image/*" />
+                <%= f.file_field :profile_pic, :class => "hide", :accept => "image/*" %>
+                <button class="btn" id="chooseProfile">Choose file</button>
+                <!-- <button class="btn" id="">Add</button> -->
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="row">
+        <div class="span8 section">
+          <div class="row">
+            <div class="span2">Tags (Keywords separated by commas)</div>
+            <div class="span6">
+              <!-- <div class="input-append"> -->
+                <%= text_field_tag :tags %>
+                <!-- <button class="btn" type="button">Add</button> -->
+              <!-- </div> -->
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="row">
+        <div class="span8 section">
+          <div class="row">
+            <div class="span2"><%= f.label :phone %></div>
+            <div class="span6"><%= f.text_field :contact_number %></div>
+          </div>
+          <div class="row">
+            <div class="span2"><%= f.label :email %></div>
+            <div class="span6"><%= f.text_field :email %></div>
+          </div>
+          <div class="row">
+            <div class="span2"><%= f.label :address %></div>
+            <div class="span6"><%= f.text_field :address %></div>
+          </div>
+          <div class="row">
+            <div class="span2"><%= f.label :city %></div>
+            <div class="span6"><%= f.text_field :city %></div>
+          </div>
+          <div class="row">
+            <div class="span2"><%= f.label :state %></div>
+            <div class="span6">
+              <!-- <select>
+                <option>Select</option>
+                <option>TN</option>
+                <option>KA</option>
+              </select> -->
+              <%= f.text_field :state %>
+            </div>
+          </div>
+          <div class="row">
+            <div class="span2"><%= f.label :zip %></div>
+            <div class="span6"><%= f.text_field :zip %></div>
+          </div>
+          
+        </div>
+      </div>
+      <div class="row">
+        <div class="span8 section">
+          <div class="row">
+            <div class="span2"><%= f.label :linked_in %></div>
+            <div class="span6"><%= f.text_field :linked_in %></div>
+          </div>
+          <div class="row">
+            <div class="span2"><%= f.label :facebook %></div>
+            <div class="span6"><%= f.text_field :facebook %></div>
+          </div>
+          <div class="row">
+            <div class="span2"><%= f.label :twitter %></div>
+            <div class="span6"><%= f.text_field :twitter %></div>
+          </div>
+        </div>
+      </div>
+      <div class="row">
+        <div class="span8 section">
+          <div class="row">
+            <div class="span8">Add a resume or any other documents such as references, etc.</div>
+          </div>
+          <div class="row">
+            <div class="span1">
+            </div>
+            <div class="span2">
+              <input class="hide" type="file" name="" id="resume_file"/>
+              <%=f.file_field :resume, :class => "hide" %>
+              <button class="btn" id="chooseResume">Choose file</button>
+            </div>
+            <div class="span1">
+              <!-- <button class="btn" id="">Add</button> -->
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="row">
+        <div class="span8 section">
+          <div class="row">
+            <div class="span1">
+            </div>
+            <div class="span2">
+              <%= f.submit :Add, :class => "btn btn-success btn-large", :id => "submit_button", :value => "Save" %>
+            </div>
+            <div class="span1">
+              <a href="/search" class="btn btn-danger btn-large">Cancel</a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="span4">
+      <div class="row">
+        <div class="span4 otherways">
+          <span class="bold head">Other ways to add candidates</span>
+          <span>Would you like to add multiple candidates at once?</span>
+          <span> Choose from the following options.</span>
+          <ul class="add-candidate-list">
+            <li><%=link_to "Excel", new_upload_excel_path()%></li>
+            <li><%=link_to "Linkedin", new_upload_linkedin_path()%></li>
+            <li><%=link_to "Outlook", new_upload_outlook_path()%></li>
+            <li><%=link_to "Resume", new_upload_doc_path()%></li>
+          </ul>
+        </div>
+
+      </div>
+    </div>
+  </div>
+
+</div>
+
+
+<!-- 
 <div class="candidate-border">
 <h3>Add A New Candidate</h3>
-<%= form_for(@candidate) do |f| %>
-<% if @candidate.errors.any? %>
-<p>Please Correct The Following Errors</p>
-<% @candidate.errors.full_messages.each do |msg| %>
-<%= msg %><br />
 
-<% end %>
-<% end %>
 <br />
 <table border="0">
  <tr><td><%= f.label :first_name %></td>
@@ -52,9 +341,4 @@
 <% end %>
 </table>
 </div>
-<div>
-	<h4><%=link_to "Excel", new_upload_excel_path()%></h4>
-	<h4><%=link_to "Linkedin", new_upload_linkedin_path()%></h4>
-	<h4><%=link_to "Outlook", new_upload_outlook_path()%></h4>
-	<h4><%=link_to "Resume", new_upload_doc_path()%></h4>
-	</div>
+ -->
