@@ -21,7 +21,23 @@ class CandidatesController < ApplicationController
       render :action => "new"
     end
   end
-
+ 
+  def get_candidate_tags
+   
+      @full_tags = Tag.all
+      @tags = @full_tags.select {|tag| tag.name =~ /#{params[:q]}/i}
+      @tags = @tags.map{|tag| { "id" => tag.name, "name"=>tag.name} }
+      if (!@tags.any?)
+        @tags << {"id" => params[:q], "name" => params[:q]}
+      end
+      
+    
+   respond_to do |format|
+    format.json { render :json => @tags.to_json }
+     end
+  end
+  
+  
   def show
     @candidate = Candidate.find(params[:id])
     if params[:dl]

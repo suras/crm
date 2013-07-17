@@ -7,7 +7,7 @@ HootQuest::Application.routes.draw do
   root :to => "home#index"
 
   devise_for :users
-  
+   get "/candidates/get_candidate_tags", :to => "candidates#get_candidate_tags"
   match "/search(/:query)" =>"candidates#search"
   match "/call_list" => "call_lists#index"
   match "/approval/:candidate_id"=> "call_lists#approval"
@@ -36,6 +36,8 @@ HootQuest::Application.routes.draw do
   match "/pricing" => "static_pages#billing_info" 
   match "/users/accountSettings" => "users#acc_settings"
   post "/users/addMoreUser" => "users#add_more_user", :as =>"add_more_user"
+  
+ 
   #get "users/edit/:id" => "users#edit_user" :as => "edit_user"
   #post "users/edit/:id/update" => "users#update_user" ,:as => "update_user"
 

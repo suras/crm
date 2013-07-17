@@ -1,3 +1,16 @@
+<%= stylesheet_link_tag "search/application"%>
+<%= javascript_include_tag "search/application"%>
+<script type="text/javascript">
+$(function() {
+  $("#tags").tokenInput("/candidates/get_candidate_tags.json", {
+    crossDomain: false,
+    prePopulate: $("#tags").data("pre"),
+    theme: "facebook",
+    allowFreeTagging: true
+     
+  });
+});
+</script>
 <br />
 <div class="candidate-border">
 <h3>Add A New Candidate</h3>
