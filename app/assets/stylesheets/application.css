@@ -371,3 +371,39 @@ input{
   padding-bottom: 20px;
   cursor: pointer;
 }
+
+
+/* -- Candidate Profile --*/
+
+.profile-container{
+  margin-top: 50px;
+ /*padding: 10px;*/
+ outline: 1px #eee solid; 
+}
+.profile-info{
+  height: 250px;
+  border-bottom: #eee 1px solid;
+}
+.info-right{
+  margin-left: 0px !important;
+padding-left: 19px;
+border-left: 1px solid #C3C1C1;
+}
+.big-btns{
+  border-bottom: #eee 1px solid;
+  padding: 25px 0px;
+  background: #E6E2D2;
+}
+.big-btns .btn-block-div{
+  padding: 15px 0px;
+
+}
+.btn-block{
+  padding: 25px;
+  font-size: 25px !important;
+}
+.notes-header,.notes-header a{
+  background: #000;
+  color: #fff;
+  margin-left: 20px;
+}
