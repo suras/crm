@@ -84,8 +84,20 @@ font-size: 14px;
   padding: 20px 15px 25px 15px;
   position: relative;
 }
+.QV-content-call-list{
+padding: 20px 15px 25px 15px;
+position: relative;
+background: #fff;
+outline: 1px #eee solid;
+margin-top: 3px;
+width: 264px;
+margin-left: 3px;
+height: 498px;
+overflow-y: auto;
+overflow-x: hidden;
+}
 .innerDiv{
-padding: 0px 0px 0px 15px;  
+padding: 5px 0px 0px 0px;  
 
 }
 .bold{
@@ -110,18 +122,23 @@ width: auto !important; }
   display: none;
 }
 
-.notes_date{color: #0088cc;
-margin-bottom: 0px;}
+.notes_date{
+  color: #0088cc;
+  margin-bottom: 0px;
+}
 
-.notes_note{text-indent: 20px;
-margin-bottom: 15px;}
+.notes_note{
+  text-indent: 20px;
+  margin-bottom: 15px;
+}
+
 .actions i{
-padding: 0px 2px;
-font-size: 25px;
+  padding: 0px 2px;
+  font-size: 25px;
 }
 
 .candidates_listing li {
-  padding: 20px 0px;
+  /*padding: 20px 0px;*/
 border-radius: 10px;
 margin-bottom: 10px;
 box-shadow: 0px 0px 5px #000;

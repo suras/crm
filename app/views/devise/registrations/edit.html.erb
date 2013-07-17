@@ -1,37 +1,202 @@
-<h2>Edit <%= resource_name.to_s.humanize %></h2>
+<script type="text/javascript">
+  $(document).ready(function(){
+    $("#edit_user").validate({
+          rules:{
+            // uname:"required",
+            'user[email]':{
+                required:true,
+                email: true
+            },
+            'user[password]':{
+              minlength: 8
+            },
+            'user[current_password]':{
+              minlength: 8,
+              required: true
+            },
+            'user[password_confirmation]':{
+              equalTo : "#user_password"
+            },
+            'user[first_name]':{
+              required:true
+            },
+            'user[last_name]':{
+              required:true
+            },
+            'user[company]':{
+              required:true
+            }
+          },
+          messages:{
+            'user[email]':"Enter Valid Email",
+            'user[password]':{
+              minlength:"Password must be atleast 8 characters"
+            },
+            'user[current_password]':{
+              minlength: "Password must be atleast 8 characters",
+              required: "Enter the Current Password"
+            },
+            'user[password_confirmation]':{
+              equalTo:"These passwords don't match. Try again?"
+            },
+            'user[first_name]':"Enter the First Name",
+            'user[last_name]':"Enter the Last Name",
+            'user[company]':"Enter Your Company"
+          },
+         errorPlacement: function (error, element) {
+             error.insertAfter(element);
+         }
+     });
 
+
+
+  // Submit button clicks
+     $(document).on("click","#submit_button",function(){
+         if($("#edit_user").valid()){
+                document.edit_user.submit();
+         }
+   
+      });
+  });
+</script>
 <%= form_for(resource, :as => resource_name, :url => registration_path(resource_name), :html => { :method => :put }) do |f| %>
   <%= devise_error_messages! %>
-  <h3>The Basics</h3>
-<div><%= f.label :first_name %><br />
-  <%= f.text_field :first_name %></div>
-  <div><%= f.hidden_field :register_type, :value => "owner" %></div>
-  <div><%= f.label :last_name %><br />
-  <%= f.text_field :last_name %></div>
-    <div><%= f.label :company %><br />
-  <%= f.text_field :company %></div>
-  <h3>Login Details</h3>
-  <div><%= f.label :email %><br />
-  <%= f.email_field :email, :autofocus => true %></div>
 
-  <% if devise_mapping.confirmable? && resource.pending_reconfirmation? %>
-    <div>Currently waiting confirmation for: <%= resource.unconfirmed_email %></div>
-  <% end %>
+<div class="container edit-user-form">
+  <div class="row">
+    <div class="span8 register-box">
+      <div class="row">
+        <div class="span8 register-heading">
+          <h4>Edit your Profile</h4>
+        </div>
+      </div>
+      <div class="row">
+        <div class="span8 fields-register-left">
+          <div class="row">
+            <div class="span8">
+              <h5>The Basics</h5>
+            </div>
+          </div>
+          <div class="row">
+            <div class="span2">
+              <%= f.label :first_name %>
+            </div>
+            <div class="span6">
+              <%= f.text_field :first_name %><%= f.hidden_field :register_type, :value => "owner" %>
+            </div>
+          </div>
+          <div class="row">
+            <div class="span2">
+              <%= f.label :last_name %>
+            </div>
+            <div class="span6">
+              <%= f.text_field :last_name %>
+            </div>
+          </div>
+          <div class="row">
+            <div class="span2">
+              <%= f.label :company %>
+            </div>
+            <div class="span6">
+              <%= f.text_field :company %>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="row">
+        <div class="span8 fields-register-left">
+          <div class="row">
+            <div class="span8">
+              <h5>Login Details</h5>
+            </div>
+          </div>
+          <div class="row">
+            <div class="span8">
+              <%= f.label :email %>
+            </div>
+          </div>
+          <div class="row">
+            <div class="span8">
+              <%= f.email_field :email, :autofocus => true, :class => "input-xlarge" %>
+            </div>
+          </div>
+          <div class="row">
+            <div class="span8">
+              <%= f.label :password %>
+              <i>(leave blank if you don't want to change it)</i>
+            </div>
+          </div>
+          <div class="row">
+            <div class="span8">
+              <%= f.password_field :password, :class => "input-xlarge" %>
+            </div>
+          </div>
+          <div class="row">
+            <div class="span8">
+              <%= f.label :password_confirmation %>
+            </div>
+          </div>
+          <div class="row">
+            <div class="span8">
+              <%= f.password_field :password_confirmation, :class => "input-xlarge" %>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="row">
+        <div class="span8 fields-register-left">
+          <div class="row">
+            <div class="span8">
+              <h5>We need your current password to confirm your changes</h5>
+            </div>
+          </div>
+          <div class="row">
+            <div class="span8">
+              <%= f.label :current_password %>
+            </div>
+          </div>
+          <div class="row">
+            <div class="span8">
+              <%= f.password_field :current_password, :autofocus => true, :class => "input-xlarge" %>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="row btn-submit">
+        <div class="span2 offset2">
+          <%= f.submit "Update", :class => "btn btn-success", :id => "submit_button" %>
+          <% end %>
+        </div>
+        
+      </div>
+    </div>
+    <div class="span4">
 
-  <div><%= f.label :password %> <i>(leave blank if you don't want to change it)</i><br />
-  <%= f.password_field :password, :autocomplete => "off" %></div>
+    </div>
+  </div>
+  <div class="row">
+    <div class="span8 register-box">
+      <div class="row">
+        <div class="span8 register-heading">
+          <h4>Cancel my account</h4>
+        </div>
+      </div>
+      
+      <div class="row">
+        <div class="span8 fields-register-left">
+          <div class="row">
+            <div class="span8">
+              <h5>Unhappy?</h5>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="row btn-submit">
+        <div class="span2 offset2">
+         <%= button_to "Cancel my account", registration_path(resource_name), :data => { :confirm => "Are you sure?" }, :method => :delete, :class => "btn-danger btn btn-large h40" %>
+        </div>
+      </div>
+    </div>
 
-  <div><%= f.label :password_confirmation %><br />
-  <%= f.password_field :password_confirmation %></div>
-
-  <div><%= f.label :current_password %> <i>(we need your current password to confirm your changes)</i><br />
-  <%= f.password_field :current_password %></div>
-
-  <div><%= f.submit "Update" %></div>
-<% end %>
-
-<h3>Cancel my account</h3>
-
-<p>Unhappy? <%= button_to "Cancel my account", registration_path(resource_name), :data => { :confirm => "Are you sure?" }, :method => :delete %></p>
-
-<%= link_to "Back", :back %>
+  </div>
+</div>

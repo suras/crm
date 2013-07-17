@@ -1,6 +1,7 @@
 <script type="text/javascript">
 $(document).ready(function(){
         $("#tags").addClass("hide");
+        $("#candidate_contact_number").attr("maxlength","13");
         $(document).on("change","#candidate_profile_pic",function(){
           // console.log("aaaa");
           var file_type =this.files[0].type;
@@ -20,7 +21,7 @@ $(document).ready(function(){
           {
         // alert("select Image File only...");
         // var msg='<input type="file" name="thumb_file" id="thumb_file" accept="image/*" /><button class="btn" id="chooseFile">Choose file</button><button class="btn" id="">Add</button>';
-        // $('#preview').attr('src', '#');
+        // $('#preview').attr('src', '/assets/noimage.jpg');
         // $('#filetag').html(msg);
           }
 
@@ -67,13 +68,13 @@ $(document).ready(function(){
             required:true
           },
           'candidate[linked_in]':{
-            url:true
+            custom_linkedin:true
           },
           'candidate[facebook]':{
-            url:true
+            custom_facebook:true
           },
           'candidate[twitter]':{
-            url:true
+            custom_twitter:true
           },
           
           
@@ -85,6 +86,10 @@ $(document).ready(function(){
             minlength: 10,
             maxlength: 13,
             number:true
+          },
+          'candidate[zip]':{
+            required:true,
+            custom_zip_number:true
           }
         },
         messages:{
@@ -97,19 +102,40 @@ $(document).ready(function(){
           'candidate[state]':"Enter Your State",
           'candidate[zip]':"Enter the Zip",
           'candidate[city]':"Enter the City",
+          'candidate[linked_in]':"Enter Valid Linkedin URL",
+          'candidate[facebook]':"Enter Valid Facebook URL",
+          'candidate[twitter]':"Enter Valid Twitter URL",
           tags:"Enter the Tags",
           'candidate[contact_number]':{
             required:"Enter Valid Phone Number",
             minlength:"Phone Number must be atleast 10 digits",
             maxlength:"Phone Number must be lessthan 13 digits",
             number:"Enter Valid Phone Number"
-          }
+          },
+          'candidate[zip]':"Enter Valid Zip Code"
         },
        errorPlacement: function (error, element) {
            error.insertAfter(element);
        }
    });
 
+// Custom validations
+  // Zip code
+    $.validator.addMethod("custom_zip_number", function(value, element) {
+        return this.optional(element) || value.match(/^[a-zA-Z0-9]+$/);
+    }, "error msg");
+  // Linked In
+    $.validator.addMethod("custom_linkedin", function(value, element) {
+        return this.optional(element) || value.match(/.linkedin./);
+    }, "error msg");
+  // Facebook
+    $.validator.addMethod("custom_facebook", function(value, element) {
+        return this.optional(element) || value.match(/.facebook./);
+    }, "error msg");
+  // Twitter
+    $.validator.addMethod("custom_twitter", function(value, element) {
+        return this.optional(element) || value.match(/.twitter./);
+    }, "error msg");
 
 
 // Submit button clicks
@@ -162,7 +188,7 @@ $(document).ready(function(){
             </div>
             <div class="span4">
               <div class="row">
-                <img id="preview" src="#" width="125" height="125" alt="Thumnail image" />
+                <img id="preview" src="/assets/profile_pic.jpg" width="125" height="125" alt="Thumnail image" />
               </div>
               <div id="filetag">
                 <input class="hide" type="file" name="thumb_file" id="thumb_file" accept="image/*" />
@@ -177,7 +203,7 @@ $(document).ready(function(){
       <div class="row">
         <div class="span8 section">
           <div class="row">
-            <div class="span2">Tags (Keywords separated by commas)</div>
+            <div class="span2">Tags (Keywords)</div>
             <div class="span6">
               <!-- <div class="input-append"> -->
                 <%= text_field_tag :tags %>
@@ -292,53 +318,4 @@ $(document).ready(function(){
   </div>
 
 </div>
-
-
-<!-- 
-<div class="candidate-border">
-<h3>Add A New Candidate</h3>
-
-<br />
-<table border="0">
- <tr><td><%= f.label :first_name %></td>
-  <td><%= f.text_field :first_name %></td></tr>
- <tr><td><%= f.label :last_name %></td>
-  <td><%= f.text_field :last_name %></td></tr>
-   <tr><td><%= f.label :title %></td>
-  <td><%= f.text_field :position %></td></tr>
-   <tr><td><%= f.label :company %></td>
-  <td><%= f.text_field :company %></td></tr>
-   <tr><td><%= label_tag :Tags %><br />(keywords separated by commas)</td>
-  <td><%= text_field_tag :tags %></td></tr>
-  <tr><td><%= f.label :"profile picture"%></td>
-  <td><%= f.file_field :profile_pic%></td></tr>
-  <tr><td><%= f.label :phone %></td>
- <td> <%= f.text_field :contact_number %></td></tr>
-   <tr><td><%= f.label :email %></td>
-  <td><%= f.email_field :email, :autofocus => true %></td></tr>
-  <tr><td><%= f.label :address %></td>
-  <td><%= f.text_field :address %></td></tr>
-  <tr><td><%= f.label :city %></td>
-  <td><%= f.text_field :city %></td></tr>
-    <tr><td><%= f.label :state %></td>
-  <td><%= f.text_field :state %></td></tr>
-   <tr><td><%= f.label :zip %></td>
-  <td><%= f.text_field :zip %></td></tr>
-    <tr><td><%= f.label :linked_in %></td>
-  <td><%= f.text_field :linked_in %></td></tr>
-      <tr><td><%= f.label :facebook %></td>
-  <td><%= f.text_field :facebook %></td></tr>
-    <tr><td><%= f.label :twitter %></td>
-  <td><%= f.text_field :twitter %></td></tr>
-  <tr><td>Add a resume or any other documents such as </br>references, etc.</td></tr>
-  <tr><td><%=f.file_field :resume %></td></tr>
-  
-<tr class="action">
-	<td>
-<%= f.submit :Add %>
-</td>
-</tr>
 <% end %>
-</table>
-</div>
- -->
