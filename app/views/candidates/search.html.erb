@@ -9,6 +9,7 @@ window.candidate_url = '<%= "#{root_url}"+"candidates/"%>';
 
 <div ng-app="app">
   <div class="container" ng-controller="candidates_controller">
+    <div class="alert hide" >{{message}}</div>
     <div class="key-search">
       <div class="row">
         <div class="span12">
@@ -121,11 +122,6 @@ window.candidate_url = '<%= "#{root_url}"+"candidates/"%>';
                     <span><a target="_blank" href="{{can.resume}}">view resume</a></span>
                   </div>
                 </div>
-                <div class="innerDiv row">
-                  <div class="span4">
-                    <span><a ng-click="send_mail(can.email,can.id)" href="">attach resume to email</a></span>
-                  </div>
-                </div>
               </div>
               <div class="profile-box">
                 <img class="img-circle" src="{{can.profile_pic_url}}">
@@ -200,9 +196,9 @@ window.candidate_url = '<%= "#{root_url}"+"candidates/"%>';
       <div class="row">
         <div class="span12">
           <ul class="bottomLink">
-            <li><a ng-click="send_mail()" href="">send mail</a></li>
-            <li><a ng-click="show_new_call_list()" >create new call list</a></li>
-            <li><a ng-click="show_existing_call_list()" >add to existing call list</a></li>
+            <li><button class="btn"  ng-disabled ="disable_sort" ng-click="send_mail()" href="">send mail</button</li>
+            <li><button class="btn"  ng-disabled ="disable_sort" ng-click="show_new_call_list()" >create new call list</button</li>
+            <li><button class="btn"  ng-disabled ="disable_sort" ng-click="show_existing_call_list()" >add to existing call list</button</li>
           </ul>
         </div>
       </div>
@@ -276,7 +272,7 @@ app.factory('Candidate',['$resource', function($resource) {
 }]);
 
 
-app.controller('candidates_controller', ['$scope', '$location', 'Candidate','$http','$dialog', '$filter',
+app.controller('candidates_controller', ['$scope', '$location', 'Candidate','$http','$dialog','$filter',
   function($scope, $location,Candidate,$http,$dialog,$filter) {
     $scope.edit = "Edit";
     $scope.checked= true;
@@ -285,6 +281,16 @@ app.controller('candidates_controller', ['$scope', '$location', 'Candidate','$ht
     $scope.$watch('search_data',function(){
       $scope.search();
     });
+    $scope.message="aa";
+   $scope.$watch('message', function() {
+      console.log("watched")
+      if ($scope.message!="aa"){
+        $(".alert").fadeIn(500).delay(5000).fadeOut(2000,function(){
+            $scope.message="aa";
+            $scope.$digest();
+        });
+      }
+   });
     $scope.candidates=window.candidates;
     $scope.call_lists=window.call_lists;
     $scope.view = function(index){
@@ -294,7 +300,8 @@ app.controller('candidates_controller', ['$scope', '$location', 'Candidate','$ht
       $scope.can = $scope.candidates[index];
     };
     $scope.search = function(){
-      console.log($scope.search_data);
+      $(".initial_content").show();
+      $(".candidate_full_details").hide();
       $scope.search_data=$("#keywords").val();
       if($scope.search_data != undefined)
       {
@@ -325,15 +332,15 @@ app.controller('candidates_controller', ['$scope', '$location', 'Candidate','$ht
     };
 
     $scope.show_new_call_list= function(){
+      console.log("show")
       if($scope.selected_candidates.length>0){
         $scope.new_call_open=true;
       }
       else
-        alert("You must select atleast one candidate");
+       $scope.message = "You must select atleast one candidate";
     };
 
     $scope.create_call_list = function(){
-      console.log($scope.selected_candidates);
       var candidate_ids =[];
       for(cand in $scope.selected_candidates)
       {        candidate_ids.push($scope.selected_candidates[cand].id); }
@@ -343,21 +350,25 @@ app.controller('candidates_controller', ['$scope', '$location', 'Candidate','$ht
               headers:{'X-CSRF-Token': $('meta[name=csrf-token]').attr('content')}
               }).
               success(function(data, status) {
-                $scope.new_call_open=false;
                 $scope.call_lists.push(data);
                 $scope.call_list_name= "";
+                $scope.message = "Call list has been created";
               }).
               error(function(data, status) {
+                $scope.new_call_open=false;
               });
     };
-
+    $
     $scope.show_existing_call_list= function(){
       if($scope.selected_candidates.length>0){
         $scope.edit_call_open=true;
+      }
+      else{
+        console.log($scope.message+"before");
+        $scope.message = "You must select atleast one candidate";
+        console.log($scope.message+"after");
 
       }
-      else
-        alert("You must select atleast one candidate");
     }; 
 
     $scope.update_call_list=function(index){
@@ -372,20 +383,20 @@ app.controller('candidates_controller', ['$scope', '$location', 'Candidate','$ht
         }).
         success(function(data, status) {
           if(data.count>0){
-            alert("Added "+data.count+" candidates to call list");
+            $scope.message = "Candidates added to call list";
           }
           else
-            alert("Already in call list");
+            $scope.message = "Already In Call List";
           $scope.edit_call_open=false;
         }).
         error(function(data, status) {
+          $scope.edit_call_open=false;
         });
 
     };
     $scope.make_selection = function(id,event){
       var cand_index=$filter('getIndexById')($scope.candidates,id);
       var sel_index=$filter('getIndexById')($scope.selected_candidates,id);
-      console.log(cand_index+" _  "+ sel_index);
       if(event.target.checked==true)
       {
         $scope.selected_candidates.push($scope.candidates[cand_index]);
@@ -394,7 +405,6 @@ app.controller('candidates_controller', ['$scope', '$location', 'Candidate','$ht
       {
         $scope.selected_candidates.splice(sel_index,1);
       }
-      console.log($scope.selected_candidates);
     };
 
     $scope.make_editable=function(candidate){
@@ -414,21 +424,23 @@ app.controller('candidates_controller', ['$scope', '$location', 'Candidate','$ht
 
     $scope.send_mail = function(email,id){
       var emails=[];
-      console.log(email);
-      var to = "email@email.com";
       var body="";
-      if(id!=undefined)
-      {
-          body="&body="+window.candidate_url+id+"?dl=1";
-      }
       if (email != undefined)
+      {
         to= email;
+        body="&body=Dear "+ $scope.can.last_name+" "+$scope.can.first_name+",";
+      }
       else
       {
-        for (var i = 0; i < $scope.selected_candidates.length; i++) {
+        if( $scope.selected_candidates.length>0){
+        to = $scope.selected_candidates[0].email
+        for (var i = 0; i < $scope.selected_candidates.length; i++) 
           emails.push($scope.selected_candidates[i].email);
         }
+        else 
+          $scope.message = "You must select atleast one candidate";
       }
+      location.target="_blank";
       location.href="mailto:"+to+ "?bcc="+emails.join(",")+body;
     };
 
@@ -471,8 +483,6 @@ app.controller('candidates_controller', ['$scope', '$location', 'Candidate','$ht
       else
         $scope.selected_candidates = [];
       $scope.checked = !($scope.checked);     
-      console.log($scope.checked);
-      console.log($scope.selected_candidates)    ;
     };
 
     $scope.save = function() {
@@ -483,7 +493,6 @@ app.controller('candidates_controller', ['$scope', '$location', 'Candidate','$ht
           success(function(data, status) {
             }).
           error(function(data, status) {
-            console.log(data);
         });
     };
 }]);

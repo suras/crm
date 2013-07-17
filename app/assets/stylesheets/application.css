@@ -293,3 +293,10 @@ input.span2{
   margin-left: 30px;
 margin-top: 10px;
 }
+.alert {
+  position: fixed;
+  top: 0;
+  left: 25%;
+  width: 50%;
+  text-align: center;
+}

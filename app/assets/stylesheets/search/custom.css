@@ -115,3 +115,12 @@ margin-bottom: 0px;}
 
 .notes_note{text-indent: 20px;
 margin-bottom: 15px;}
+
+
+.sortBy button, .bottomLink button{
+  border: none !important;
+background: none !important;
+-moz-box-shadow:none !important;
+-webkit-box-shadow:none !important;
+
+}

@@ -156,7 +156,6 @@ app.controller('call_list_controller', ['$scope','$http','$filter',
       error(function(data, status) {
       });
     };
-
     $scope.view_candidate = function(parent_index,index,status){
       $scope.current_date_index=parent_index;
       if(status=='rejected')
@@ -207,7 +206,8 @@ app.controller('call_list_controller', ['$scope','$http','$filter',
     };
     $scope.stop_process = function(){
       console.log($scope.current_call_list)
-      if($scope.current_date_index){
+      console.log( $scope.current_date_index);
+      if($scope.current_date_index!=undefined){
       from = 'approved';
       index = $filter('getIndexById')($scope.dates[$scope.current_date_index].approved_candidates,$scope.can.id);
       if(index==null || undefined){
