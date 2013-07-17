@@ -26,21 +26,24 @@ window.candidate_url = '<%= "#{root_url}"+"candidates/"%>';
       <div class="row">
         <div class="span12">
           <div class="row">
-            <div class="span7">
+            <div class="span6">
               <ul class="sortBy">
                 <li>Sort By</li>
-                <li><a href="#" ng-click="predicate = 'first_name';reverse=!reverse">Name</a></li>
-                <li><a href="#" ng-click="predicate = 'position';reverse=!reverse">Title</a></li>
-                <li><a href="#" ng-click="predicate = 'contact_number';reverse=!reverse">Location</a></li>
+                <li><button class="btn" href="#" ng-disabled ="disable_sort" ng-click="predicate = 'first_name';reverse=!reverse">Name</button></li>
+                <li><button class="btn" href="#" ng-disabled ="disable_sort" ng-click="predicate = 'position';reverse=!reverse">Title</button></li>
+                <li><button class="btn" href="#" ng-disabled ="disable_sort" ng-click="predicate = 'contact_number';reverse=!reverse">Location</button></li>
               </ul>
             </div>
-            <div class="span1 selectAll">
-              <a ng-click="select_all()">Select All</a>
+            <div class="span2 selectAll">
+              <button class="btn pull-right" ng-disabled ="disable_sort"  ng-click="select_all()">Select All</button>
             </div>
           </div>
         </div>
       </div>
       <div class="row">
+        <div class="no-more-list-box span8 hide">
+          <p class="center">No candidates matching the search criteria</p>
+        </div>
         <div class="span8 candidate-list-box">
           <ul class ="candidate-list">
             <li ng-repeat="candidate in candidates | orderBy:predicate:reverse">
@@ -49,7 +52,7 @@ window.candidate_url = '<%= "#{root_url}"+"candidates/"%>';
                   <img class="img-circle" src="{{candidate.profile_pic_url}}">
                 </div>
                 <div class="span2">
-                  <span class="name"><a href="">{{ candidate.first_name}} {{ candidate.last_name}}</a> </span>
+                  <span class="name"><a target="_blank" href="/candidates/{{candidate.id}}">{{ candidate.first_name}} {{ candidate.last_name}}</a> </span>
                   <span class="title">{{ candidate.position}}</span>
                   <span>-Added By <b>{{candidate.added_by}}</b></span>
                 </div>
@@ -67,13 +70,13 @@ window.candidate_url = '<%= "#{root_url}"+"candidates/"%>';
           </div>
           <div class="candidate_full_details hide">
             <div class="row">
-              <div class="span4 headLink"><a href="" ng-bind="edit" ng-click="make_editable(can)" id="make_editable">Edit</a></div>
+              <div class="span4 headLink"><a href="#" ng-bind="edit" ng-click="make_editable(can)" id="make_editable">Edit</a></div>
             </div>
             <div class="row QV-content" id="view-can{{ can.id}}" >
               <div class="span4">
                 <div class="row NameDiv">
                   <div class="span4">
-                    <div class="name"><a href="#"><span class="make_edit">{{ can.first_name}}</span><span class="make_edit">{{ can.last_name}}</span></a></div>
+                    <div class="name"><a href="/candidates/{{can.id}}"><span class="make_edit">{{ can.first_name}}</span><span class="make_edit">{{ can.last_name}}</span></a></div>
                     <span class="title">{{ can.position}}</span>
                   </div>
                 </div>
@@ -178,16 +181,17 @@ window.candidate_url = '<%= "#{root_url}"+"candidates/"%>';
             <div class="row">
               
               <div class="span4">
+               <div class='new-note-form'>
+                <textarea ng-model='note.candidate_note' id="candidate_note" required></textarea>
+                <p class="row note_buttons"><span class="span3"><a ng-click='create_note()'>Create</a></span><span class="span1"><a ng-click='close_note()'>Close</a></span></p>
+              </div>
+
                 <div class="innerDiv row " ng-repeat ="note in can.notes">
                   <div class="span4">
-                    <p class="notes_date">{{note.date}}</p>
+                    <p class="row"><span class="notes_date span1">{{note.date}}</span> <span class="span2 notes_creater">by {{note.candidate_note}}</span></p>
                     <p class="notes_note">{{note.candidate_note}}</p>
                   </div>
                 </div>
-              </div>
-              <div class='new-note-form'>
-                <textarea ng-model='note.candidate_note'></textarea>
-                <p><a ng-click='create_note()'>Create</a></p>
               </div>
             </div>
           </div>
@@ -292,23 +296,29 @@ app.controller('candidates_controller', ['$scope', '$location', 'Candidate','$ht
     $scope.search = function(){
       console.log($scope.search_data);
       $scope.search_data=$("#keywords").val();
-      if($scope.search_data !="" && $scope.search_data != undefined)
+      if($scope.search_data != undefined)
       {
        $scope.display_result = "Getting candidates details......";
        $http.get("/search/"+$scope.search_data).
           success(function(data, status) {
             if(data.length>0){
+              $scope.disable_sort = false;
               $scope.display_result = "Found <span class='bold'>" + data.length + "</span> Candidates";
               $scope.candidates = data;
+              $(".candidate-list-box").show();
+              $(".no-more-list-box").hide();
             }
             else{
+              $scope.disable_sort = true;
+              $(".no-more-list-box").show();
+              $(".candidate-list-box").hide();
               $scope.candidates = [];
-              $scope.display_result = "<span class='error' >No more candidates matching the search criteria</span>";
+              $scope.display_result = "<span class='error' >No candidates matching the search criteria</span>";
             }
           }).
           error(function(data, status) {
           $scope.candidates = [];
-          $scope.display_result = "<span class='error' >No more candidates matching the search criteria</span>";
+          $scope.display_result = "<span class='error' >No candidates matching the search criteria</span>";
         });
       }
       console.log("End of search");
@@ -419,10 +429,12 @@ app.controller('candidates_controller', ['$scope', '$location', 'Candidate','$ht
           emails.push($scope.selected_candidates[i].email);
         }
       }
-      location.href="mailto:"+to+ "?cc="+emails.join(",")+body;
+      location.href="mailto:"+to+ "?bcc="+emails.join(",")+body;
     };
 
     $scope.create_note = function(){
+      if($("#candidate_note").hasClass("ng-valid"))
+      {
       $scope.note.candidate_id = $scope.can.id;
       $http({method:"POST",
         url:"/notes",
@@ -436,10 +448,19 @@ app.controller('candidates_controller', ['$scope', '$location', 'Candidate','$ht
           error(function(data, status) {
             console.log(data);
         });
+      }
+      else{
+        $("#candidate_note").focus();
+      }
     };
 
     $scope.add_note = function(){
       $(".new-note-form").show();
+      $scope.note=[];
+    };
+
+    $scope.close_note = function(){
+            $(".new-note-form").hide();
     };
 
     $scope.select_all=function(){

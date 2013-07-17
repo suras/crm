@@ -6,7 +6,7 @@ class Candidate < ActiveRecord::Base
  has_attached_file :profile_pic, :styles => { :small => "150x150>" },
                   :url  => "/assets/candidates/:id/avatar/:style/:basename.:extension",
                   :path => ":rails_root/public/assets/candidates/:id/avatar/:style/:basename.:extension",
-                   :default_url => "/assets/images/company.jpg"
+                   :default_url => "/assets/profile_pic.jpg"
  has_attached_file :resume,
                   :url  => "/assets/candidates/:id/resume/:basename.:extension",
                   :path => ":rails_root/public/assets/candidates/:id/resume/:basename.:extension" 
@@ -65,8 +65,8 @@ validates_attachment_content_type :resume, :content_type => ["application/pdf", 
     facebook: self.facebook,
     twitter: self.twitter,
     notes: self.get_notes,
-    resume: self.resume,
-    added_by: self.name
+    resume: self.resume_url,
+    added_by: self.user_name
   }
     # options ||= {}
     # options[:methods] = ((options[:methods] || []) + [:get_tags,:profile_pic_url])
@@ -79,6 +79,9 @@ validates_attachment_content_type :resume, :content_type => ["application/pdf", 
   
  def save_image
    
+ end
+ def resume_url
+    self.resume.exists? ? self.resume.url :  "javascript:return(false);"
  end
 
  def get_tags

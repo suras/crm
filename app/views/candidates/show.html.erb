@@ -1,0 +1,121 @@
+<%= javascript_include_tag("view_profile/application")%>
+<div class="container">
+	<p class="center"><h3> Candidate Profile </h3></p>
+	<div class="row">
+		<div class="span7">
+			<p> <%= link_to "Edit Candidate Details", edit_candidate_path(@candidate) %></p>
+			<div class="row">
+				<div class="span2">
+					<%= image_tag @candidate.profile_pic_url, :class => "img-circle" %>
+				</div>
+				<div class="span5">
+					<p><h3><%= @candidate.last_name %> , <%= @candidate.first_name %></h3></p>
+					<p><%= @candidate.position %></p>
+					<p><h3>Keywords / Tags </h3></p>
+					<p> <%= @candidate.get_tags %></p>
+				</div>
+			</div>
+		</div>
+		<div class="span5">
+			<p class="row">
+			<span class="span3 bold">Company</span>
+			<span class="span2"><a href="<%= @candidate.resume_url%>" target="_blank">View Resume</a></span>
+			</p>
+			<p> <%= @candidate.company %></p>
+			<p class="bold"> Location </p>
+			<p> <%= @candidate.address %></p>
+			<p><%= @candidate.city %>,<%= @candidate.state %> <%= @candidate.zip %></p>
+			<p class="bold"> Email</p>
+			<p> <%= @candidate.email %></p>
+			</p>
+		</div>
+	</div>
+	<p class="center"><a target="_blank" href="mailto:<%= @candidate.email %>?body=Dear <%= @candidate.name %>">Send Email</a></p>
+	<div ng-app="app">
+		<div ng-controller="notes_controller">
+			<p class="center"><a ng-click="add_note()" >Add Note</a></p>
+			<p class="notes-heading row"><span class="span2">Notes</span><span class="span8"></span><span class="span2"><a ng-click="add_note()">  + Add a note </a></span></p>
+			<div class='new-note-form hide'>
+				<textarea ng-model='note.candidate_note' id="get_note"></textarea>
+        <p><a ng-click='create_note()'>Create</a></p>
+      </div>
+			<div ng-repeat="note in notes">
+				<p class="row"><span class="span10">{{ note.date}} - by {{note.creater_name}}</span><span class="span2"><a ng-click="edit_note($index)">Edit</a></span></p>
+				<p class="note_content">{{note.candidate_note}}</p>
+			</div>
+			<div modal="notes_popup" class="hide" close="notes_popup=false">
+      <div class="modal-header">
+        <h5>{{modal_head}}</h5>
+      </div>
+      <div class="modal-body">
+        <textarea style="width:80%" ng-model="note.candidate_note"></textarea>
+      </div>
+      <div class="modal-footer">
+        <a href="#" class="btn btn-primary" ng-click="perform_notes_task()">{{modal_action}}</a>
+        <button class="btn btn-warning cancel" ng-click="notes_popup=false">Cancel</button>
+      </div>
+    </div>
+		</div>
+	</div>
+	<script type="text/javascript">
+		var app = angular.module("app",['ui.bootstrap']);
+
+		app.controller("notes_controller", ['$scope','$http','$dialog',function($scope,$http,$dialog){
+			$scope.notes = <%=raw @candidate.get_notes.count>0? @candidate.get_notes.to_json  : "[]" %>;
+			$scope.create_note = function(){
+      $scope.note.candidate_id = <%= @candidate.id %>;
+      $http({method:"POST",
+        url:"/notes",
+        data:{note:$scope.note},
+        headers:{'X-CSRF-Token': $('meta[name=csrf-token]').attr('content')}
+        }).
+          success(function(data, status) {
+          $(".new-note-form").hide();
+            $scope.notes.push(data);
+						$scope.notes_popup = false;
+            }).
+          error(function(data, status) {
+            console.log(data);
+						$scope.notes_popup = false;
+
+        });
+    };
+    $scope.edit_note = function(index){
+    	$scope.note = $scope.notes[index];
+    	$scope.notes_popup = true;
+    	$scope.modal_action = "Update Note";
+	    $scope.modal_head = "Create New Note";
+	  };
+	  
+	  $scope.perform_notes_task = function(){
+	  	if($scope.modal_action =="Create Note")
+	  		$scope.create_note();
+	  	else
+	  		$scope.update_note();
+	  };
+	  $scope.update_note = function(){
+	    	$http({method:"PUT",
+        url:"/notes/"+$scope.note.id,
+        data:{note:$scope.note},
+        headers:{'X-CSRF-Token': $('meta[name=csrf-token]').attr('content')}
+        }).
+          success(function(data, status) {
+          $(".new-note-form").hide();
+            $scope.notes.push(data);
+            $scope.notes_popup = false;
+           }).
+          error(function(data, status) {
+            console.log(data);
+            $scope.notes_popup = false;
+
+        });
+    };
+    $scope.add_note = function(){
+    	$scope.notes_popup = true;
+    	$scope.modal_action = "Create Note";
+	    $scope.modal_head = "Create New Note";
+	    $scope.note=[];
+    };
+		}]);
+	</script>
+</div>
