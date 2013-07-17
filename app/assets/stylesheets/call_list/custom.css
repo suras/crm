@@ -31,8 +31,11 @@ font-size: 14px;
   overflow-y: auto;
   overflow-x:hidden;
 }
-.candidate-list-box span,.candidate-list span,.NameDiv span{
+.candidate-list-box span,.candidate-list span{
   display: block;
+}
+.NameDiv span, .NameDiv a, .innerDiv span, .innerDiv a{
+  padding:0px 20px;
 }
 .candidate-list{
   font-size: 12px;
@@ -85,12 +88,10 @@ font-size: 14px;
   position: relative;
 }
 .QV-content-call-list{
-padding: 20px 15px 25px 15px;
 position: relative;
 background: #fff;
 outline: 1px #eee solid;
 margin-top: 3px;
-width: 264px;
 margin-left: 3px;
 height: 498px;
 overflow-y: auto;
@@ -108,8 +109,9 @@ padding: 5px 0px 0px 0px;
   font-size: 12px;
 }
 .profile-box{
-  position: absolute;
-  right: 25px;
+position: absolute;
+right: 0px;
+top: 30px;
 }
 
 .edit-content{
@@ -118,9 +120,6 @@ padding: 5px 0px 0px 0px;
 }
 .edit-content input {display: inline;
 width: auto !important; }
-.new-note-form{
-  display: none;
-}
 
 .notes_date{
   color: #0088cc;
@@ -138,13 +137,11 @@ width: auto !important; }
 }
 
 .candidates_listing li {
-  /*padding: 20px 0px;*/
-border-radius: 10px;
-margin-bottom: 10px;
-box-shadow: 0px 0px 5px #000;
+padding: 10px 0px 10px 0px;
+outline: #eee solid 1px;
 }
 .approved{
-  background: rgb(160, 221, 148);
+  background: rgb(221, 255, 215);
 }
 .rejected{
   background: rgb(223, 223, 223);
@@ -153,4 +150,19 @@ box-shadow: 0px 0px 5px #000;
 .newly_added{
   background: #FFFFFF;
 
+}
+.left_off{
+  text-align: center;
+  padding: 13px 0px;
+  background: #FFFFA9;
+  margin-bottom: 0px;
+}
+.left_off.true{
+  display: block;
+}
+.left_off.false{
+  display: none;
+}
+.call_list_actions{
+  margin-top:20px;
 }

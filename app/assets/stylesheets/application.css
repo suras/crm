@@ -310,9 +310,8 @@ input.span2{
 input{
   min-height: 20px !important;
 }
-.new-note-form{
-  margin-left: 30px;
-  margin-top: 10px;
+.new-note-form textarea{
+  width: 80%
 }
 
 .edit-user-form{
@@ -338,7 +337,7 @@ input{
 
 .call-list-container{
   background: #eee;
-  margin-top: 100px;
+  margin-top: 20px;
   min-height: 550px;
 }
 .call_list{
@@ -354,13 +353,12 @@ input{
   color: #0088cc;
   }
 .candidates_list{
-  height: 525px;
+  height: 543px;
   overflow: auto;
   background: #fff;
   margin: 3px;
   margin-left: -20px;
   margin-right: -20px;
-  padding: 9px;
 }
 
 .pos-rel{

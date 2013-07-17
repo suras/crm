@@ -1,16 +1,15 @@
 <% if @candidates.present?%>
-   <h2>Candidates List</h2>
+<h2>Candidates List</h2>
 <% else %>
 <div class="container">
   <div class="row">
     <div class="span12 welcomeMsg">
-       <h2>Welcome</h2>
-  <p>Get Started: <%=link_to 'Add Candidates To Your Account', new_candidate_path()%></p>
-    </div>
-  </div>
+     <h2>Welcome</h2>
+     <p>Get Started: <%=link_to 'Add Candidates To Your Account', new_candidate_path()%></p>
+   </div>
+ </div>
 </div>
-
- <%  end %> 
+<%  end %> 
 <script type="text/javascript">
 window.tags = <%=  get_tags%>;
 window.candidates = <%= raw @candidates.to_json %>
@@ -146,10 +145,11 @@ window.candidate_url = '<%= "#{root_url}"+"candidates/"%>';
                   <div class="span4">
                     <span class="bold">First Name:</span>
                     <div class="name"><span><input ng-model="can.first_name"></span>
-                    <span class="bold">Last Name:</span>
-                    <span><input ng-model="can.last_name"></span></div>
+                      <span class="bold">Last Name:</span>
+                      <span><input ng-model="can.last_name"></span>
+                    </div>
                     <span class="bold">Position:</span>
-                    <span class="title"><input ng-model="can.position"</span>
+                    <span class="title"><input ng-model="can.position"></span>
                   </div>
                 </div>
                 <div class="innerDiv row">
@@ -179,7 +179,7 @@ window.candidate_url = '<%= "#{root_url}"+"candidates/"%>';
                 <div class="innerDiv row">
                   <div class="span4">
                     <span class="bold">email:</span>
-                    <span><input ng-model="can.email"></span></span>
+                    <span><input ng-model="can.email"></span>
                   </div>
                 </div>
               </div>
@@ -188,84 +188,83 @@ window.candidate_url = '<%= "#{root_url}"+"candidates/"%>';
               <div class="span4 headLink">Notes &nbsp;&nbsp;&nbsp;<a ng-click="add_note()" href="">Add Note</a></div>
             </div>
             <div class="row">
-              
+
               <div class="span4">
                <div class='new-note-form'>
                 <textarea ng-model='note.candidate_note' id="candidate_note" required></textarea>
                 <p class="row note_buttons"><span class="span3"><a ng-click='create_note()'>Create</a></span><span class="span1"><a ng-click='close_note()'>Close</a></span></p>
               </div>
-
-                <div class="innerDiv row " ng-repeat ="note in can.notes">
-                  <div class="span4">
-                    <p class="row"><span class="notes_date span1">{{note.date}}</span> <span class="span2 notes_creater">by {{note.candidate_note}}</span></p>
-                    <p class="notes_note">{{note.candidate_note}}</p>
-                  </div>
+              <div class="innerDiv row " ng-repeat ="note in can.notes">
+                <div class="span4">
+                  <p class="row"><span class="notes_date span1">{{note.date}}</span> <span class="span2 notes_creater">by {{note.candidate_note}}</span></p>
+                  <p class="notes_note">{{note.candidate_note}}</p>
                 </div>
               </div>
             </div>
           </div>
         </div>
       </div>
-      <div class="row">
-        <div class="span12">
-          <ul class="bottomLink">
-            <li><button class="btn"  ng-disabled ="disable_sort" ng-click="send_mail()" href="">send mail</button</li>
-            <li><button class="btn"  ng-disabled ="disable_sort" ng-click="show_new_call_list()" >create new call list</button</li>
-            <li><button class="btn"  ng-disabled ="disable_sort" ng-click="show_existing_call_list()" >add to existing call list</button</li>
-          </ul>
-        </div>
-      </div>
     </div>
-    <div modal="new_call_open" class="hide" close="new_call_open=false">
-      <div class="modal-header">
-        <h3>What would you like to name this call list?</h3>
-      </div>
-      <div class="modal-body">
-        <p> Name </p><p><input type="text" ng-model="call_list_name"></p>
-      </div>
-      <div class="modal-footer">
-        <a href="#" class="btn btn-primary" ng-click="create_call_list()">Create Call List</a>
-        <button class="btn btn-warning cancel" ng-click="new_call_open=false">Cancel</button>
-      </div>
-    </div>
-    <div modal="edit_call_open" class="hide" close="edit_call_open=false">
-      <div class="modal-header">
-        <h3>which list would you like to add these candidates to?</h3>
-      </div>
-      <div class="modal-body">
-        <ul class="call-lists">
-          <li ng-repeat="call_list in call_lists">
-            <a ng-click="update_call_list($index)">{{call_list.name}}</a>
-          </li>
+    <div class="row">
+      <div class="span12">
+        <ul class="bottomLink">
+          <li><button class="btn"  ng-disabled ="disable_sort" ng-click="send_mail()" href="">send mail</button</li>
+          <li><button class="btn"  ng-disabled ="disable_sort" ng-click="show_new_call_list()" >create new call list</button</li>
+          <li><button class="btn"  ng-disabled ="disable_sort" ng-click="show_existing_call_list()" >add to existing call list</button</li>
         </ul>
       </div>
-      <div class="modal-footer">
-        <button class="btn btn-warning cancel" ng-click="edit_call_open=false">Cancel</button>
-      </div>
-     </div>
+    </div>
   </div>
+  <div modal="new_call_open" class="hide" close="new_call_open=false">
+    <div class="modal-header">
+      <h3>What would you like to name this call list?</h3>
+    </div>
+    <div class="modal-body">
+      <p> Name </p><p><input type="text" ng-model="call_list_name"></p>
+    </div>
+    <div class="modal-footer">
+      <a href="#" class="btn btn-primary" ng-click="create_call_list()">Create Call List</a>
+      <button class="btn btn-warning cancel" ng-click="new_call_open=false">Cancel</button>
+    </div>
+  </div>
+  <div modal="edit_call_open" class="hide" close="edit_call_open=false">
+    <div class="modal-header">
+      <h3>which list would you like to add these candidates to?</h3>
+    </div>
+    <div class="modal-body">
+      <ul class="call-lists">
+        <li ng-repeat="call_list in call_lists">
+          <a ng-click="update_call_list($index)">{{call_list.name}}</a>
+        </li>
+      </ul>
+    </div>
+    <div class="modal-footer">
+      <button class="btn btn-warning cancel" ng-click="edit_call_open=false">Cancel</button>
+    </div>
+  </div>
+</div>
 </div>
 
 <script>
 var app = angular.module('app', ['ngResource','ui.bootstrap']);
 
 app.directive( [ 'focus', 'blur', 'keyup', 'keydown', 'keypress','change'].reduce( function ( container, name ) {
-    var directiveName = 'ng' + name[ 0 ].toUpperCase( ) + name.substr( 1 );
+  var directiveName = 'ng' + name[ 0 ].toUpperCase( ) + name.substr( 1 );
 
-    container[ directiveName ] = [ '$parse', function ( $parse ) {
-        return function ( scope, element, attr ) {
-            var fn = $parse( attr[ directiveName ] );
-            element.bind( name, function ( event ) {
-                scope.$apply( function ( ) {
-                    fn( scope, {
-                        $event : event
-                    } );
-                } );
-            } );
-        };
-    } ];
+  container[ directiveName ] = [ '$parse', function ( $parse ) {
+    return function ( scope, element, attr ) {
+      var fn = $parse( attr[ directiveName ] );
+      element.bind( name, function ( event ) {
+        scope.$apply( function ( ) {
+          fn( scope, {
+            $event : event
+          } );
+        } );
+      } );
+    };
+  } ];
 
-    return container;
+  return container;
 }, { } ) );
 
 app.filter('getIndexById', function() {
@@ -295,15 +294,15 @@ app.controller('candidates_controller', ['$scope', '$location', 'Candidate','$ht
       $scope.search();
     });
     $scope.message="aa";
-   $scope.$watch('message', function() {
+    $scope.$watch('message', function() {
       console.log("watched")
       if ($scope.message!="aa"){
         $(".alert").fadeIn(500).delay(5000).fadeOut(2000,function(){
-            $scope.message="aa";
-            $scope.$digest();
+          $scope.message="aa";
+          $scope.$digest();
         });
       }
-   });
+    });
     $scope.candidates=window.candidates;
     $scope.call_lists=window.call_lists;
     $scope.view = function(index){
@@ -320,194 +319,194 @@ app.controller('candidates_controller', ['$scope', '$location', 'Candidate','$ht
       {
        $scope.display_result = "Getting candidates details......";
        $http.get("/search/"+$scope.search_data).
-          success(function(data, status) {
-            if(data.length>0){
-              $scope.disable_sort = false;
-              $scope.display_result = "Found <span class='bold'>" + data.length + "</span> Candidates";
-              $scope.candidates = data;
-              $(".candidate-list-box").show();
-              $(".no-more-list-box").hide();
-            }
-            else{
-              $scope.disable_sort = true;
-              $(".no-more-list-box").show();
-              $(".candidate-list-box").hide();
-              $scope.candidates = [];
-              $scope.display_result = "<span class='error' >No candidates matching the search criteria</span>";
-            }
-          }).
-          error(function(data, status) {
+       success(function(data, status) {
+        if(data.length>0){
+          $scope.disable_sort = false;
+          $scope.display_result = "Found <span class='bold'>" + data.length + "</span> Candidates";
+          $scope.candidates = data;
+          $(".candidate-list-box").show();
+          $(".no-more-list-box").hide();
+        }
+        else{
+          $scope.disable_sort = true;
+          $(".no-more-list-box").show();
+          $(".candidate-list-box").hide();
           $scope.candidates = [];
           $scope.display_result = "<span class='error' >No candidates matching the search criteria</span>";
-        });
-      }
-      console.log("End of search");
-    };
-
-    $scope.show_new_call_list= function(){
-      console.log("show")
-      if($scope.selected_candidates.length>0){
-        $scope.new_call_open=true;
-      }
-      else
-       $scope.message = "You must select atleast one candidate";
-    };
-
-    $scope.create_call_list = function(){
-      var candidate_ids =[];
-      for(cand in $scope.selected_candidates)
-      {        candidate_ids.push($scope.selected_candidates[cand].id); }
-      $http({method:"POST",
-              url:"/shortlists",
-              data:{name:$scope.call_list_name,candidate_ids:candidate_ids.join(",")},
-              headers:{'X-CSRF-Token': $('meta[name=csrf-token]').attr('content')}
-              }).
-              success(function(data, status) {
-                $scope.call_lists.push(data);
-                $scope.call_list_name= "";
-                $scope.message = "Call list has been created";
-              }).
-              error(function(data, status) {
-                $scope.new_call_open=false;
-              });
-    };
-    $
-    $scope.show_existing_call_list= function(){
-      if($scope.selected_candidates.length>0){
-        $scope.edit_call_open=true;
-      }
-      else{
-        console.log($scope.message+"before");
-        $scope.message = "You must select atleast one candidate";
-        console.log($scope.message+"after");
-
-      }
-    }; 
-
-    $scope.update_call_list=function(index){
-            var candidate_ids =[];
-      console.log($scope.selected_candidates);
-      for(cand in $scope.selected_candidates)
-      {        candidate_ids.push($scope.selected_candidates[cand].id); }
-      $http({method:"POST",
-        url:"/shortlists/bulk_update",
-        data:{call_list_id:$scope.call_lists[index].id,candidate_ids:candidate_ids.join(",")},
-        headers:{'X-CSRF-Token': $('meta[name=csrf-token]').attr('content')}
-        }).
-        success(function(data, status) {
-          if(data.count>0){
-            $scope.message = "Candidates added to call list";
-          }
-          else
-            $scope.message = "Already In Call List";
-          $scope.edit_call_open=false;
-        }).
-        error(function(data, status) {
-          $scope.edit_call_open=false;
-        });
-
-    };
-    $scope.make_selection = function(id,event){
-      var cand_index=$filter('getIndexById')($scope.candidates,id);
-      var sel_index=$filter('getIndexById')($scope.selected_candidates,id);
-      if(event.target.checked==true)
-      {
-        $scope.selected_candidates.push($scope.candidates[cand_index]);
-      }
-      else
-      {
-        $scope.selected_candidates.splice(sel_index,1);
-      }
-    };
-
-    $scope.make_editable=function(candidate){
-      $scope.can = candidate;
-      if($scope.edit == "Edit"){
-        $(".edit-content").show();
-        $(".QV-content").hide();
-        $scope.edit = "Save";
-      }
-      else{
-        $scope.save();
-        $(".edit-content").hide();
-        $(".QV-content").show();
-        $scope.edit="Edit";
-      }
-    };
-
-    $scope.send_mail = function(email,id){
-      var emails=[];
-      var body="";
-      if (email != undefined)
-      {
-        to= email;
-        body="&body=Dear "+ $scope.can.last_name+" "+$scope.can.first_name+",";
-      }
-      else
-      {
-        if( $scope.selected_candidates.length>0){
-        to = $scope.selected_candidates[0].email
-        for (var i = 0; i < $scope.selected_candidates.length; i++) 
-          emails.push($scope.selected_candidates[i].email);
         }
-        else 
-          $scope.message = "You must select atleast one candidate";
-      }
-      location.target="_blank";
-      location.href="mailto:"+to+ "?bcc="+emails.join(",")+body;
-    };
+      }).
+       error(function(data, status) {
+        $scope.candidates = [];
+        $scope.display_result = "<span class='error' >No candidates matching the search criteria</span>";
+      });
+     }
+     console.log("End of search");
+   };
 
-    $scope.create_note = function(){
-      if($("#candidate_note").hasClass("ng-valid"))
-      {
-      $scope.note.candidate_id = $scope.can.id;
-      $http({method:"POST",
-        url:"/notes",
-        data:{note:$scope.note},
-        headers:{'X-CSRF-Token': $('meta[name=csrf-token]').attr('content')}
-        }).
-          success(function(data, status) {
-          $(".new-note-form").hide();
-            $scope.can.notes.push(data);
-            }).
-          error(function(data, status) {
-            console.log(data);
-        });
-      }
-      else{
-        $("#candidate_note").focus();
-      }
-    };
+   $scope.show_new_call_list= function(){
+    console.log("show")
+    if($scope.selected_candidates.length>0){
+      $scope.new_call_open=true;
+    }
+    else
+     $scope.message = "You must select atleast one candidate";
+ };
 
-    $scope.add_note = function(){
-      $(".new-note-form").show();
-      $scope.note=[];
-    };
+ $scope.create_call_list = function(){
+  var candidate_ids =[];
+  for(cand in $scope.selected_candidates)
+    {        candidate_ids.push($scope.selected_candidates[cand].id); }
+  $http({method:"POST",
+    url:"/shortlists",
+    data:{name:$scope.call_list_name,candidate_ids:candidate_ids.join(",")},
+    headers:{'X-CSRF-Token': $('meta[name=csrf-token]').attr('content')}
+  }).
+  success(function(data, status) {
+    $scope.call_lists.push(data);
+    $scope.call_list_name= "";
+    $scope.message = "Call list has been created";
+  }).
+  error(function(data, status) {
+    $scope.new_call_open=false;
+  });
+};
+$
+$scope.show_existing_call_list= function(){
+  if($scope.selected_candidates.length>0){
+    $scope.edit_call_open=true;
+  }
+  else{
+    console.log($scope.message+"before");
+    $scope.message = "You must select atleast one candidate";
+    console.log($scope.message+"after");
 
-    $scope.close_note = function(){
-            $(".new-note-form").hide();
-    };
+  }
+}; 
 
-    $scope.select_all=function(){
-      var checkboxes = $(":checkbox");
-      checkboxes.each(function(){this.checked= $scope.checked;}); 
-      if($scope.checked)
-         $scope.selected_candidates = $scope.candidates.slice(0);
-      else
-        $scope.selected_candidates = [];
-      $scope.checked = !($scope.checked);     
-    };
+$scope.update_call_list=function(index){
+  var candidate_ids =[];
+  console.log($scope.selected_candidates);
+  for(cand in $scope.selected_candidates)
+    {        candidate_ids.push($scope.selected_candidates[cand].id); }
+  $http({method:"POST",
+    url:"/shortlists/bulk_update",
+    data:{call_list_id:$scope.call_lists[index].id,candidate_ids:candidate_ids.join(",")},
+    headers:{'X-CSRF-Token': $('meta[name=csrf-token]').attr('content')}
+  }).
+  success(function(data, status) {
+    if(data.count>0){
+      $scope.message = "Candidates added to call list";
+    }
+    else
+      $scope.message = "Already In Call List";
+    $scope.edit_call_open=false;
+  }).
+  error(function(data, status) {
+    $scope.edit_call_open=false;
+  });
 
-    $scope.save = function() {
-      $http({method:"PUT",
-        url:"/candidates/"+$scope.can.id,
-        headers:{'X-CSRF-Token': $('meta[name=csrf-token]').attr('content')},
-        data: {candidate:$scope.can} }).
-          success(function(data, status) {
-            }).
-          error(function(data, status) {
-        });
-    };
+};
+$scope.make_selection = function(id,event){
+  var cand_index=$filter('getIndexById')($scope.candidates,id);
+  var sel_index=$filter('getIndexById')($scope.selected_candidates,id);
+  if(event.target.checked==true)
+  {
+    $scope.selected_candidates.push($scope.candidates[cand_index]);
+  }
+  else
+  {
+    $scope.selected_candidates.splice(sel_index,1);
+  }
+};
+
+$scope.make_editable=function(candidate){
+  $scope.can = candidate;
+  if($scope.edit == "Edit"){
+    $(".edit-content").show();
+    $(".QV-content").hide();
+    $scope.edit = "Save";
+  }
+  else{
+    $scope.save();
+    $(".edit-content").hide();
+    $(".QV-content").show();
+    $scope.edit="Edit";
+  }
+};
+
+$scope.send_mail = function(email,id){
+  var emails=[];
+  var body="";
+  if (email != undefined)
+  {
+    to= email;
+    body="&body=Dear "+ $scope.can.last_name+" "+$scope.can.first_name+",";
+  }
+  else
+  {
+    if( $scope.selected_candidates.length>0){
+      to = $scope.selected_candidates[0].email
+      for (var i = 0; i < $scope.selected_candidates.length; i++) 
+        emails.push($scope.selected_candidates[i].email);
+    }
+    else 
+      $scope.message = "You must select atleast one candidate";
+  }
+  location.target="_blank";
+  location.href="mailto:"+to+ "?bcc="+emails.join(",")+body;
+};
+
+$scope.create_note = function(){
+  if($("#candidate_note").hasClass("ng-valid"))
+  {
+    $scope.note.candidate_id = $scope.can.id;
+    $http({method:"POST",
+      url:"/notes",
+      data:{note:$scope.note},
+      headers:{'X-CSRF-Token': $('meta[name=csrf-token]').attr('content')}
+    }).
+    success(function(data, status) {
+      $(".new-note-form").hide();
+      $scope.can.notes.push(data);
+    }).
+    error(function(data, status) {
+      console.log(data);
+    });
+  }
+  else{
+    $("#candidate_note").focus();
+  }
+};
+
+$scope.add_note = function(){
+  $(".new-note-form").show();
+      $scope.note.candidate_note="";
+};
+
+$scope.close_note = function(){
+  $(".new-note-form").hide();
+};
+
+$scope.select_all=function(){
+  var checkboxes = $(":checkbox");
+  checkboxes.each(function(){this.checked= $scope.checked;}); 
+  if($scope.checked)
+   $scope.selected_candidates = $scope.candidates.slice(0);
+ else
+  $scope.selected_candidates = [];
+$scope.checked = !($scope.checked);     
+};
+
+$scope.save = function() {
+  $http({method:"PUT",
+    url:"/candidates/"+$scope.can.id,
+    headers:{'X-CSRF-Token': $('meta[name=csrf-token]').attr('content')},
+    data: {candidate:$scope.can} }).
+  success(function(data, status) {
+  }).
+  error(function(data, status) {
+  });
+};
 }]);
 
 </script>
