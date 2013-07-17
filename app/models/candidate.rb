@@ -1,7 +1,7 @@
 class Candidate < ActiveRecord::Base
   attr_accessible :company, :experience, :first_name, :last_name, :profile_pic, :resume, :first_name,
                   :last_name, :email, :address, :city, :state, :zip, :contact_number, :team_id, :user_id,
-                  :added_from, :linked_in, :twitter, :facebook, :position,:name
+                  :added_from, :linked_in, :twitter, :facebook, :position,:name, :unique_id
 
  has_attached_file :profile_pic, :styles => { :small => "150x150>" },
                   :url  => "/assets/candidates/:id/avatar/:style/:basename.:extension",
@@ -24,10 +24,23 @@ validates_attachment_content_type :resume, :content_type => ["application/pdf", 
  validates :email, :email => true, :uniqueness=>true
  has_many :notes
 
+
+ before_create :generate_unique_id
  belongs_to :user
  belongs_to :team
  has_one :call_list, :through=> :shortlist
  has_one :shortlist
+ 
+ 
+ def generate_unique_id
+   self.unique_id = generate_random(self.email)
+   
+ end
+ 
+ def generate_random(mail_str)
+   "candidate_" + mail_str.slice(0, mail_str.index('@')) + rand(1111..9999).to_s
+   
+ end
 
  scope :status, lambda{ |status| where("shortlists.status"=>status)}
  delegate :name, :to=>:user, :prefix=>true

@@ -40,7 +40,16 @@ Mailman::Application.run do
         
        
       end
-     Note.create(:candidate_note => the_message_html)
+      
+      if(message.to.first =~ /^candidate_/)
+        unique_id = message.to.first.slice(0, message.to.first.index('@'))
+        candidate = Candidate.find_by_unique_id(unique_id)
+        user = User.find_by_email(message.from.first)
+        if(candidate && user)
+     Note.create(:candidate_note => the_message_text, :creater_id => user.id, :candidate_id => candidate.id)
+     end
+     
+     end
     # map attachments with message object and save other stuff and do other processing or trigger other events..
           #Message.create(:from => message.from.first, :to => message.to.first, :subject => message.subject, :html_body => the_message_html, :text_body => the_message_text)
 
