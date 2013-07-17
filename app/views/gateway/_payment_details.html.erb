@@ -1,9 +1,29 @@
-<h4>Payment</h4>
-<table border="0">
-<tr><td><%=label_tag :"Card Number"%></td>
-<td><%=text_field_tag "card_number"%></td></tr>
-<tr><td><%=label_tag :"Expires On"%></td>
-<td><%=text_field_tag "expires_on"%></td></tr>
-<tr><td><%=label_tag :"Billing Zip"%></td>
-<td><%=text_field_tag "billing_zip"%></td></tr>
-</table>
+<div class="row">
+  <div class="span8">
+    <h5>Payment</h5>
+  </div>
+</div>
+<div class="row">
+  <div class="span2">
+    <%=label_tag :"Card Number"%>
+  </div>
+  <div class="span6">
+    <%=text_field_tag "card_number"%>
+  </div>
+</div>
+<div class="row">
+  <div class="span2">
+    <%=label_tag :"Expires On"%>
+  </div>
+  <div class="span6">
+    <%=text_field_tag "expires_on"%>
+  </div>
+</div>
+<div class="row">
+  <div class="span2">
+    <%=label_tag :"Billing Zip"%>
+  </div>
+  <div class="span6">
+    <%=text_field_tag "billing_zip"%>
+  </div>
+</div>

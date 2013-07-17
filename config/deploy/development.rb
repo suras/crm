@@ -1,6 +1,3 @@
-require "rvm/capistrano"
-require "bundler/capistrano"
-
 server "96.126.122.163", :app, :web, :db, :primary => true
 set :deploy_to, "/var/www/hootquest/"
 set :branch, 'master'
@@ -38,3 +35,6 @@ namespace :deploy do
     run "#{try_sudo} touch #{File.join(current_path,'tmp','restart.txt')}"
   end
 end
+
+require "rvm/capistrano"
+require "bundler/capistrano"
