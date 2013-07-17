@@ -14,3 +14,5 @@
 //= require jquery_ujs
 //= require jquery.validate
 //= require twitter/bootstrap
+//= require jquery.tokeninput
+

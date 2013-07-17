@@ -150,15 +150,6 @@ ActiveRecord::Schema.define(:version => 20130717055454) do
     t.datetime "updated_at", :null => false
   end
 
-  create_table "uploads", :force => true do |t|
-    t.string   "excel_file_name"
-    t.string   "excel_content_type"
-    t.integer  "excel_file_size"
-    t.datetime "excel_updated_at"
-    t.datetime "created_at",         :null => false
-    t.datetime "updated_at",         :null => false
-  end
-
   create_table "users", :force => true do |t|
     t.string   "first_name"
     t.string   "last_name"
