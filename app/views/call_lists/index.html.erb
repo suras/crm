@@ -4,16 +4,24 @@ window.call_lists = <%= get_call_list%>;
 <%= stylesheet_link_tag "call_list/application"%>
 <%= javascript_include_tag "call_list/application"%>
 <div ng-app="app">
-  <div class="container" ng-controller="call_list_controller">
+  <div class="container call-list-container" ng-controller="call_list_controller">
     <div class="row">
-      <p><span class="bold span4">Call Lists</span><span class="span4"></span><span class="span4"><a ng-click="delete_call_list()" class="pull-right"> Delete Call List </a> <a ng-click="stop_process()" class="pull-right"> Stop Here and save my place </a> </p>
+      <p>
+      <span class="bold span6">Call Lists</span>
+      <span class="span3 offset1">
+        <a ng-click="stop_process()" class="pull-right"> Stop Here and save my place </a>
+      </span>
+      <span class="span2">
+        <a ng-click="delete_call_list()" class=""> Delete Call List </a>
+      </span>
+      </p>
     </div>
     <div class="row" >
       <div class="span4">
         <div class="call_list">
           <ul>
             <li ng-repeat="call_list in call_lists">
-              <h4><a ng-click="show_candidates($index)">{{ call_list.name}}</a></h4>
+              <div ng-click="show_candidates($index)"><h4>{{ call_list.name}}</h4></div>
             </li>
           </ul>
         </div>
@@ -24,10 +32,10 @@ window.call_lists = <%= get_call_list%>;
             <li ng-repeat="date in dates">
               <ul class="candidates_listing">
                 <li class="approved" ng-repeat="candidate in date.approved_candidates">
-                  <div class="row">
-                    <div class="span1"><img class="img-circle" src="{{candidate.profile_pic_url}}"></div>
+                  <div class="row pTopBot20" ng-click="view_candidate($parent.$index,$index,'approved')">
+                    <div class="span1"><img class="profile-pic50" src="{{candidate.profile_pic_url}}"></div>
                     <div class="span2">
-                      <a ng-click="view_candidate($parent.$index,$index,'approved')">{{ candidate.name}}</a>
+                      {{ candidate.name}}
                     </div>
                     <div class="span1 actions">
                       <a ng-click="approval($parent.$index,$index,'rejected','approved')"><i class="icon-thumbs-down"></i></a>
@@ -35,10 +43,10 @@ window.call_lists = <%= get_call_list%>;
                   </div>
                 </li>
                 <li class="newly_added" ng-repeat="candidate in date.newly_added_candidates">
-                  <div class="row">
-                    <div class="span1"><img class="img-circle" src="{{candidate.profile_pic_url}}"></div>
+                  <div class="row pTopBot20" ng-click="view_candidate($parent.$index,$index,'newly_added')">
+                    <div class="span1"><img class="profile-pic50" src="{{candidate.profile_pic_url}}"></div>
                     <div class="span2">
-                      <a ng-click="view_candidate($parent.$index,$index,'newly_added')">{{ candidate.name}}</a>
+                      {{ candidate.name}}
                     </div>
                     <div class="span1 actions">
                       <a ng-click="approval($parent.$index,$index,'approved','newly_added')"><i class="icon-thumbs-up"></i></a>
@@ -52,10 +60,10 @@ window.call_lists = <%= get_call_list%>;
           </ul>
           <ul class="candidates_listing">
             <li class="rejected" ng-repeat="candidate in rejected_candidates">
-                  <div class="row">
-                    <div class="span1"><img class="img-circle" src="{{candidate.profile_pic_url}}"></div>
+                  <div class="row pTopBot20" ng-click="view_candidate('',$index,'rejected')">
+                    <div class="span1"><img class="profile-pic50" src="{{candidate.profile_pic_url}}"></div>
                     <div class="span2">
-                      <a ng-click="view_candidate('',$index,'rejected')">{{ candidate.name}}</a>
+                      {{ candidate.name}}
                     </div>
                     <div class="span1 actions">
                       <a ng-click="approval('',$index,'approved','rejected')"><i class="icon-thumbs-up"></i></a>
@@ -66,9 +74,13 @@ window.call_lists = <%= get_call_list%>;
         </div>
       </div>
       <div class="span4">
+      <div class="QV-content-call-list">
+      <div class="profile-box">
+        <img class="profile-pic125" src="{{can.profile_pic_url}}">
+      </div>
         <div class="row NameDiv">
           <div class="span4">
-            <div class="name"><a href="#"><span class="make_edit">{{ can.first_name}}</span><span class="make_edit">{{ can.last_name}}</span></a></div>
+            <div class="name"><a href="#"><span class="make_edit">{{ can.first_name}} {{ can.last_name}}</span></a></div>
             <span class="title">{{ can.position}}</span>
           </div>
         </div>
@@ -105,7 +117,7 @@ window.call_lists = <%= get_call_list%>;
         <div class="innerDiv row">
           <div class="span4">
             <span class="bold">email:</span>
-            <span class="make_edit">{{ can.email}}</span> | <a ng-click="send_mail(can.email)" href="">send email</a></span>
+            <span class="make_edit">{{ can.email}} | <a ng-click="send_mail(can.email)" href="">send email</a></span>
           </div>
         </div>
         <div class="innerDiv row">
@@ -118,10 +130,10 @@ window.call_lists = <%= get_call_list%>;
             <span><a ng-click="send_mail(can.email,can.id)" href="">attach resume to email</a></span>
           </div>
         </div>
+        
       </div>
-      <div class="profile-box">
-        <img class="img-circle" src="{{can.profile_pic_url}}">
       </div>
+      
     </div>
   </div>
 </div>
@@ -206,8 +218,7 @@ app.controller('call_list_controller', ['$scope','$http','$filter',
     };
     $scope.stop_process = function(){
       console.log($scope.current_call_list)
-      console.log( $scope.current_date_index);
-      if($scope.current_date_index!=undefined){
+      if($scope.current_date_index != undefined){
       from = 'approved';
       index = $filter('getIndexById')($scope.dates[$scope.current_date_index].approved_candidates,$scope.can.id);
       if(index==null || undefined){

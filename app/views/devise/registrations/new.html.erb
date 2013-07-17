@@ -1,5 +1,7 @@
 <script type="text/javascript">
 $(document).ready(function(){
+  $("#card_number").attr("maxlength","14");
+  $("#billing_zip").attr("maxlength","12");
   $("#new_user").validate({
         rules:{
           // uname:"required",
@@ -9,7 +11,7 @@ $(document).ready(function(){
           },
           'user[password]':{
             required:true,
-            minlength: 6
+            minlength: 8
           },
           'user[password_confirmation]':{
             required:true,
@@ -47,7 +49,7 @@ $(document).ready(function(){
           'user[email]':"Enter Valid Email",
           'user[password]':{
             required:"Enter your Password",
-            minlength:"Password must be atleast 6 characters"
+            minlength:"Password must be atleast 8 characters"
           },
           'user[password_confirmation]':{
             required:"Repeat your password",

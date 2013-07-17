@@ -1,9 +1,6 @@
 <% if @candidates.present?%>
-	<h2>Candidates List</h2>
-	
-	
-	<% else %>
-	
-	<h2>Welcome</h2>
+	 <h2>Candidates List</h2>
+<% else %>
+ <h2>Welcome</h2>
 	<p>Get Started: <%=link_to 'Add Candidates To Your Account', new_candidate_path()%></p>
-<% end %>
+ <%  end %> 

@@ -1,5 +1,42 @@
+<script type="text/javascript">
+$(document).ready(function(){
+  $("#new_user").validate({
+        rules:{
+          // uname:"required",
+          'user[email]':{
+              required:true,
+              email: true
+          },
+          'user[password]':{
+            required:true,
+            minlength: 8
+          }
+        },
+        messages:{
+          'user[email]':"Enter Valid Email",
+          'user[password]':{
+            required:"Enter your Password",
+            minlength:"Password must be atleast 8 characters"
+          }
+        },
+       errorPlacement: function (error, element) {
+           error.insertAfter(element);
+       }
+   });
+
+
+
+// Submit button clicks
+   $(document).on("click","#submit_button",function(){
+       if($("#new_user").valid()){
+              document.new_user.submit();
+       }
+ 
+    });
+});
+</script>
 <div class="center-page">
-<h2>HootQuest Log In</h2>
+<h2>HootRecruit Log In</h2>
 
 <%= form_for(resource, :as => resource_name, :url => session_path(resource_name)) do |f| %>
   <div><%= f.label :email %><br />
@@ -12,7 +49,7 @@
     <div><%= f.check_box :remember_me %> <%= f.label :remember_me %></div>
   <% end -%>
 
-  <div><%= f.submit "Log In" %></div>
+  <div><%= f.submit "Log In", :id => "submit_button" %></div>
 <% end %>
 </div>
 <!--<%= render "devise/shared/links" %>-->

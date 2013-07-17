@@ -33,6 +33,9 @@ background: linear-gradient(to bottom,  #8cc1d3 0%,#65afc8 100%);
 filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#8cc1d3', endColorstr='#65afc8',GradientType=0 );
 
 }
+.footer{
+  height: 100px;
+}
 .navLeft{
   margin-top: -10px;
 }
@@ -223,14 +226,34 @@ box-shadow: 0px 1px 10px 2px #ECECEC;
   text-align: center;
 }
 .btn-submit{
-  padding: 25px;
+  padding-bottom: 25px;
 }
 .error{
   font-size: 12PX;
   color: red;
   margin-top: 0px;
 }
-
+.profile-pic50{
+  border-radius: 25px;
+  border: 1px #CFC8C8 solid;
+  width: 50px;
+  height:50px;
+  margin-left: 10px;
+}
+.profile-pic100{
+  border-radius: 50px;
+  border: 1px #CFC8C8 solid;
+  width: 100px;
+  height:100px;
+  margin-left: 10px;
+}
+.profile-pic125{
+  border-radius: 65px;
+  border: 1px #CFC8C8 solid;
+  width: 125px;
+  height:125px;
+  margin-left: 10px;
+}
 
 /* ==  Add Form == */
 .add-form-content{
@@ -261,6 +284,7 @@ box-shadow: 0px 1px 10px 2px #ECECEC;
 }
 #preview{
   border-radius: 65px;
+  border: 1px #eee solid;
   width: 125px;
   height:125px;
   margin-right: 60px;
@@ -274,29 +298,76 @@ box-shadow: 0px 1px 10px 2px #ECECEC;
 }
 
 .section{
-  /*border-top:  #eee solid 1px;*/
-  border-bottom:  #eee solid 2px;
   padding-top: 10px;
-  padding-bottom: 25px;
-  /*padding-left: 10px;*/
+  padding-bottom: 10px;
+  padding-left: 10px;
 }
 
-.section .row{
-  /*padding-left: 10px;*/
-}
 
 input.span2{
   width: 206px !important;
 }
-.new-note-form{
-
-  margin-left: 30px;
-margin-top: 10px;
+input{
+  min-height: 20px !important;
 }
+.new-note-form{
+  margin-left: 30px;
+  margin-top: 10px;
+}
+
+.edit-user-form{
+  margin-top: 100px;
+}
+.edit-user-form input{
+  height: 30px !important;
+}
+
 .alert {
   position: fixed;
   top: 0;
   left: 25%;
   width: 50%;
   text-align: center;
+}
+.edit-user-form .btn-large{
+  height: 40px !important;
+}
+
+
+/* Call List */
+
+.call-list-container{
+  background: #eee;
+  margin-top: 100px;
+  min-height: 550px;
+}
+.call_list{
+  height: 543px;
+  overflow: auto;
+  background: #fff;
+  margin: 3px;
+}
+.call_list ul li div{
+  border-bottom: 1px #eee solid;
+  padding: 10px;
+  cursor: pointer;
+  color: #0088cc;
+  }
+.candidates_list{
+  height: 525px;
+  overflow: auto;
+  background: #fff;
+  margin: 3px;
+  margin-left: -20px;
+  margin-right: -20px;
+  padding: 9px;
+}
+
+.pos-rel{
+  position: relative;
+}
+.pTopBot20{
+  padding-top: 20px;
+  padding-bottom: 20px;
+  cursor: pointer;
 }
