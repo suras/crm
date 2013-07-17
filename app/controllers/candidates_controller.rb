@@ -1,4 +1,8 @@
+require 'nokogiri'
+require 'open-uri'
+include ERB::Util
 class CandidatesController < ApplicationController
+   respond_to :html, :xml, :json, :js
   before_filter :authenticate_user!, :get_team
   layout "candidate"
   def new
@@ -8,6 +12,7 @@ class CandidatesController < ApplicationController
   
   def create
     params[:candidate][:user_id] = current_user.id
+  
     tag_names = params[:tags].split(',')
     tags = tag_names.collect do |tag_name|
       tag = Tag.find_or_create_by_name(tag_name)
@@ -109,4 +114,35 @@ class CandidatesController < ApplicationController
   def get_team
     @team = current_user.team
   end
+  
+ 
+  def phrase_contents
+   # @image_url = params[:url] + params[:type]
+    @page = Nokogiri::HTML(open(params[:url]))
+    @page = @page.to_s
+   if(params[:type] == "linkedin")
+      
+        @image_url = @page.match(/(http:\/\/m\.c\.lnkd\.licdn\.com\/mpr\/pub\/)(.+)(\.jpg)/)
+       #@image_url = @page.match(/http/)
+       @image_url = @image_url[0]
+    end
+    
+    if(params[:type] == "facebook")
+      
+        #@image_url = @page.match(/(https:\/\/fbcdn-profile-a\.akamaihd\.net\/hprofile-ak-)((?!\.jpg).+)(\.jpg)/)
+        @image_url = @page.match(/(https:\/\/fbcdn-profile-a\.akamaihd\.net\/hprofile-ak-)(.*?)(\.jpg)/)
+       
+       #@image_url = @page.match(/http/)
+       @image_url = @image_url[0]
+      # @image_url =  @image_url.slice(0, @image_url.index(".jpg"))
+       #@image_url = @image_url + ".jpg"
+    end
+   #page = Nokogiri::HTML(open('http://in.linkedin.com/in/anisharavind'))
+   #render :inline => html_escape(page.to_s)
+   #render :inline => @image_url
+   respond_with(@image_url, :layout => false)
+ 
+    
+  end
+  
 end

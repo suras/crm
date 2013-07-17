@@ -10,6 +10,49 @@ $(function() {
      
   });
 });
+function get_profile_url(s_url, s_type)
+{
+	//var data = 'url='+ s_url  & 'type='+ s_type; 
+	 
+	 	$.ajax({
+    url: '/candidates/phrase_contents',
+    type: 'GET',
+    cache:false,
+    data:{ url: s_url, type: s_type },
+    success: function(res) {
+        //var headline = $(res.responseText).find('a.tsh').text();
+        $("#candidate_social_image_url").val(res);
+    }
+});
+}
+$(document).ready(function(){
+	$("#candidate_linked_in").blur(function(){
+    var profile_pic = $("#candidate_profile_pic").val();
+ 
+    if (profile_pic == "" || profile_pic == " ")
+      {
+    	var url = $("#candidate_linked_in").val();
+    	get_profile_url(url, "linkedin");
+   
+      }
+   });
+	//facebook
+	$("#candidate_facebook").blur(function(){
+    var profile_pic = $("#candidate_profile_pic").val();
+    //var linked_in = $("#candidate_linked_in").val();
+    var social_image = $("#candidate_social_image_url").val();
+    if ((profile_pic == "" || profile_pic == " ") && (social_image == " " || social_image == ""))
+      {
+    	var url = $("#candidate_facebook").val();
+    	get_profile_url(url, "facebook");
+   
+      }
+   });
+	
+	
+	
+	//facebook end
+});
 </script>
 <br />
 <div class="candidate-border">
@@ -36,6 +79,8 @@ $(function() {
   <td><%= text_field_tag :tags %></td></tr>
   <tr><td><%= f.label :"profile picture"%></td>
   <td><%= f.file_field :profile_pic%></td></tr>
+  <td><%= f.hidden_field :social_image_url %></td></tr>
+  
   <tr><td><%= f.label :phone %></td>
  <td> <%= f.text_field :contact_number %></td></tr>
    <tr><td><%= f.label :email %></td>

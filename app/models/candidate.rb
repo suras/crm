@@ -1,7 +1,9 @@
+require "open-uri"
 class Candidate < ActiveRecord::Base
   attr_accessible :company, :experience, :first_name, :last_name, :profile_pic, :resume, :first_name,
                   :last_name, :email, :address, :city, :state, :zip, :contact_number, :team_id, :user_id,
-                  :added_from, :linked_in, :twitter, :facebook, :position,:name, :unique_id
+                  :added_from, :linked_in, :twitter, :facebook, :position,:name, :unique_id, :social_image_url
+  attr_accessor :social_image_url                
 
  has_attached_file :profile_pic, :styles => { :small => "150x150>" },
                   :url  => "/assets/candidates/:id/avatar/:style/:basename.:extension",
@@ -25,7 +27,7 @@ validates_attachment_content_type :resume, :content_type => ["application/pdf", 
  has_many :notes
 
 
- before_create :generate_unique_id
+ before_create :generate_unique_id, :generate_profile_picture
  belongs_to :user
  belongs_to :team
  has_one :call_list, :through=> :shortlist
@@ -37,6 +39,13 @@ validates_attachment_content_type :resume, :content_type => ["application/pdf", 
    
  end
  
+ def generate_profile_picture
+   if self.social_image_url.present?
+   self.profile_pic = URI.parse(self.social_image_url.strip)
+   end
+ end
+   
+   
  def generate_random(mail_str)
    "candidate_" + mail_str.slice(0, mail_str.index('@')) + rand(1111..9999).to_s
    
