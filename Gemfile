@@ -37,6 +37,8 @@ gem 'email_validator'
 
 gem 'mailman', require: false
 
+gem 'stripe'
+
 # To use ActiveModel has_secure_password
 # gem 'bcrypt-ruby', '~> 3.0.0'
 
