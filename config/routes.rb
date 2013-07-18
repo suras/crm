@@ -7,7 +7,7 @@ HootQuest::Application.routes.draw do
   root :to => "home#index"
 
   devise_for :users
-  
+  mount StripeEvent::Engine => '/stripe'
   match "/search(/:query)" =>"candidates#search", :as => "search"
   match "/stop_here/:call_list_id"=>"call_lists#stop_here"
 

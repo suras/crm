@@ -13,7 +13,8 @@ class User < ActiveRecord::Base
     "#{first_name.to_s} #{last_name.to_s}" 
   end
   before_create :save_with_payment
-  after_create :create_team              
+  after_create :create_team  
+  before_destroy :cancel_subscription            
   # attr_accessible :title, :body
   belongs_to :team
   has_many :call_lists, :dependent => :destroy
@@ -35,7 +36,7 @@ class User < ActiveRecord::Base
     else
     if valid?
       customer = Stripe::Customer.create(description:email, 
-        plan: plan_id, card: stripe_card_token)
+        plan: plan_id, email: email, card: stripe_card_token)
       self.stripe_customer_token = customer.id
       
     end
@@ -43,5 +44,23 @@ class User < ActiveRecord::Base
     rescue Stripe::InvalidRequestError => e
       logger.error "Stripe error while creating customer: #{e.message}"
       errors.add :base, "There was a problem with your credit card."
+      false
+  end
+  
+  def cancel_subscription
+     unless stripe_customer_token.nil? 
+      customer = Stripe::Customer.retrieve(stripe_customer_token)
+      unless customer.nil? or customer.respond_to?('deleted')
+        #if customer.subscription.status == 'active'
+          customer.cancel_subscription
+        #end
+      end
+    end
+  rescue Stripe::StripeError => e
+    logger.error "Stripe Error: " + e.message
+    errors.add :base, "Unable to cancel your subscription. #{e.message}."
+    false
+    
+    
   end
 end

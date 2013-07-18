@@ -39,6 +39,8 @@ gem 'mailman', require: false
 
 gem 'stripe'
 
+gem 'stripe_event'
+
 # To use ActiveModel has_secure_password
 # gem 'bcrypt-ruby', '~> 3.0.0'
 
