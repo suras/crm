@@ -7,8 +7,13 @@
         <div class="span8 register-heading">
           <h4>Edit Your Card Details</h4>
         </div>
+        </div>
          <%= hidden_field :user, :stripe_card_token %>
+         <div class="row">
+        <div class="span8 fields-register-left">
          <%= render 'gateway/payment_details'%>
+         </div>
+         </div>
          <div class="row btn-submit">
         <div class="span2 offset2">
           <%= f.submit "Update Card", :class => "btn btn-success", :id => "submit_button" %>
@@ -16,16 +21,23 @@
         </div>
          </div>
          <% end %>
-         
+          <div class="row">
          <div class="span8 register-heading">
           <h4>Change Subscription Plan</h4>
         </div>
+        </div>
         <%= form_for(@user, :url => update_plan_path(), :html => { :method => :put }) do |f| %>
-       
+          <div class="span8 fields-register-left">
+            <div class="row">
+            <div class="span8">
+              <h5>How many users would you like on the account?</h5>
+            </div>
+          </div>
             <div class="row">
             <div class="span8">
               <%=select("user", "plan_id", Plan.all.collect {|p| [ p.id, p.id ] })%>
             </div>
+          </div>
           </div>
          <div class="row btn-submit">
         <div class="span2 offset2">
