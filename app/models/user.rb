@@ -63,4 +63,34 @@ class User < ActiveRecord::Base
     
     
   end
+  
+  def plan_update(user_plan_id)
+    unless stripe_customer_token.nil?
+      customer = Stripe::Customer.retrieve(stripe_customer_token)
+      customer.update_subscription(:plan => user_plan_id)
+    end
+    true
+  rescue Stripe::StripeError => e
+    logger.error "Stripe Error: " + e.message
+    errors.add :base, "Unable to update your subscription. #{e.message}."
+    false
+  end
+  
+  def card_update(card_token)
+    unless stripe_customer_token.nil?
+      customer = Stripe::Customer.retrieve(stripe_customer_token) 
+      customer.card = card_token
+      customer.email = email
+      customer.description = email
+      customer.save
+    end
+  rescue Stripe::StripeError => e
+    logger.error "Stripe Error: " + e.message
+    errors.add :base, "#{e.message}."
+    self.stripe_token = nil
+    false
+  end
+  
+  
+  
 end

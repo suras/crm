@@ -32,5 +32,38 @@ class UsersController < ApplicationController
   	render :json => {"status"=>status,"visible"=>@more_visibility}
   end
 
+
+  def edit_subscription
+    
+    @user = current_user if current_user.user_type == "owner"
+    
+  end
+  
+  def update_plan
+    return unless current_user.user_type == "owner"
+    @user = current_user
+    if(@user.plan_update(params[:user][:plan_id]))
+    redirect_to edit_subscription_path, :notice => "Plan Updated Successfully"
+    else
+      flash.alert = "unable to update plan"
+      render :action => "edit_subscription"
+    
+    end
+    
+  end
+  
+  def update_card
+    return unless current_user.user_type == "owner"
+    @user = current_user
+    if(@user.card_update(params[:user][:stripe_card_token]))
+    redirect_to edit_subscription_path, :notice => "Card Updated Successfully"
+    else
+      flash.alert = "unable to update card"
+      render :action => "edit_subscription"
+    
+    end
+    
+    
+  end
   
 end

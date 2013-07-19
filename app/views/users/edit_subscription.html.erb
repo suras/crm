@@ -1,0 +1,41 @@
+<%= javascript_include_tag "stripe/update_card.js.coffee" %>
+<div class="container edit-user-form">
+<div class="row">	
+<div class="span8 register-box">
+ <div class="row">
+ 	<%= form_for(@user, :url => update_card_path(), :html => { :method => :put, :id => "user_update_card" }) do |f| %>
+        <div class="span8 register-heading">
+          <h4>Edit Your Card Details</h4>
+        </div>
+         <%= hidden_field :user, :stripe_card_token %>
+         <%= render 'gateway/payment_details'%>
+         <div class="row btn-submit">
+        <div class="span2 offset2">
+          <%= f.submit "Update Card", :class => "btn btn-success", :id => "submit_button" %>
+         
+        </div>
+         </div>
+         <% end %>
+         
+         <div class="span8 register-heading">
+          <h4>Change Subscription Plan</h4>
+        </div>
+        <%= form_for(@user, :url => update_plan_path(), :html => { :method => :put }) do |f| %>
+       
+            <div class="row">
+            <div class="span8">
+              <%=select("user", "plan_id", Plan.all.collect {|p| [ p.id, p.id ] })%>
+            </div>
+          </div>
+         <div class="row btn-submit">
+        <div class="span2 offset2">
+          <%= f.submit "Change Subscription", :class => "btn btn-success", :id => "submit_button" %>
+        
+        </div>
+         </div>
+           <% end %>
+        
+</div>
+</div>
+</div>
+</div>

@@ -40,8 +40,9 @@ HootQuest::Application.routes.draw do
   match "/pricing" => "static_pages#billing_info" 
   match "/users/accountSettings" => "users#acc_settings"
   post "/users/addMoreUser" => "users#add_more_user", :as =>"add_more_user"
-  
-
+  get "/users/edit_subscription" => "users#edit_subscription", :as => "edit_subscription"
+  put "/users/update_card" => "users#update_card", :as => "update_card"
+  put "/users/update_plan" => "users#update_plan", :as => "update_plan"
   
  
   #get "users/edit/:id" => "users#edit_user" :as => "edit_user"

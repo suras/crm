@@ -4,6 +4,7 @@
     <%= stylesheet_link_tag    "application", :media => "all" %>
     <%= javascript_include_tag "application" %>
     <%= javascript_include_tag "jquery.validate" %>
+    <%= tag :meta, :name => "stripe-key", :content => STRIPE_PUBLIC_KEY %>
     <%= csrf_meta_tags %>
   </head>
   <body class="<%= controller_name %> <%= action_name %>">
