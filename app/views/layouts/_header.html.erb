@@ -1,21 +1,27 @@
-    <div class="header">
-      <div class="container">
-        <div class="row">
-          <div class="span12">
-            <div class="navLeft">
-              <ul>
-                <li><a href="/search"><img src="/assets/search_tab.jpg">Search</a></li>
-                <li><%=link_to image_tag("/assets/add.jpg")+" Add", new_candidate_path %></li>
-                <li><a href="/call_list"><img src="/assets/call_list.jpg">Call List</a></li>
-              </ul>
-            </div>
-            <div class="navRight">
-              <ul>
-                <li><%= link_to 'Logout', destroy_user_session_path, :method=>'delete' %></li>
-                <li><%= link_to 'Edit account', edit_user_registration_path %></li>
-              </ul>
-            </div>
-          </div>
+<div class="header">
+  <div class="container">
+    <div class="row">
+      <div class="span3">
+        <div class="logoFont">HOOTRECRUIT</div>
+      </div>
+      <div class="span6">
+        <div>
+          <ul class="nav-list">
+            <li>
+              <a href="search.html"><span><img src="/assets/icon-search.png"></span><span>Search</span></a>
+            </li>
+            <li>
+              <a href="add.html"><span><img src="/assets/icon-add.png"></span><span>Add</span></a>
+            </li>
+            <li>
+              <a href="call_list.html"><span><img src="/assets/icon-call-list.png"></span><span>Call List</span></a>
+            </li>
+          </ul>
         </div>
       </div>
+      <div class="span3">
+        <div class="pull-right"><a href="accounts.html">My Account</a> | <a href="">Logout</a></div>
+      </div>
     </div>
+  </div>
+</div>

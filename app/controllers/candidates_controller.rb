@@ -39,18 +39,16 @@ class CandidatesController < ApplicationController
 
   def search
     @result = []
-    @candidates = current_team.candidates.order("first_name")
+    @candidates = current_team.candidates.includes(:notes,:tags).order("first_name")
     if params[:query] && !(params[:query].blank?)
       tag_ids = params[:query].split(",").map{ |t| t.to_i }.uniq
       @tags = Tag.includes(:candidates).where(:id=> tag_ids)
       @candidates.each do |candidate|
-        puts (candidate.tags & @tags).count.to_s + "------" + @tags.count.to_s
         @result << candidate if(candidate.tags & @tags).count == tag_ids.count
       end
     else
       @result = @candidates
     end
-    puts @result.inspect
     respond_to do |format|
       format.html
       format.json { render :json => @result.to_json }
@@ -78,18 +76,17 @@ class CandidatesController < ApplicationController
     @main_list = Hash.new
     dates = []
     if params[:call_list_id]
-      @call_list = current_user.call_lists.find(params[:call_list_id])
+      @call_list = current_user.call_lists.includes(:candidates,:shortlists).find(params[:call_list_id])
       @left_dates = @call_list.candidates.pluck(:left_on).uniq.reject{ |x| x.nil?}.push(nil)
-
       @candidates = @call_list.candidates if @call_list
       @left_dates.each do |date|
         candidates_list = {}
-        candidates_list[:approved_candidates] = @candidates.status('approved',date)
-        candidates_list[:newly_added_candidates] = @candidates.status('newly_added',date)
+        candidates_list[:approved_candidates] = @candidates.includes(:shortlists).status('approved',date)
+        candidates_list[:newly_added_candidates] = @candidates.includes(:shortlists).status('newly_added',date)
         candidates_list[:date]=date
         dates.push(candidates_list);
       end
-      @main_list[:rejected_candidates] = @candidates.status('rejected',"")
+      @main_list[:rejected_candidates] = @candidates.includes(:shortlists).status('rejected',"")
       @main_list[:dates] = dates
     end
     respond_to do |f|

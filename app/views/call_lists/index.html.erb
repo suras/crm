@@ -3,408 +3,345 @@ window.call_lists = <%= get_call_list%>;
 </script>
 <%= stylesheet_link_tag "call_list/application"%>
 <%= javascript_include_tag "call_list/application"%>
-<div ng-app="app">
-  <div class="container" ng-controller="call_list_controller">
+<div ng-app="app" class="body-content">
+  <div  ng-controller="call_list_controller" class="container">
     <div class="alert hide" >{{message}}</div>
-
     <div class="row">
-      <p class="call_list_actions">
-      <span class="bold span6">Call Lists</span>
-      <span class="span3 offset1">
-      <a ng-click="stop_process()" class="pull-right"> Stop Here and save my place </a>
-      </span>
-      <span class="span2">
-      <a ng-click="delete_call_list()" class=""> Delete Call List </a>
-      </span>
-      </p>
+      <div class="span6">
+        <div class="title">Call Lists</div>
+      </div>
+      <div class="stop-delete pull-right">
+        <span>
+        <a ng-click="stop_process()" href=""><img src="/assets/icon-stop.png">Stop here and Save my place</a>
+        </span>
+        <span>
+        <a ng-click="delete_call_list()" href=""><img src="/assets/icon-delete.png">Delete Call List</a>
+        </span>
+      </div>
     </div>
-    <div class="call-list-container">
-      <div class="row ">
-        <div class="span4">
-          <div class="call_list">
+    <div class="row">
+      <div class="span12 outlined">
+        <div class="row">
+          <div class="span3 call-lists height685 borderRight1">
             <ul>
-              <li ng-repeat="call_list in call_lists">
-                <div ng-click="show_candidates($index)"><h4>{{ call_list.name}}</h4></div>
-              </li>
+              <li ng-repeat="call_list in call_lists" ng-click="show_candidates($index)">{{ call_list.name}}</li>
             </ul>
           </div>
-        </div>
-        <div class="span8">
+          <!-- Only Call List -->
           <div class="whole_candidate_msg">
-            <p class="center">View your call lists.</p>
-            <p class="center">Click on the call list on the left to view your list.</p>
-          </div>
-          <div class="whole_candidate_list hide row">
-            <div class="span4">
-              <div class="candidates_list">
-                <ul class="date">
-                  <li ng-repeat="date in dates">
-                    <ul class="candidates_listing">
-                      <li class="approved" ng-repeat="candidate in date.approved_candidates">
-                        <div class="row" ng-click="view_candidate($parent.$index,$index,'approved')">
-                          <div class="span1"><img class="profile-pic50" src="{{candidate.profile_pic_url}}"></div>
-                          <div class="span2">
-                            {{ candidate.name}}
-                          </div>
-                          <div class="span1 actions">
-                            <a ng-click="approval($parent.$index,$index,'rejected','approved')"><i class="icon-thumbs-down"></i></a>
-                          </div>
-                        </div>
-                      </li>
-                      <li class="newly_added" ng-repeat="candidate in date.newly_added_candidates">
-                        <div class="row" ng-click="view_candidate($parent.$index,$index,'newly_added')">
-                          <div class="span1"><img class="profile-pic50" src="{{candidate.profile_pic_url}}"></div>
-                          <div class="span2">
-                            <p>{{ candidate.name}}</p>
-                            <p>{{candidate.position}}</p>
-                          </div>
-                          <div class="span1 actions">
-                            <a ng-click="approval($parent.$index,$index,'approved','newly_added')"><i class="icon-thumbs-up"></i></a>
-                            <a ng-click="approval($parent.$index,$index,'rejected','newly_added')"><i class="icon-thumbs-down"></i></a>
-                          </div>
-                        </div>
-                      </li>
-                    </ul>
-                    <p class="left_off {{(date.date != null)}}" > Left off here on {{ date.date}}</p>
-                  </li>
-                </ul>
-                <ul class="candidates_listing">
-                  <li class="rejected" ng-repeat="candidate in rejected_candidates">
-                    <div class="row" ng-click="view_candidate('',$index,'rejected')">
-                      <div class="span1"><img class="profile-pic50" src="{{candidate.profile_pic_url}}"></div>
-                      <div class="span2">
-                        {{ candidate.name}}
-                      </div>
-                      <div class="span1 actions">
-                        <a ng-click="approval('',$index,'approved','rejected')"><i class="icon-thumbs-up"></i></a>
-                      </div>
-                    </div>
-                  </li>
-                </ul>
+            <div class="span9">
+              <div class="view-candidate-quick">
+                <span>View your call lists.</span>
+                <span>Click on the call list on the left to view your list.</span>
               </div>
             </div>
-            <div class="span4">
-              <div class="row initial_content">
-                <h3 class="span4">Quickly View candidates</h3>
-                <p class="span4"> select a candidate to view their full details</p>
+          </div>
+          <!-- Only Call & Candidate List -->
+          <div class="whole_candidate_list hide">
+            <div class="span5 candidate-list height685 borderRight1">
+              <div ng-repeat="date in dates">
+                <ul>
+                  <li class="green" ng-repeat="candidate in date.approved_candidates">
+                    <div class="row" ng-click="view_candidate($parent.$index,$index,'approved')">
+                      <div class="span1">
+                        <img class="profile-pic50" src="{{candidate.profile_pic_url}}">
+                      </div>
+                      <div class="span2">
+                        <span class="calibri17"><a href="">{{ candidate.name}}</a></span>
+                        <span class="calibri15">{{candidate.position}}</span>
+                      </div>
+                      <div class="span2 likebox">
+                        <img ng-click="approval($parent.$index,$index,'rejected','approved')" src="/assets/unlike.png" />
+                        <input class="pull-right" type="checkbox">
+                      </div>
+                    </div>
+                  </li>
+                  
+                  <li class="" ng-repeat="candidate in date.newly_added_candidates">
+                    <div class="row" ng-click="view_candidate($parent.$index,$index,'newly_added')">
+                      <div class="span1">
+                        <img class="profile-pic50" src="{{candidate.profile_pic_url}}">
+                      </div>
+                      <div class="span2">
+                        <span class="calibri17"><a href="">{{ candidate.name}}</a></span>
+                        <span class="calibri15">{{candidate.position}}</span>
+                      </div>
+                      <div class="span2 likebox">
+                        <img ng-click="approval($parent.$index,$index,'rejected','newly_added')" src="/assets/unlike.png" />
+                        <img ng-click="approval($parent.$index,$index,'approved','newly_added')" src="/assets/like.png" />
+                        <input class="pull-right" type="checkbox">
+                      </div>
+                    </div>
+                  </li>
+                </ul>
+                <ul class="{{(date.date != null)}}" >
+                  <li class="yellow">
+                    left off here on 2/13/2013
+                  </li>
+                </ul>
               </div>
-              <div class="candidate_full_details hide">
-                <div class="headLink "><a href="#" ng-bind="edit" ng-click="make_editable(can)" id="make_editable">Edit</a></div>
-                <div class="QV-content-call-list">
-                  <div class="profile-box">
-                    <img class="profile-pic125" src="{{can.profile_pic_url}}">
-                  </div>
-                  <div class="row NameDiv">
-                    <div class="span4">
-                      <div class="name"><a href="#"><span class="make_edit">{{ can.first_name}} {{ can.last_name}}</span></a></div>
-                      <span class="title">{{ can.position}}</span>
+              <ul>
+                <li class="gray" ng-repeat="candidate in rejected_candidates">
+                  <div class="row" ng-click="view_candidate($parent.$index,$index,'rejected')">
+                    <div class="span1">
+                      <img class="profile-pic50" src="{{candidate.profile_pic_url}}">
+                    </div>
+                    <div class="span2">
+                      <span class="calibri17"><a href="">{{ candidate.name}}</a></span>
+                      <span class="calibri15">{{candidate.position}}</span>
+                    </div>
+                    <div class="span2 likebox">
+                      <a ng-click="approval($parent.$index,$index,'rejected','newly_added')" src="/assets/unlike.png" >un-delete</a>
                     </div>
                   </div>
-                  <div class="innerDiv row">
-                    <div class="span4">
-                      <span class="bold">Company:</span>
-                      <span class="make_edit">{{ can.company}}</span>
-                    </div>
-                  </div>
-                  <div class="innerDiv row">
-                    <div class="span4">
-                      <span class="bold">expereience:</span>
-                      <span class="make_edit">{{ can.experience}} years</span>
-                    </div>
-                  </div>
-                  <div class="innerDiv row">
-                    <div class="span4">
-                      <span class="bold">tags:</span>
-                      <span >{{ can.get_tags}}</span>
-                    </div>
-                  </div>
-                  <div class="innerDiv row">
-                    <div class="span4">
-                      <span class="bold">location:</span>
-                      <div><span class="make_edit">{{ can.city}}</span><span class="make_edit"> {{can.state}}</span></div>
-                    </div>
-                  </div>
-                  <div class="innerDiv row">
-                    <div class="span4">
-                      <span class="bold">cell phone:</span>
-                      <span class="make_edit">{{ can.contact_number}}</span>
-                    </div>
-                  </div>
-                  <div class="innerDiv row">
-                    <div class="span4">
-                      <span class="bold">email:</span>
-                      <span class="make_edit">{{ can.email}} | <a ng-click="send_mail(can.email)" href="">send email</a></span>
-                    </div>
-                  </div>
-                  <div class="innerDiv row">
-                    <div class="span4">
-                      <span><a target="_blank" href="{{can.resume}}">view resume</a></span>
-                    </div>
-                  </div>
-                  <div class="row">
-                    <div class="span4 headLink">Notes &nbsp;&nbsp;&nbsp;<a ng-click="add_note()" href="">Add Note</a></div>
-                  </div>
-                  <div class="row">
-                    <div class="span4">
-                      <div class='new-note-form hide'>
-                        <textarea ng-model='note.candidate_note' id="candidate_note" required></textarea>
-                        <p class="row note_buttons"><span class="span3"><a ng-click='create_note()'>Create</a></span><span class="span1"><a ng-click='close_note()'>Close</a></span></p>
-                      </div>
-                      <div class="innerDiv row " ng-repeat ="note in can.notes">
-                        <div class="span4">
-                          <p class="row"><span class="notes_date span1">{{note.date}}</span> <span class="span2 notes_creater">by {{note.candidate_note}}</span></p>
-                          <p class="notes_note">{{note.candidate_note}}</p>
-                        </div>
-                      </div>
-                    </div>
-                  </div>
+                </li>
+              </ul>
+            </div>
+            <div class="view-candidate-quick span4">
+                <span>Quickly view your candidates.</span>
+                <span>Select a candidate to view their full details.</span>
+            </div>
+            <div class="span4 quickView height685 position-relative hide">
+              <div class="profile-box">
+                <img src="{{can.profile_pic_url}}" class="profile-pic100">
+                <a href="/candidates/{{can.id}}/edit" class="displayBlock">Edit</a>
+              </div>
+              <div class="info">
+                <span class="name">{{ can.last_name}} {{ can.first_name}}</span>
+                <span>{{ can.position}}</span>
+                <span class="fieldTitle">Company:</span>
+                <span>{{ can.company}}</span>
+                <span class="fieldTitle">Experience:</span>
+                <span>{{ can.experience}} years</span>
+                <span class="fieldTitle">Keywords:</span>
+                <span>{{ can.get_tags}}</span>
+                <span class="fieldTitle">Location:</span>
+                <span>{{ can.city}}, {{can.state}}</span>
+                <span class="fieldTitle">Cell phone:</span>
+                <span>{{ can.contact_number}}</span>
+                <span class="fieldTitle">Email:</span>
+                <span>{{ can.email}} | <a ng-click="send_mail(can.email)" href="">send email</a> </span>
+                <span><a target="_blank" href="{{can.resume}}">View Resume</a></span>
+              </div>
+              <div class="notes">
+                <span class="fieldTitle"> Note :<a ng-click="add_note()">Add a Note</a></span>
+                <div class='new-note-form hide'>
+                  <textarea ng-model='note.candidate_note' id="candidate_note" required></textarea>
+                  <p class="row"><span class="span3"><a ng-click='create_note()'>Create</a></span>
+                  <span class="span1"><a ng-click='close_note()'>Close</a></span>
+                  </p>
                 </div>
-                <div class="row edit-content">
-                  <div class="span4">
-                    <div class="innerDiv row">
-                      <div class="span4">
-                        <span class="bold">First Name:</span>
-                        <span class="make_edit"><input ng-model="can.first_name"></span>
-                      </div>
-                    </div>
-                    <div class="innerDiv row">
-                      <div class="span4">
-                        <span class="bold">Last Name:</span>
-                        <span class="make_edit"><input ng-model="can.last_name"></span>
-                      </div>
-                    </div>
-                    <div class="innerDiv row">
-                      <div class="span4">
-                        <span class="bold">Company:</span>
-                        <span class="make_edit"><input ng-model="can.company"></span>
-                      </div>
-                    </div>
-                    <div class="innerDiv row">
-                      <div class="span4">
-                        <span class="bold">expereience:</span>
-                        <span class="make_edit"><input ng-model="can.experience"> years</span>
-                      </div>
-                    </div>
-                    <div class="innerDiv row">
-                      <div class="span4">
-                        <span class="bold">location:</span>
-                        <div><span><input ng-model="can.city"></span><span > <input ng-model="can.state"></span></div>
-                      </div>
-                    </div>
-                    <div class="innerDiv row">
-                      <div class="span4">
-                        <span class="bold">cell phone:</span>
-                        <span ><input ng-model="can.contact_number"></span>
-                      </div>
-                    </div>
-                    <div class="innerDiv row">
-                      <div class="span4">
-                        <span class="bold">email:</span>
-                        <span><input ng-model="can.email"></span>
-                      </div>
-                    </div>
-                  </div>
+                <div ng-repeat ="note in can.notes">
+                  <p class="row"><span class="notes_date span2">{{note.date}}</span> <span class="span2 pull_right">by {{note.creater_name}}</span></p>
+                  <span>{{note.candidate_note}}</span>
                 </div>
-              </div></div>
+              </div>
             </div>
           </div>
         </div>
       </div>
     </div>
+    <div class="row ">
+      <div class="span3 offset3 sendmail changeToHidden-show">
+        <a href="">Send Mail</a>
+      </div>
+    </div>
   </div>
-  <script type="text/javascript">
-  var app = angular.module("app",["ngResource"]);
-  app.filter('getIndexById', function() {
-    return function(input, id) {
-      var i=0, len=input.length;
-      for (; i<len; i++) {
-        if (+input[i].id == +id) {
-          return i;
+</div>
+<div class="footer-call">
+
+</div>
+<script type="text/javascript">
+var app = angular.module("app",["ngResource"]);
+app.filter('getIndexById', function() {
+  return function(input, id) {
+    var i=0, len=input.length;
+    for (; i<len; i++) {
+      if (+input[i].id == +id) {
+        return i;
+      }
+    }
+    return null;
+  }
+});
+app.controller('call_list_controller', ['$scope','$http','$filter',
+  function($scope, $http, $filter) {
+    $scope.call_lists=window.call_lists;
+    $scope.approved_candidates = [];
+    $scope.rejected_candidates = [];
+    $scope.newly_added_candidates = [];
+    $scope.edit="Edit";
+    $scope.message="aa";
+
+    $scope.$watch('message', function() {
+      console.log("watched")
+      if ($scope.message!="aa"){
+        $(".alert").fadeIn(500).delay(5000).fadeOut(2000,function(){
+          $scope.message="aa";
+          $scope.$digest();
+        });
+      }
+    });
+
+    $scope.show_candidates = function(index) {
+      $scope.current_call_list = $scope.call_lists[index];
+      $http.get("/get_candidates/"+$scope.current_call_list.id).
+      success(function(data, status) {
+        $scope.dates = data.dates;
+        $scope.rejected_candidates = data.rejected_candidates;
+        $(".whole_candidate_msg").hide();
+        $(".whole_candidate_list").show();
+        $(".quickView").hide();
+        $(".view-candidate-quick").show();
+      }).
+      error(function(data, status) {
+      });
+    };
+
+    $scope.view_candidate = function(parent_index,index,status){
+      $scope.current_date_index=parent_index;
+      if(status=='rejected')
+        eval("$scope.can = $scope."+status+"_candidates[index];");
+      else
+        eval("$scope.can = $scope.dates[parent_index]."+status+"_candidates[index];");
+      $(".quickView").show();
+      $(".view-candidate-quick").hide();
+    };
+
+    $scope.make_editable=function(candidate){
+      $scope.can = candidate;
+      if($scope.edit == "Edit"){
+        $(".edit-content").show();
+        $(".QV-content-call-list").hide();
+        $scope.edit = "Save";
+      }
+      else{
+        $scope.save();
+        $(".edit-content").hide();
+        $(".QV-content-call-list").show();
+        $scope.edit="Edit";
+      }
+    };
+
+    $scope.save = function() {
+      $http({method:"PUT",
+        url:"/candidates/"+$scope.can.id,
+        headers:{'X-CSRF-Token': $('meta[name=csrf-token]').attr('content')},
+        data: {candidate:$scope.can} }).
+      success(function(data, status) {
+      }).
+      error(function(data, status) {
+      });
+    };
+
+    $scope.delete_call_list = function(){
+      if($scope.current_call_list)
+      {
+        if(confirm("Are you sure to delete call list : "+$scope.current_call_list.name))
+        {
+          var id = $scope.current_call_list.id;
+          $http.delete("/call_lists/"+id,{headers:{'X-CSRF-Token': $('meta[name=csrf-token]').attr('content')}}).
+          success(function(data, status) {
+            index = $filter('getIndexById')($scope.call_lists,id);
+            $scope.call_lists.splice(index,1);
+          }).
+          error(function(data, status) {
+          });
         }
       }
-      return null;
-    }
-  });
+      else{
+        $scope.message = "CLick the call list first";
+      }
+    };
 
-  app.controller('call_list_controller', ['$scope','$http','$filter',
-    function($scope, $http, $filter) {
-      $scope.call_lists=window.call_lists;
-      $scope.approved_candidates = [];
-      $scope.rejected_candidates = [];
-      $scope.newly_added_candidates = [];
-      $scope.edit="Edit";
-      $scope.message="aa";
-      
-      $scope.$watch('message', function() {
-        console.log("watched")
-        if ($scope.message!="aa"){
-          $(".alert").fadeIn(500).delay(5000).fadeOut(2000,function(){
-            $scope.message="aa";
-            $scope.$digest();
-          });
-        }
+    $scope.approval = function(parent_index,index,status,source){
+      $scope.view_candidate(parent_index,index,source);
+      if(source=='rejected')
+        eval("$scope."+source+"_candidates.splice(index,1);");
+      else
+        eval("$scope.dates[parent_index]."+source+"_candidates.splice(index,1);");
+      $http.post("/approval/"+$scope.current_call_list.id+"/"+$scope.can.id,
+        {status:status},
+        {headers:{'X-CSRF-Token': $('meta[name=csrf-token]').attr('content')}}).
+      success(function(data, status) {
+        if(data.status=="rejected")
+          js_to_run = "$scope.rejected_candidates.push($scope.can);";
+        else if (source == 'rejected')
+          js_to_run = "$scope.dates[$scope.dates.length-1]."+data.status+"_candidates.push($scope.can);";
+        else
+          js_to_run = "$scope.dates[parent_index]."+data.status+"_candidates.push($scope.can);";
+        eval(js_to_run);
+      }).
+      error(function(data, status) {
       });
-     
-      $scope.show_candidates = function(index) {
+    };
 
-        $scope.current_call_list = $scope.call_lists[index];
-        $http.get("/get_candidates/"+$scope.current_call_list.id).
-        success(function(data, status) {
-          $scope.dates = data.dates;
-          $scope.rejected_candidates = data.rejected_candidates;
-          $(".whole_candidate_msg").hide();
-          $(".whole_candidate_list").show();
-          $(".initial_content").show();
-          $(".candidate_full_details").hide();
-        }).
-        error(function(data, status) {
-        });
-      };
-  
-      $scope.view_candidate = function(parent_index,index,status){
-        $scope.current_date_index=parent_index;
-        if(status=='rejected')
-          eval("$scope.can = $scope."+status+"_candidates[index];");
-        else
-          eval("$scope.can = $scope.dates[parent_index]."+status+"_candidates[index];");
-        $(".initial_content").hide();
-        $(".candidate_full_details").show();
-      };
-  
-      $scope.make_editable=function(candidate){
-        $scope.can = candidate;
-        if($scope.edit == "Edit"){
-          $(".edit-content").show();
-          $(".QV-content-call-list").hide();
-          $scope.edit = "Save";
+    $scope.stop_process = function(){
+      console.log($scope.current_call_list)
+      if($scope.current_date_index != undefined){
+        from = 'approved';
+        index = $filter('getIndexById')($scope.dates[$scope.current_date_index].approved_candidates,$scope.can.id);
+        if(index==null || undefined){
+          from='newly_added';
+          index = $filter('getIndexById')($scope.dates[$scope.current_date_index].newly_added_candidates,$scope.can.id);
         }
-        else{
-          $scope.save();
-          $(".edit-content").hide();
-          $(".QV-content-call-list").show();
-          $scope.edit="Edit";
-        }
-      };
-    
-      $scope.save = function() {
-        $http({method:"PUT",
-          url:"/candidates/"+$scope.can.id,
-          headers:{'X-CSRF-Token': $('meta[name=csrf-token]').attr('content')},
-          data: {candidate:$scope.can} }).
-        success(function(data, status) {
-        }).
-        error(function(data, status) {
-        });
-      };
-  
-      $scope.delete_call_list = function(){
-        if($scope.current_call_list)
+        ids = []
+        if(from == 'approved')
         {
-          if(confirm("Are you sure to delete call list : "+$scope.current_call_list.name))
-          {
-            var id = $scope.current_call_list.id;
-            $http.delete("/call_lists/"+id,{headers:{'X-CSRF-Token': $('meta[name=csrf-token]').attr('content')}}).
-            success(function(data, status) {
-              index = $filter('getIndexById')($scope.call_lists,id);
-              $scope.call_lists.splice(index,1);
-            }).
-            error(function(data, status) {
-            });
-          }
+          for(i=0;i<=index;i++)
+            ids.push($scope.dates[$scope.current_date_index].approved_candidates[i].id)
         }
-        else{
-          $scope.message = "CLick the call list first";
-        }
-      };
-   
-      $scope.approval = function(parent_index,index,status,source){
-        $scope.view_candidate(parent_index,index,source);
-        if(source=='rejected')
-          eval("$scope."+source+"_candidates.splice(index,1);");
         else
-          eval("$scope.dates[parent_index]."+source+"_candidates.splice(index,1);");
-        $http.post("/approval/"+$scope.current_call_list.id+"/"+$scope.can.id,
-          {status:status},
+        {
+          for(i=0;i<=$scope.dates[$scope.current_date_index].approved_candidates.length-1;i++)
+            ids.push($scope.dates[$scope.current_date_index].approved_candidates[i].id);
+          for(i=0;i<=index;i++)
+            ids.push($scope.dates[$scope.current_date_index].newly_added_candidates[i].id);
+        }
+        $http.post("/stop_here/"+$scope.current_call_list.id,
+          {candidate_ids: ids.join(",")},
           {headers:{'X-CSRF-Token': $('meta[name=csrf-token]').attr('content')}}).
         success(function(data, status) {
-          if(data.status=="rejected")
-            js_to_run = "$scope.rejected_candidates.push($scope.can);";
-          else if (source == 'rejected')
-            js_to_run = "$scope.dates[$scope.dates.length-1]."+data.status+"_candidates.push($scope.can);";
-          else
-            js_to_run = "$scope.dates[parent_index]."+data.status+"_candidates.push($scope.can);";
-          eval(js_to_run);
+          $scope.message="You stopped the selection"
+          window.location.href="/search";
         }).
         error(function(data, status) {
         });
-      };
-  
-      $scope.stop_process = function(){
-        console.log($scope.current_call_list)
-        if($scope.current_date_index != undefined){
-          from = 'approved';
-          index = $filter('getIndexById')($scope.dates[$scope.current_date_index].approved_candidates,$scope.can.id);
-          if(index==null || undefined){
-            from='newly_added';
-            index = $filter('getIndexById')($scope.dates[$scope.current_date_index].newly_added_candidates,$scope.can.id);
-          }
-          ids = []
-          if(from == 'approved')
-          {
-            for(i=0;i<=index;i++)
-              ids.push($scope.dates[$scope.current_date_index].approved_candidates[i].id)
-          }
-          else
-          {
-            for(i=0;i<=$scope.dates[$scope.current_date_index].approved_candidates.length-1;i++)
-              ids.push($scope.dates[$scope.current_date_index].approved_candidates[i].id);
-            for(i=0;i<=index;i++)
-              ids.push($scope.dates[$scope.current_date_index].newly_added_candidates[i].id);
-          }
-          $http.post("/stop_here/"+$scope.current_call_list.id,
-            {candidate_ids: ids.join(",")},
-            {headers:{'X-CSRF-Token': $('meta[name=csrf-token]').attr('content')}}).
-            success(function(data, status) {
-              $scope.message="You stopped the selection"
-              window.location.href="/search";
-          }).
-          error(function(data, status) {
-          });
-        }
-      };
- 
-      $scope.create_note = function(){
-        if($("#candidate_note").hasClass("ng-valid"))
-        {
-          $scope.note.candidate_id = $scope.can.id;
-          var data = $scope.note;
+      }
+    };
+
+    $scope.create_note = function(){
+      if($("#candidate_note").hasClass("ng-valid"))
+      {
+        $scope.note.candidate_id = $scope.can.id;
+        var data = $scope.note;
+        console.log(data);
+        $http({method:"POST",
+          url:"/notes",
+          data:{note:data},
+          headers:{'X-CSRF-Token': $('meta[name=csrf-token]').attr('content')}
+        }).
+        success(function(data, status) {
+          $(".new-note-form").hide();
+          $scope.can.notes.push(data);
+        }).
+        error(function(data, status) {
           console.log(data);
-          $http({method:"POST",
-            url:"/notes",
-            data:{note:data},
-            headers:{'X-CSRF-Token': $('meta[name=csrf-token]').attr('content')}
-          }).
-          success(function(data, status) {
-            $(".new-note-form").hide();
-            $scope.can.notes.push(data);
-          }).
-          error(function(data, status) {
-            console.log(data);
-          });
-        }
-        else{
-          $("#candidate_note").focus();
-        }
-      };
-  
-      $scope.add_note = function(){
-        $(".new-note-form").show();
-        $scope.note.candidate_note="";
-      };
-  
-      $scope.close_note = function(){
-        $(".new-note-form").hide();
-      };
-    }
-    ]);
+        });
+      }
+      else{
+        $("#candidate_note").focus();
+      }
+    };
+
+    $scope.add_note = function(){
+      $(".new-note-form").show();
+      $scope.note.candidate_note="";
+    };
+
+    $scope.close_note = function(){
+      $(".new-note-form").hide();
+    };
+  }
+  ]);
 </script>
