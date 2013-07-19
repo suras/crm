@@ -157,3 +157,14 @@
 .false{
   display: none;
 }
+.new-note-form{
+  background: #ddd;
+  border-radius: 10px;
+}
+.new-note-form textarea{
+  width: 270px;
+  margin-bottom: 0px;
+}
+.notes-repeat{
+  border-bottom: 1px dotted;
+}

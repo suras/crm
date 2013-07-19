@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20130717055454) do
+ActiveRecord::Schema.define(:version => 20130719151117) do
 
   create_table "call_lists", :force => true do |t|
     t.string   "name"
@@ -54,6 +54,7 @@ ActiveRecord::Schema.define(:version => 20130717055454) do
     t.datetime "created_at",               :null => false
     t.datetime "updated_at",               :null => false
     t.string   "unique_id"
+    t.string   "country"
   end
 
   create_table "candidates_tags", :force => true do |t|
@@ -155,20 +156,25 @@ ActiveRecord::Schema.define(:version => 20130717055454) do
     t.string   "last_name"
     t.string   "company"
     t.string   "user_type"
-    t.boolean  "status",                 :default => true
+    t.boolean  "status",                   :default => true
     t.integer  "team_id"
-    t.string   "email",                  :default => "",   :null => false
-    t.string   "encrypted_password",     :default => "",   :null => false
+    t.string   "email",                    :default => "",   :null => false
+    t.string   "encrypted_password",       :default => "",   :null => false
     t.string   "reset_password_token"
     t.datetime "reset_password_sent_at"
     t.datetime "remember_created_at"
-    t.integer  "sign_in_count",          :default => 0
+    t.integer  "sign_in_count",            :default => 0
     t.datetime "current_sign_in_at"
     t.datetime "last_sign_in_at"
     t.string   "current_sign_in_ip"
     t.string   "last_sign_in_ip"
-    t.datetime "created_at",                               :null => false
-    t.datetime "updated_at",                               :null => false
+    t.datetime "created_at",                                 :null => false
+    t.datetime "updated_at",                                 :null => false
+    t.string   "profile_pic_file_name"
+    t.string   "profile_pic_content_type"
+    t.integer  "profile_pic_file_size"
+    t.datetime "profile_pic_updated_at"
+    t.string   "own_email"
   end
 
   add_index "users", ["email"], :name => "index_users_on_email", :unique => true

@@ -24,7 +24,7 @@ window.call_lists = <%= get_call_list%>;
         <div class="row">
           <div class="span3 call-lists height685 borderRight1">
             <ul>
-              <li ng-repeat="call_list in call_lists" ng-click="show_candidates($index)">{{ call_list.name}}</li>
+              <li ng-repeat="call_list in call_lists" ng-class="{active: $index==selectedIndex}" ng-click="show_candidates($index)">{{ call_list.name}}</li>
             </ul>
           </div>
           <!-- Only Call List -->
@@ -127,13 +127,17 @@ window.call_lists = <%= get_call_list%>;
                 <span class="fieldTitle"> Note :<a ng-click="add_note()">Add a Note</a></span>
                 <div class='new-note-form hide'>
                   <textarea ng-model='note.candidate_note' id="candidate_note" required></textarea>
-                  <p class="row"><span class="span3"><a ng-click='create_note()'>Create</a></span>
-                  <span class="span1"><a ng-click='close_note()'>Close</a></span>
+                  <p><span class="pull-left"><a class="btn" ng-click='create_note()'>Create</a></span>
+                  <span class="pull-right"><a class="btn btn-danger" ng-click='close_note()'>Close</a></span>
                   </p>
+                  <p class="clearfix"></p>
                 </div>
-                <div ng-repeat ="note in can.notes">
-                  <p class="row"><span class="notes_date span2">{{note.date}}</span> <span class="span2 pull_right">by {{note.creater_name}}</span></p>
-                  <span>{{note.candidate_note}}</span>
+                <div class="notes-repeat" ng-repeat ="note in can.notes">
+                  <p><span class="pull-left">{{note.date}}</span>
+                  <span class="pull-right">by {{note.creater_name}}</span>
+                  </p>
+                  <p class="clearfix"></p>
+                  <p>{{note.candidate_note}}</p>
                 </div>
               </div>
             </div>
@@ -184,7 +188,9 @@ app.controller('call_list_controller', ['$scope','$http','$filter',
     });
 
     $scope.show_candidates = function(index) {
+      $scope.selectedIndex = index;
       $scope.current_call_list = $scope.call_lists[index];
+
       $http.get("/get_candidates/"+$scope.current_call_list.id).
       success(function(data, status) {
         $scope.dates = data.dates;
@@ -322,7 +328,7 @@ app.controller('call_list_controller', ['$scope','$http','$filter',
           headers:{'X-CSRF-Token': $('meta[name=csrf-token]').attr('content')}
         }).
         success(function(data, status) {
-          $(".new-note-form").hide();
+          $(".new-note-form").slideUp();
           $scope.can.notes.push(data);
         }).
         error(function(data, status) {
@@ -335,12 +341,12 @@ app.controller('call_list_controller', ['$scope','$http','$filter',
     };
 
     $scope.add_note = function(){
-      $(".new-note-form").show();
+      $(".new-note-form").slideDown();
       $scope.note.candidate_note="";
     };
 
     $scope.close_note = function(){
-      $(".new-note-form").hide();
+      $(".new-note-form").slideUp();
     };
   }
   ]);

@@ -1,150 +1,151 @@
 <script type="text/javascript">
 $(document).ready(function(){
-        $("#tags").addClass("hide");
-        $("#candidate_contact_number").attr("maxlength","13");
-        $(document).on("change","#candidate_profile_pic",function(){
-          // console.log("aaaa");
-          var file_type =this.files[0].type;
-          if (file_type.indexOf("image") !== -1)
-          {
-            if (this.files && this.files[0]) {
-                  var reader = new FileReader();
+  $("#tags").addClass("hide");
+  $("#candidate_contact_number").attr("maxlength","13");
+  $(document).on("change","#candidate_profile_pic",function(){
+// console.log("aaaa");
+var file_type =this.files[0].type;
+if (file_type.indexOf("image") !== -1)
+{
+  if (this.files && this.files[0]) {
+    var reader = new FileReader();
+    reader.onload = function (e) {
+      $('#preview').attr('src', e.target.result);
+    }
+    reader.readAsDataURL(this.files[0]);
+  }
+}
+else
+{
+// alert("select Image File only...");
+// var msg='<input type="file" name="thumb_file" id="thumb_file" accept="image/*" /><button class="btn" id="chooseFile">Choose file</button><button class="btn" id="">Add</button>';
+// $('#preview').attr('src', '/assets/noimage.jpg');
+// $('#filetag').html(msg);
+}
+});
 
-                  reader.onload = function (e) {
-                      $('#preview').attr('src', e.target.result);
-                  }
+  cancel_submit
+  $(document).on("click","#chooseProfile",function(){
+    $("#candidate_profile_pic").trigger("click");
+    return false;
+  });
+    $(document).on("click","#cancel_submit",function(){
+    return false;
+  });
+  $(document).on("click","#submit_form",function(){
+    $("form").submit();
+  });
 
-                  reader.readAsDataURL(this.files[0]);
-              }
-          }
-          else
-          {
-        // alert("select Image File only...");
-        // var msg='<input type="file" name="thumb_file" id="thumb_file" accept="image/*" /><button class="btn" id="chooseFile">Choose file</button><button class="btn" id="">Add</button>';
-        // $('#preview').attr('src', '/assets/noimage.jpg');
-        // $('#filetag').html(msg);
-          }
-
-        });
-        $(document).on("click","#chooseProfile",function(){
-          $("#candidate_profile_pic").trigger("click");
-          return false;
-        });
-        $(document).on("click","#chooseResume",function(){
-          $("#candidate_resume").trigger("click");
-          return false;
-        });
-
-
+  $(document).on("click","#chooseResume",function(){
+    $("#candidate_resume").trigger("click");
+    return false;
+  });
   $("#new_candidate").validate({
-        rules:{
-          // uname:"required",
-          'candidate[first_name]':{
-            required:true
-          },
-          'candidate[last_name]':{
-            required:true
-          },
-          'candidate[company]':{
-            required:true
-          },
-          'candidate[position]':{
-            required:true
-          },
-          'candidate[email]':{
-              required:true,
-              email: true
-          },
-          'candidate[address]':{
-            required:true
-          },
-          'candidate[city]':{
-            required:true
-          },
-          'candidate[state]':{
-            required:true
-          },
-          'candidate[zip]':{
-            required:true
-          },
-          'candidate[linked_in]':{
-            custom_linkedin:true
-          },
-          'candidate[facebook]':{
-            custom_facebook:true
-          },
-          'candidate[twitter]':{
-            custom_twitter:true
-          },
-          
-          
-          tags:{
-              required:true
-          },
-          'candidate[contact_number]':{
-            required:true,
-            minlength: 10,
-            maxlength: 13,
-            number:true
-          },
-          'candidate[zip]':{
-            required:true,
-            custom_zip_number:true
-          }
-        },
-        messages:{
-          'candidate[email]':"Enter Valid Email",
-          'candidate[first_name]':"Enter the First Name",
-          'candidate[last_name]':"Enter the Last Name",
-          'candidate[company]':"Enter Your Company",
-          'candidate[position]':"Enter the Title",
-          'candidate[city]':"Enter the City",
-          'candidate[state]':"Enter Your State",
-          'candidate[zip]':"Enter the Zip",
-          'candidate[city]':"Enter the City",
-          'candidate[linked_in]':"Enter Valid Linkedin URL",
-          'candidate[facebook]':"Enter Valid Facebook URL",
-          'candidate[twitter]':"Enter Valid Twitter URL",
-          tags:"Enter the Tags",
-          'candidate[contact_number]':{
-            required:"Enter Valid Phone Number",
-            minlength:"Phone Number must be atleast 10 digits",
-            maxlength:"Phone Number must be lessthan 13 digits",
-            number:"Enter Valid Phone Number"
-          },
-          'candidate[zip]':"Enter Valid Zip Code"
-        },
-       errorPlacement: function (error, element) {
-           error.insertAfter(element);
-       }
-   });
+    rules:{
+// uname:"required",
+'candidate[first_name]':{
+  required:true
+},
+'candidate[last_name]':{
+  required:true
+},
+'candidate[company]':{
+  required:true
+},
+'candidate[position]':{
+  required:true
+},
+'candidate[email]':{
+  required:true,
+  email: true
+},
+'candidate[address]':{
+  required:true
+},
+'candidate[city]':{
+  required:true
+},
+'candidate[state]':{
+  required:true
+},
+'candidate[zip]':{
+  required:true
+},
+'candidate[linked_in]':{
+  custom_linkedin:true
+},
+'candidate[facebook]':{
+  custom_facebook:true
+},
+'candidate[twitter]':{
+  custom_twitter:true
+},
 
+
+tags:{
+  required:true
+},
+'candidate[contact_number]':{
+  required:true,
+  minlength: 10,
+  maxlength: 13,
+  number:true
+},
+'candidate[zip]':{
+  required:true,
+  custom_zip_number:true
+}
+},
+messages:{
+  'candidate[email]':"Enter Valid Email",
+  'candidate[first_name]':"Enter the First Name",
+  'candidate[last_name]':"Enter the Last Name",
+  'candidate[company]':"Enter Your Company",
+  'candidate[position]':"Enter the Title",
+  'candidate[city]':"Enter the City",
+  'candidate[state]':"Enter Your State",
+  'candidate[zip]':"Enter the Zip",
+  'candidate[city]':"Enter the City",
+  'candidate[linked_in]':"Enter Valid Linkedin URL",
+  'candidate[facebook]':"Enter Valid Facebook URL",
+  'candidate[twitter]':"Enter Valid Twitter URL",
+  tags:"Enter the Tags",
+  'candidate[contact_number]':{
+    required:"Enter Valid Phone Number",
+    minlength:"Phone Number must be atleast 10 digits",
+    maxlength:"Phone Number must be lessthan 13 digits",
+    number:"Enter Valid Phone Number"
+  },
+  'candidate[zip]':"Enter Valid Zip Code"
+},
+errorPlacement: function (error, element) {
+  error.insertAfter(element);
+}
+});
 // Custom validations
-  // Zip code
-    $.validator.addMethod("custom_zip_number", function(value, element) {
-        return this.optional(element) || value.match(/^[a-zA-Z0-9]+$/);
-    }, "error msg");
-  // Linked In
-    $.validator.addMethod("custom_linkedin", function(value, element) {
-        return this.optional(element) || value.match(/.linkedin./);
-    }, "error msg");
-  // Facebook
-    $.validator.addMethod("custom_facebook", function(value, element) {
-        return this.optional(element) || value.match(/.facebook./);
-    }, "error msg");
-  // Twitter
-    $.validator.addMethod("custom_twitter", function(value, element) {
-        return this.optional(element) || value.match(/.twitter./);
-    }, "error msg");
-
-
+// Zip code
+$.validator.addMethod("custom_zip_number", function(value, element) {
+  return this.optional(element) || value.match(/^[a-zA-Z0-9]+$/);
+}, "error msg");
+// Linked In
+$.validator.addMethod("custom_linkedin", function(value, element) {
+  return this.optional(element) || value.match(/.linkedin./);
+}, "error msg");
+// Facebook
+$.validator.addMethod("custom_facebook", function(value, element) {
+  return this.optional(element) || value.match(/.facebook./);
+}, "error msg");
+// Twitter
+$.validator.addMethod("custom_twitter", function(value, element) {
+  return this.optional(element) || value.match(/.twitter./);
+}, "error msg");
 // Submit button clicks
-   $(document).on("click","#submit_button",function(){
-       if($("#new_candidate").valid()){
-              document.new_user.submit();
-       }
- 
-    });
+$(document).on("click","#submit_button",function(){
+  if($("#new_candidate").valid()){
+    document.new_user.submit();
+  }
+
+});
 });
 $(function() {
   $("#tags").tokenInput("/candidates/get_candidate_tags.json", {
@@ -152,220 +153,250 @@ $(function() {
     prePopulate: $("#tags").data("pre"),
     theme: "facebook",
     allowFreeTagging: true
-     
+
   });
 });
 function get_profile_url(s_url, s_type)
 {
-  //var data = 'url='+ s_url  & 'type='+ s_type; 
-   
-    $.ajax({
-    url: '/candidates/phrase_contents',
-    type: 'GET',
-    cache:false,
-    data:{ url: s_url, type: s_type },
-    success: function(res) {
-        //var headline = $(res.responseText).find('a.tsh').text();
-        $("#candidate_social_image_url").val(res);
-    }
+//var data = 'url='+ s_url  & 'type='+ s_type;
+
+$.ajax({
+  url: '/candidates/phrase_contents',
+  type: 'GET',
+  cache:false,
+  data:{ url: s_url, type: s_type },
+  success: function(res) {
+//var headline = $(res.responseText).find('a.tsh').text();
+$("#candidate_social_image_url").val(res);
+$('#preview').attr('src', res);
+
+}
 });
 }
 $(document).ready(function(){
   $("#candidate_linked_in").blur(function(){
     var profile_pic = $("#candidate_profile_pic").val();
- 
+
     if (profile_pic == "" || profile_pic == " ")
-      {
+    {
       var url = $("#candidate_linked_in").val();
       get_profile_url(url, "linkedin");
-   
-      }
-   });
-  //facebook
-  $("#candidate_facebook").blur(function(){
-    var profile_pic = $("#candidate_profile_pic").val();
-    //var linked_in = $("#candidate_linked_in").val();
-    var social_image = $("#candidate_social_image_url").val();
-    if ((profile_pic == "" || profile_pic == " ") && (social_image == " " || social_image == ""))
-      {
-      var url = $("#candidate_facebook").val();
-      get_profile_url(url, "facebook");
-   
-      }
-   });
-      });
 
-    </script>
+    }
+  });
+//facebook
+$("#candidate_facebook").blur(function(){
+  var profile_pic = $("#candidate_profile_pic").val();
+//var linked_in = $("#candidate_linked_in").val();
+var social_image = $("#candidate_social_image_url").val();
+if ((profile_pic == "" || profile_pic == " ") && (social_image == " " || social_image == ""))
+{
+  var url = $("#candidate_facebook").val();
+  get_profile_url(url, "facebook");
 
-
-<%= form_for(@candidate) do |f| %>
-  <% if @candidate.errors.any? %>
-  <p>Please Correct The Following Errors</p>
+}
+});
+});
+</script>
+<div class="body-content">
+  <div class="container">
+    <%= form_for(@candidate) do |f| %>
+    <% if @candidate.errors.any? %>
+    <p>Please Correct The Following Errors</p>
     <% @candidate.errors.full_messages.each do |msg| %>
     <%= msg %><br />
-
     <% end %>
-  <% end %>
-<div class="container add-form-content">
-  <div class="row">
-    <div class="span8 add-form">
-      <div class="row">
-        <div class="span8 headLine">
-          Add a New Candidate
-        </div>
-      </div>
-      <div class="row">
-        <div class="span8 section">
-          <div class="row">
-            <div class="span4">
-              <div class="row">
-                <div class="span2"><%= f.label :first_name %></div>
-                <div class="span2"><%= f.text_field :first_name %></div>
-              </div>
-              <div class="row">
-                <div class="span2"><%= f.label :last_name %></div>
-                <div class="span2"><%= f.text_field :last_name %></div>
-              </div>
-              <div class="row">
-                <div class="span2"><%= f.label :title %></div>
-                <div class="span2"><%= f.text_field :position %></div>
-              </div>
-              <div class="row">
-                <div class="span2"><%= f.label :company %></div>
-                <div class="span2"><%= f.text_field :company %></div>
-              </div>
-            </div>
-            <div class="span4">
-              <div class="row">
-                <img id="preview" src="/assets/profile_pic.jpg" width="125" height="125" alt="Thumnail image" />
-              </div>
-              <div id="filetag">
-                <input class="hide" type="file" name="thumb_file" id="thumb_file" accept="image/*" />
-                <%= f.file_field :profile_pic, :class => "hide", :accept => "image/*" %>
-                <button class="btn" id="chooseProfile">Choose file</button>
-                <!-- <button class="btn" id="">Add</button> -->
-              </div>
-            </div>
+    <% end %>
+    <div class="row">
+      <div class="span8">
+        <div class="row">
+          <div class="span8">
+            <div class="title">Add a new candidate</div>
           </div>
         </div>
-      </div>
-      <div class="row">
-        <div class="span8 section">
-          <div class="row">
-            <div class="span2">Tags (Keywords)</div>
-            <div class="span6">
-              <!-- <div class="input-append"> -->
-                <%= text_field_tag :tags %>
-                <!-- <button class="btn" type="button">Add</button> -->
-              <!-- </div> -->
-            </div>
-          </div>
-        </div>
-      </div>
-      <div class="row">
-        <div class="span8 section">
-          <div class="row">
-            <div class="span2"><%= f.label :phone %></div>
-            <div class="span6"><%= f.text_field :contact_number %></div>
-          </div>
-          <div class="row">
-            <div class="span2"><%= f.label :email %></div>
-            <div class="span6"><%= f.text_field :email %></div>
-          </div>
-          <div class="row">
-            <div class="span2"><%= f.label :address %></div>
-            <div class="span6"><%= f.text_field :address %></div>
-          </div>
-          <div class="row">
-            <div class="span2"><%= f.label :city %></div>
-            <div class="span6"><%= f.text_field :city %></div>
-          </div>
-           <%= f.hidden_field :social_image_url %>
+        <div class="row">
+          <div class="span8">
+            <div class="outlined padding15 position-relative">
+              <div class="profile-box">
+                <div class="">
+                  <img src="/assets/profile_pic.png" id="preview" class="profile-pic125">
+                </div>
+                <div class="">
+                  <img class="btn-custom" id="chooseProfile"  src="/assets/btn-choose.jpg">
+                  <%= f.file_field :profile_pic, :class => "hide", :accept => "image/*" %>
+                </div>
+              </div>
 
-          <div class="row">
-            <div class="span2"><%= f.label :state %></div>
-            <div class="span6">
-              <!-- <select>
-                <option>Select</option>
-                <option>TN</option>
-                <option>KA</option>
-              </select> -->
-              <%= f.text_field :state %>
+              <div class="row">
+                <div class="span2">
+                  First Name
+                </div>
+                <div class="span4">
+                  <%= f.text_field :first_name %>
+                </div>
+              </div>
+              <div class="row">
+                <div class="span2">
+                  Last Name
+                </div>
+                <div class="span4">
+                  <%= f.text_field :last_name %>
+                </div>
+              </div>
+              <div class="row">
+                <div class="span2">
+                  Title
+                </div>
+                <div class="span4">
+                  <%= f.text_field :position %>
+                </div>
+              </div>
+              <div class="row">
+                <div class="span2">
+                  Company
+                </div>
+                <div class="span4">
+                  <%= f.text_field :company %>
+                </div>
+              </div>
+              <div class="row">
+                <div class="span2">
+                  Tags (Keywords)
+                </div>
+                <div class="span4">
+                  <%= text_field_tag :tags %>
+                </div>
+              </div>
+              <div class="row">
+                <div class="span2">
+                  Phone
+                </div>
+                <div class="span4">
+                  <%= f.text_field :contact_number %>
+                </div>
+              </div>
+              <div class="row">
+                <div class="span2">
+                  Adress
+                </div>
+                <div class="span4">
+                  <%= f.text_field :address %>
+                </div>
+              </div>
+              <div class="row">
+                <div class="span2">
+                  Email
+                </div>
+                <div class="span4">
+                  <%= f.text_field :email %>
+                </div>
+              </div>
+              <div class="row">
+                <div class="span2">
+                  Country
+                </div>
+                <div class="span4">
+                  <%= f.text_field :country %>
+                </div>
+              </div>
+              <div class="row">
+                <div class="span2">
+                  state
+                </div>
+                <div class="span4">
+                  <%= f.text_field :state %>
+                </div>
+              </div>
+            <%= f.hidden_field :social_image_url %>
+            <div class="row">
+              <div class="span2">
+                City
+              </div>
+              <div class="span4">
+                <%= f.text_field :city %>
+              </div>
+            </div>
+            <div class="row">
+              <div class="span2">
+                Zip
+              </div>
+              <div class="span4">
+                <%= f.text_field :zip %>
+              </div>
+            </div>
+            <div class="row">
+              <div class="span2">
+                LinkedIn
+              </div>
+              <div class="span4">
+                <%= f.text_field :linked_in %>
+              </div>
+            </div>
+            <div class="row">
+              <div class="span2">
+                Facebook
+              </div>
+              <div class="span4">
+                <%= f.text_field :facebook %>
+              </div>
+            </div>
+            <div class="row">
+              <div class="span2">
+                Twitter
+              </div>
+              <div class="span4">
+                <%= f.text_field :twitter %>
+              </div>
+            </div>
+            <div class="row">
+              <div class="span8">
+                Add a resume or any other documents such as references, etc.
+              </div>
+              <div class="span8">
+                <!--<img class="btn-custom" src="img/btn-choose.jpg">-->
+                <%=image_tag "btn-choose.jpg", :id=> "chooseResume" ,:class => "btn-custom" %>
+                <%= f.file_field :resume, :class => "hide"%>
+              </div>
             </div>
           </div>
-          <div class="row">
-            <div class="span2"><%= f.label :zip %></div>
-            <div class="span6"><%= f.text_field :zip %></div>
           </div>
-          
+        </div>
+      </div>
+      <div class="span4 leftSide">
+      <div class="row">
+        <div class="span4">
+          <div class="other-head head">Other ways to add candidates</div>
         </div>
       </div>
       <div class="row">
-        <div class="span8 section">
-          <div class="row">
-            <div class="span2"><%= f.label :linked_in %></div>
-            <div class="span6"><%= f.text_field :linked_in %></div>
-          </div>
-          <div class="row">
-            <div class="span2"><%= f.label :facebook %></div>
-            <div class="span6"><%= f.text_field :facebook %></div>
-          </div>
-          <div class="row">
-            <div class="span2"><%= f.label :twitter %></div>
-            <div class="span6"><%= f.text_field :twitter %></div>
-          </div>
+        <div class="span4 works">
+          <span>Would you like to add multiple candidates at once? </span>
+          <span>Choose from the following options.</span>
         </div>
       </div>
       <div class="row">
-        <div class="span8 section">
-          <div class="row">
-            <div class="span8">Add a resume or any other documents such as references, etc.</div>
-          </div>
-          <div class="row">
-            <div class="span1">
-            </div>
-            <div class="span2">
-              <input class="hide" type="file" name="" id="resume_file"/>
-              <%=f.file_field :resume, :class => "hide" %>
-              <button class="btn" id="chooseResume">Choose file</button>
-            </div>
-            <div class="span1">
-              <!-- <button class="btn" id="">Add</button> -->
-            </div>
-          </div>
-        </div>
-      </div>
-      <div class="row">
-        <div class="span8 section">
-          <div class="row">
-            <div class="span1">
-            </div>
-            <div class="span2">
-              <%= f.submit :Add, :class => "btn btn-success btn-large", :id => "submit_button", :value => "Save" %>
-            </div>
-            <div class="span1">
-              <a href="/search" class="btn btn-danger btn-large">Cancel</a>
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
-    <div class="span4">
-      <div class="row">
-        <div class="span4 otherways">
-          <span class="bold head">Other ways to add candidates</span>
-          <span>Would you like to add multiple candidates at once?</span>
-          <span> Choose from the following options.</span>
-          <ul class="add-candidate-list">
-            <li><%=link_to "Excel", new_upload_excel_path()%></li>
-            <li><%=link_to "Linkedin", new_upload_linkedin_path()%></li>
-            <li><%=link_to "Outlook", new_upload_outlook_path()%></li>
-            <li><%=link_to "Resume", new_upload_doc_path()%></li>
-          </ul>
-        </div>
-
+        <ul class="other-list">
+          <li><a href="import_excel.html"><span><%=image_tag "icon-excel.png" %></span><span>Excel</span></a></li>
+          <li><a href="import_outlook.html"><span><%=image_tag "icon-outlook.png" %></span><span>Outlook</span></a></li>
+          <li><a href="import_linkedin.html"><span><%=image_tag "icon-linkedin.png" %></span><span>LinkedIn</span></a></li>
+          <li><a href="import_resume.html"><span><%=image_tag "icon-resume.png" %></span><span>Resumes</span></a></li>
+        </ul>
       </div>
     </div>
   </div>
+  <div class="row bottom-links">
+        <div class="span2 offset1">
+          <img class="btn-custom" id="submit_form" src="/assets/btn-save.jpg">
+        </div>
+        <div class="span2">
+          <%= image_tag "btn-cancel.jpg",:id=>"cancel_submit", :class => "btn-custom"%>
+        </div>
+      </div>
+    </div>
+  <div class="row">
+    <div class="span8"></div>
+    <div class="span4"></div>
+  </div>
+  <% end %>
 </div>
-<% end %>
+</div>

@@ -4,9 +4,12 @@ class User < ActiveRecord::Base
   # :lockable, :timeoutable and :omniauthable
   devise :database_authenticatable, :registerable,
          :recoverable, :rememberable, :trackable, :validatable
-
+ has_attached_file :profile_pic, :styles => { :small => "150x150>" },
+                  :url  => "/assets/candidates/:id/avatar/:style/:basename.:extension",
+                  :path => ":rails_root/public/assets/candidates/:id/avatar/:style/:basename.:extension",
+                   :default_url => "/assets/profile_pic.png"
   # Setup accessible (or protected) attributes for your model
-  attr_accessible :email, :password, :password_confirmation, :remember_me, :first_name, :last_name, :company,
+  attr_accessible :email, :password, :password_confirmation, :remember_me, :first_name, :last_name, :company,:profile_pic,
                    :user_type, :status, :team_id, :plan_id, :register_type,:name
   attr_accessor :plan_id, :register_type, :name
   def name
