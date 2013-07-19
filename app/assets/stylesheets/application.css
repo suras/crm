@@ -10,6 +10,8 @@
  *
  *= require_self
  *= require bootstrap_and_overrides
+  *= require token-input-facebook
+
  */
 
 /* Font face */
@@ -202,5 +204,3 @@ a{
 .footer{
   /*height: 75px;*/
 }
-
-/* == End of Footer */

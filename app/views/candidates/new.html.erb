@@ -146,6 +146,55 @@ $(document).ready(function(){
  
     });
 });
+$(function() {
+  $("#tags").tokenInput("/candidates/get_candidate_tags.json", {
+    crossDomain: false,
+    prePopulate: $("#tags").data("pre"),
+    theme: "facebook",
+    allowFreeTagging: true
+     
+  });
+});
+function get_profile_url(s_url, s_type)
+{
+  //var data = 'url='+ s_url  & 'type='+ s_type; 
+   
+    $.ajax({
+    url: '/candidates/phrase_contents',
+    type: 'GET',
+    cache:false,
+    data:{ url: s_url, type: s_type },
+    success: function(res) {
+        //var headline = $(res.responseText).find('a.tsh').text();
+        $("#candidate_social_image_url").val(res);
+    }
+});
+}
+$(document).ready(function(){
+  $("#candidate_linked_in").blur(function(){
+    var profile_pic = $("#candidate_profile_pic").val();
+ 
+    if (profile_pic == "" || profile_pic == " ")
+      {
+      var url = $("#candidate_linked_in").val();
+      get_profile_url(url, "linkedin");
+   
+      }
+   });
+  //facebook
+  $("#candidate_facebook").blur(function(){
+    var profile_pic = $("#candidate_profile_pic").val();
+    //var linked_in = $("#candidate_linked_in").val();
+    var social_image = $("#candidate_social_image_url").val();
+    if ((profile_pic == "" || profile_pic == " ") && (social_image == " " || social_image == ""))
+      {
+      var url = $("#candidate_facebook").val();
+      get_profile_url(url, "facebook");
+   
+      }
+   });
+      });
+
     </script>
 
 
@@ -231,6 +280,8 @@ $(document).ready(function(){
             <div class="span2"><%= f.label :city %></div>
             <div class="span6"><%= f.text_field :city %></div>
           </div>
+           <%= f.hidden_field :social_image_url %>
+
           <div class="row">
             <div class="span2"><%= f.label :state %></div>
             <div class="span6">
@@ -316,6 +367,5 @@ $(document).ready(function(){
       </div>
     </div>
   </div>
-
 </div>
 <% end %>
