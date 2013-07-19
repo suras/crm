@@ -26,7 +26,7 @@ class User < ActiveRecord::Base
      @team = Team.create( :owner_id => self.id, :status => 'pending', :plan_id => self.plan_id, :stripe_customer_token => self.stripe_customer_token)
      self.team = @team
      self.user_type = 'owner'
-     self.team_id = @team.id
+     #self.team_id = @team.id
      self.save
    end
  end
@@ -68,7 +68,11 @@ class User < ActiveRecord::Base
     unless stripe_customer_token.nil?
       customer = Stripe::Customer.retrieve(stripe_customer_token)
       customer.update_subscription(:plan => user_plan_id)
+       team = self.team
+       team.plan_id = user_plan_id
+       team.save
     end
+   
     true
   rescue Stripe::StripeError => e
     logger.error "Stripe Error: " + e.message
