@@ -3,7 +3,7 @@ require 'open-uri'
 include ERB::Util
 class CandidatesController < ApplicationController
    respond_to :html, :xml, :json, :js
-  before_filter :authenticate_user!, :get_team
+  before_filter :authenticate_user!, :get_team, :check_subscription
   layout "candidate"
   def new
     
