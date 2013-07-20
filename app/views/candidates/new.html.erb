@@ -196,6 +196,20 @@ if ((profile_pic == "" || profile_pic == " ") && (social_image == " " || social_
 });
 });
 </script>
+
+<script>
+$(function() {
+  return $('select#candidate_country').change(function(event) {
+    var country_code, select_wrapper, url;
+    select_wrapper = $('#candidate_state_wrapper');
+    $('select', select_wrapper).attr('disabled', true);
+    country_code = $(this).val();
+    url = "/candidates/subregion_options?parent_region=" + country_code;
+    return select_wrapper.load(url);
+  });
+});
+
+</script>
 <div class="body-content">
   <div class="container">
     <%= form_for(@candidate) do |f| %>
@@ -294,7 +308,7 @@ if ((profile_pic == "" || profile_pic == " ") && (social_image == " " || social_
                   Country
                 </div>
                 <div class="span4">
-                  <%= f.text_field :country %>
+                   <%= f.country_select :country, priority: %w(US CA), prompt: 'Please select a country' %>
                 </div>
               </div>
               <div class="row">
@@ -302,7 +316,7 @@ if ((profile_pic == "" || profile_pic == " ") && (social_image == " " || social_
                   state
                 </div>
                 <div class="span4">
-                  <%= f.text_field :state %>
+                  <%= render partial: 'subregion_select', locals: {parent_region: f.object.country} %>
                 </div>
               </div>
             <%= f.hidden_field :social_image_url %>

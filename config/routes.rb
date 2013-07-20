@@ -8,6 +8,7 @@ HootQuest::Application.routes.draw do
   mount StripeEvent::Engine => '/stripe'
   match "/search(/:query)" =>"candidates#search", :as => "search"
   match "/stop_here/:call_list_id"=>"call_lists#stop_here"
+  get '/candidates/subregion_options' => 'candidates#subregion_options'
 
   get "/candidates/get_candidate_tags", :to => "candidates#get_candidate_tags"
   get "/candidates/phrase_contents", :to => "candidates#phrase_contents"
@@ -15,10 +16,6 @@ HootQuest::Application.routes.draw do
   match "/approval/:call_list_id/:candidate_id"=> "call_lists#approval"
   match "/shortlists/bulk_update"=>"shortlists#bulk_update"
   match "/get_candidates/:call_list_id" => "candidates#index"
-
-  get "/users/edit_subscription" => "users#edit_subscription", :as => "edit_subscription"
-  put "/users/update_card" => "users#update_card", :as => "update_card"
-  put "/users/update_plan" => "users#update_plan", :as => "update_plan"
 
   get "uploads/excel", :to => "uploads#new_upload_excel", :as => "new_upload_excel"
   
@@ -47,5 +44,4 @@ HootQuest::Application.routes.draw do
   end
   resources :candidates,:notes,:shortlists,:call_lists#,:users
   root :to => "home#index"
-
 end

@@ -5,7 +5,7 @@ class Excel < ActiveRecord::Base
                   :path => ":rails_root/public/jobs/excel/:basename.:extension" 
   validates_attachment_content_type :excel_sheet, :content_type => ["application/vnd.ms-excel",     
              "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet"]
-  
+  validates :excel_sheet, :attachment_presence => true
 
 
   def self.import(file, user_id)

@@ -7,7 +7,8 @@ class UploadsController < ApplicationController
   end
   
   def upload_excel
-    params[:excel][:user_id] = current_user.id
+    
+    params[:excel][:user_id] = current_user.id if params[:excel].present?
     @excel = Excel.new(params[:excel])
     if @excel.save
       redirect_to new_upload_excel_path, :notice => "Upload Successfully. It will take sometime to process
@@ -45,7 +46,7 @@ class UploadsController < ApplicationController
   end
   
   def upload_linkedin
-    params[:linkedin][:user_id] = current_user.id
+    params[:linkedin][:user_id] = current_user.id if params[:linkedin].present?
     @linkedin = Linkedin.new(params[:linkedin])
     if @linkedin.save
       redirect_to new_upload_linkedin_path, :notice => "Upload Successfully. It will take sometime to process
@@ -61,7 +62,7 @@ class UploadsController < ApplicationController
   end
   
   def upload_outlook
-    params[:outlook][:user_id] = current_user.id
+    params[:outlook][:user_id] = current_user.id if params[:outlook].present?
     @outlook = Outlook.new(params[:outlook])
     if @outlook.save
       redirect_to new_upload_outlook_path, :notice => "Upload Successfully. It will take sometime to process
@@ -81,7 +82,7 @@ class UploadsController < ApplicationController
   end
   
   def upload_doc
-    params[:doc][:user_id] = current_user.id
+    params[:doc][:user_id] = current_user.id if params[:doc].present?
     @resume = Doc.new(params[:doc])
     if @resume.save
       redirect_to new_upload_doc_path, :notice => "Upload Successfully. It will take sometime to process

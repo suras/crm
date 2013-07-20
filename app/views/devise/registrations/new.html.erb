@@ -1,4 +1,5 @@
 <%= javascript_include_tag "stripe/subscriptions" %>
+<%= stylesheet_link_tag "register"%>
 <script type="text/javascript">
 $(document).ready(function(){
 	
@@ -73,6 +74,7 @@ $(document).ready(function(){
     //});
 });
 </script>
+<<<<<<< HEAD
 <br /><br />
 <%= form_for(resource, :as => resource_name, :url => registration_path(resource_name)) do |f| %>
   <%= devise_error_messages! %>
@@ -221,7 +223,176 @@ $(document).ready(function(){
         </div>
       </div>
     </div>
+=======
+<div class="body-content register">
+		<div class="container">
+		<%= form_for(resource, :as => resource_name, :url => registration_path(resource_name)) do |f| %>
+		 <%= devise_error_messages! %>
+			<div class="row">
+				<div class="span8">
+					<div class="row">
+						<div class="span8">
+							<div class="title">Your just 60 seconds away from your new HootQuest account!</div>
+						</div>	
+					</div>
+					<div class="row">
+						<div class="span8">
+							<div class="row">
+								<div class="span8">
+									<div class="sub-title">The Basics</div>
+								</div>
+							</div>
+							<div class="row">
+								<div class="span2 fieldName">
+									First Name
+								</div>
+								<div class="span4">
+								
+									<%= f.text_field :first_name %><%= f.hidden_field :register_type, :value => "owner" %>
+								</div>
+							</div>
+							<div class="row">
+								<div class="span2 fieldName">
+									Last Name
+								</div>
+								<div class="span4">
+									 <%= f.text_field :last_name %>
+								</div>
+							</div>
+
+							<div class="row">
+								<div class="span2 fieldName">
+									Company
+								</div>
+								<div class="span4">
+									<%= f.text_field :company %>
+								</div>
+							</div>
+							<div class="row">
+								<div class="span8">
+									<div class="sub-title">Please choose your log in info</div>
+								</div>
+							</div>
+							<div class="row">
+								<div class="span8 spanBlock login-info">
+									<span>Email (You'll use this address to log into your HootQuest account.)</span>
+									<span><%= f.email_field :email, :autofocus => true %></span> 
+									<span>Password</span>			
+									<span><%= f.password_field :password %></span>						
+									<span>Enter your password again for verification.</span>	
+									<span><%= f.password_field :password_confirmation %></span>
+									<span class="sub-title"></span>
+								</div>
+							</div>
+							<div class="row">
+								<div class="span8">
+									<div class="sub-title">How many users would you like on the account?</div>
+									<select>
+										<option value="">-- Select --</option>
+										<option value="1">1</option>
+										<option value="2">2</option>
+										<option value="3">3</option>
+										<option value="4">4</option>
+										<option value="5">5</option>
+										<option value="6">6</option>
+										<option value="7">7</option>
+										<option value="8">8</option>
+										<option value="9">9</option>
+										<option value="10">10</option>
+									</select>
+								</div>
+							</div>
+							<div class="row">
+								<div class="span8">
+									<div class="sub-title">Payments</div>
+								</div>
+							</div>
+							<div class="row">
+								<div class="span2 fieldName">
+								<%= f.hidden_field :stripe_card_token %>
+									Card Number
+								</div>
+								<div class="span4">
+									<div id="stripe_error" class="error" style="padding-left:22px">
+    <noscript>JavaScript is not enabled and is required for this form. First enable it in your web browser settings.</noscript>
+>>>>>>> 6844ce04c4c6baaba33f6084ada2d0caf6f29a83
   </div>
-</div>
-	
-<% end %>
+									<%= text_field_tag :card_number, nil, name: nil %>
+								</div>
+							</div>
+							<div class="row">
+								<div class="span2 fieldName">
+									Expires on
+								</div>
+								<div class="span4">
+									<%= select_month nil, {add_month_numbers_true: true}, {name: nil, id: "card_month"}%>
+                                    <%= select_year nil, {start_year: Date.today.year, end_year: Date.today.year+15}, {name: nil, id: "card_year"}%>
+								</div>
+							</div>
+
+							<div class="row">
+								<div class="span2 fieldName">
+									Billing Zip
+								</div>
+								<div class="span4">
+									<%= text_field_tag :card_code, nil, name: nil %>
+								</div>
+							</div>
+							<div class="row">
+								<div class="span8">
+									<p>Your 30-day free trial lasts until time on month date, year. If you don't want to continue using HootQuest, just cancel before the trial ends and you won't be charged (we'll email you 5 days before the trial ends to remind you). Otherwise, you'll pay just $49/month for the service as long as your account is open. You can upgrade, downgrade, or cancel any time.</p>
+									<p>By clicking you agree to the Terms of Service, Privacy, and Refund policies.</p>
+								</div>
+							</div>
+
+						</div>
+					</div>
+					<div class="row bottom-links">
+						<div class="span2">
+							<!--<img class="btn-custom" src="img/btn-start-free.png">-->
+							<input type="image" src="/assets/btn-start-free.png"  class="btn-custom" style="max-width:100%;"/>
+						</div>
+					</div>
+				</div>
+				<div class="span4 rightSide">
+					<div class="row">
+						<div class="span4">
+							<div class="thanks-head">Thanks for choosing HootQuest!</div>
+						</div>	
+					</div>
+					<div class="row">
+						<div class="span4 fields spanBlock borderTopImage">
+							<div class="span1"><img src="/assets/icon-hand.png"></div>
+							<div class="span3">	
+								<span class="head">Excellent Customer Service</span>
+								<span>Fast, Helpful and Friendly help</span>
+							</div>
+						</div>
+					</div>
+					<div class="row">
+						<div class="span4 fields spanBlock borderTopImage">
+							<div class="span1"><img src="/assets/icon-secure.png"></div>
+							<div class="span3">	
+								<span class="head">Secure Data</span>
+								<span>Your data is backed up daily</span>
+							</div>
+						</div>
+					</div>
+					<div class="row">
+						<div class="span4 fields spanBlock borderTopImage">
+							<div class="span1"><img src="/assets/icon-free.png"></div>
+							<div class="span3">	
+								<span class="head">7 day free trial!</span>
+								<span>You won't be billed unless you keep your account open past your 7 day free trial.</span>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+			<div class="row">
+				<div class="span8"></div>
+				<div class="span4"></div>
+			</div>
+			<% end %>
+		</div>
+	</div>

@@ -1,0 +1,469 @@
+/* Font face */
+	@font-face
+	{
+	font-family: logoFont;
+	src: url('font/Alternate Gothic No2 BT.ttf'); 
+	}
+	@font-face
+	{
+	font-family: fgb;
+	src: url('font/Franklin Gothic Book.ttf'); 
+	}
+	@font-face
+	{
+	font-family: fgbi;
+	src: url('font/Franklin Gothic Book Italic.ttf'); 
+	}
+	@font-face
+	{
+	font-family: fgdc;
+	src: url('font/Franklin Gothic Demi Cond.ttf'); 
+	}
+	@font-face
+	{
+	font-family: fgdi;
+	src: url('font/Franklin Gothic Demi Italic.ttf'); 
+	}
+	@font-face
+	{
+	font-family: fgd;
+	src: url('font/Franklin Gothic Demi.ttf'); 
+	}
+	@font-face
+	{
+	font-family: fgh;
+	src: url('font/Franklin Gothic Heavy.ttf'); 
+	}
+	@font-face
+	{
+	font-family: fghi;
+	src: url('font/Franklin Gothic Heavy Italic.ttf'); 
+	}
+	@font-face
+	{
+	font-family: fgmc;
+	src: url('font/Franklin Gothic Medium Cond.ttf'); 
+	}
+
+	@font-face
+	{
+	font-family: fgmi;
+	src: url('font/Franklin Gothic Medium Italic.ttf'); 
+	}
+
+	@font-face
+	{
+	font-family: fgm;
+	src: url('font/Franklin Gothic Medium.ttf'); 
+	}
+
+/* == Common == */
+
+body{
+	font-family:fgb;
+	font-size: 14px;
+	color: #414141;	
+	background: #f8f8f8;
+}
+input{
+	height: 30px !important;
+}
+p{
+	margin-bottom: 20px;
+	margin-top: 15px;
+}
+.body-content a{
+	text-decoration: underline;
+}
+.btn-custom{
+	margin-top: 10px;
+}
+
+.boldMe{
+	font-weight: bold;
+	font-size: 18px;
+}
+.calibri15{
+	font-size: 15px;
+	font-family: "Calibri";
+}
+.calibri17{
+	font-size: 17px;
+	font-family: "Calibri";
+}
+.profile-pic50,.profile-pic65,.profile-pic75,.profile-pic100,.profile-pic125{
+	border: 1px #CCC solid;
+	padding: 1px;
+}
+.profile-pic50{
+	border-radius: 25px;
+	height: 50px;
+	width: 50px;
+}
+.profile-pic65{
+	border-radius: 35px;
+	height: 65px;
+	width: 65px;
+}
+.profile-pic75{
+	border-radius: 40px;
+	height: 75px;
+	width: 75px;
+}
+.profile-pic100{
+	border-radius: 50px;
+	height: 100px;
+	width: 100px;
+}
+.profile-pic125{
+	border-radius: 65px;
+	height: 125px;
+	width: 125px;
+}
+.position-relative{
+	position: relative;
+}
+.h70{
+	height: 70px;
+}
+.displayBlock{
+	display: block;
+}
+.spanBlock span{
+	display: block;
+}
+
+
+/* == Header == */
+
+.header{
+	background: url(../img/header-bg.jpg) repeat;
+	height: 60px;
+}
+.logoFont{
+	font-family: logoFont;
+	font-size: 35px;
+}
+.header .container{
+	color: #fff;
+	padding:18px;
+}
+.header a,.header a:hover{
+	color: #fff;
+	text-decoration: none;
+}
+.nav-list li{
+	float: left;
+	font-size: 18px;
+	padding-left: 20px;
+}
+.nav-list li span{
+	padding-right: 10px;
+}
+
+/* == Footer == */
+.footer{
+	/*height: 75px;*/
+}
+.outlined{
+padding: 5px 0px 0px 5px;
+list-style: none;
+outline: 1px solid #d6d6d6;
+}
+/* == Account == */
+
+.title{
+	font-size: 20px;
+	padding: 25px 0px 25px 0px;
+	font-weight: bold;
+	font-family: fgmc;
+}
+.leftSide{
+	background: #ecebeb;
+	height: 800px;
+	margin-left: 10px;
+}
+.users-list{
+	padding: 5px 0px 0px 5px;
+	font-family: 'Calibri';
+	list-style: none;
+	/*outline: 1px solid #d6d6d6;*/
+	margin: 0px;
+}
+.users-list li{
+	height: 190px;
+	padding: 10px;
+	margin-right: 10px;
+	border-bottom: 1px dashed #d6d6d6;
+}
+.users-list li:last-child{
+	border-bottom: none;
+}
+.users-list div{
+	display: inline-block;
+}
+.users-list span{
+	display: block;
+	padding: 5px 0px;
+}
+.head{
+	color: #0184ad;
+	font-family: fgmc;
+	font-size: 17px;
+	font-weight: bold;
+}
+.profile-pic-box{
+	width: 100px;
+}
+.profile-info-box{
+width: 493px;	
+position: absolute;
+left: 90;
+top: 0px;
+}
+.profile-info-right{
+	position: absolute;
+	right: 20;
+	text-align: right;
+}
+
+.links-list{
+	border-bottom: 1px solid #d6d6d6;
+	padding-bottom: 15px;
+}
+.links-list span{
+	padding: 10px;
+	display: block;
+}
+.works span{
+	padding-left: 10px;
+	display: block;
+	font-size: 15px;
+	font-family: fgmc;
+}
+
+.add-more{
+	/*margin-left: 35px;*/
+	margin-top: 18px;
+}
+.add-more a{
+	font-family: fgmc;
+	font-size: 18px;
+	text-decoration: none;
+	margin-right: 25px;
+}
+
+
+/* == Add == */
+
+.padding15{
+	padding: 15px;
+}
+.profile-box{
+	position: absolute;
+	right: 30px;
+	top: 15px;
+	text-align: center;
+}
+
+.other-list{
+	list-style: none;
+	padding-top: 10px;
+}
+.other-list li span{
+	padding: 10px;
+}
+.other-list li{
+	padding: 10px;
+}
+
+.other-head{
+	padding: 28px 10px;
+	font-size: 20px;
+}
+
+/* -- Call List -- */
+.height685{
+	height: 685px;
+
+}
+.borderRight1{
+	border-right: 1px #eee solid;
+}
+.borderBottom1{
+	border-bottom: 1px #eee solid;
+}
+.footer-call{
+	height: 75px;
+}
+.view-candidate-quick{
+	text-align: center;
+	margin-top: 210px;
+	font-family: fgb;
+	font-size: 15px;
+}
+.view-candidate-quick span{
+	display: block;
+	padding: 10px;
+}
+.call-lists{
+	margin-left: 15px;
+	margin-top: -5px;
+	overflow-y: auto; 
+	overflow-x: hidden; 
+}
+.call-lists ul{
+	margin-left: -5px;
+	list-style: none;
+}
+.call-lists li{
+	padding: 15px;
+	border-bottom: 1px #eee solid;
+	font-family: fgmc;
+	font-size: 15px;
+}
+.call-lists .active{
+	background: #eaf5fd;
+}
+.candidate-list{
+	margin-left: 0px;
+	margin-top: -5px;
+	overflow-y: auto; 
+	overflow-x: hidden; 
+}
+.candidate-list ul{
+	margin-left: -5px;
+	list-style: none;
+}
+.candidate-list li{
+	padding: 10px 0px;
+	border-bottom: 1px #eee dashed;
+}
+.candidate-list a{
+	color: #000;
+	text-decoration: underline;
+}
+.candidate-list span{
+	display: block;
+}
+.candidate-list img{
+	margin-left: 15px;
+}
+.candidate-list .span2{
+	margin-top: 5px;
+}
+.candidate-list .likebox{
+	margin-top: 10px;
+	margin-left: 10px;
+}
+.candidate-list input{
+	margin-top: -5px;
+	margin-right: 15px;
+}
+.candidate-list .span1{
+	margin-left: 15px;
+}
+.candidate-list .green{
+	background: #f0fadc;
+}
+.candidate-list .blue{
+	background: #eaf5fd;
+}
+.candidate-list .yellow{
+	background: #fffec2;
+	padding: 30px 0px;
+	font-size: 15px;
+	text-align: center;
+}
+.candidate-list .gray{
+	opacity:0.4;
+	color: #c4c4c4;
+	border-bottom: 1px #D8D8D8 dashed;
+}
+.quickView {
+	margin-left: 30px;
+	color: #594b4e;
+}
+.quickview .info{
+	border-bottom: 1px #eee solid;
+	padding: 10px 0px;
+}
+
+.quickView span{
+	display: block;
+	padding: 5px;
+	font-size: 16px ;
+}
+.quickView .name{
+	font-size: 21px !important;
+	font-family: fgmc;
+	font-weight: bold;
+	color: #0297c5;
+}
+.profile-box .displayBlock{
+	font-size: 16px;
+	margin-top: 8px;
+}
+.fieldTitle{
+	font-family: fgmc;
+	font-size: 18px !important;
+}
+.fieldTitle a{
+	font-family: "Calibri";
+	font-size: 14px !important;
+	padding-left: 25px;
+}
+.sendmail{
+	font-size: 17px;
+	font-family: fgmc;
+	padding: 15px 0px;
+}
+.changeToHidden{
+	display: none;
+}
+.stop-delete{
+	padding-top: 35px;
+	font-size: 14px !important;
+	font-family: fgmc;
+}
+.stop-delete a,.stop-delete a:hover{
+	text-decoration: none;
+	color: #594b4e;
+}
+.stop-delete img,.stop-delete span{
+	padding-right: 10px;
+}
+
+/* -- Register -- */
+.sub-title{
+	font-size: 18px;
+	padding: 5px 0px 10px 0px;
+	font-weight: bold;
+	font-family: fgmc;
+}
+.fieldName{
+	width: 90px;
+}
+.login-info span{
+	padding-bottom: 5px;
+}
+.register input{
+	width: 275px;
+}
+.register select{
+	width: 150px;
+}
+.register .leftSide{
+	height: 940px;
+}
+.thanks-head{
+	font-size: 28px;
+	font-family: fgmc;
+	text-transform: uppercase;
+	text-align: center;
+	padding: 40px 0px;
+	line-height: 30px;
+}
+.register .leftSide .fields span{
+	display: block;
+}

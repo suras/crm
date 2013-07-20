@@ -5,4 +5,5 @@ class Linkedin < ActiveRecord::Base
                   :path => ":rails_root/public/jobs/linkedin/:basename.:extension" 
    validates_attachment_content_type :linkedin_sheet, :content_type => ["application/vnd.ms-excel",     
              "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet"]
+      validates :linkedin_sheet, :attachment_presence => true
 end
