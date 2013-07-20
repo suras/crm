@@ -309,7 +309,11 @@ top: 0px;
 }
 
 
-ul.token-input-list-facebook {
-  width: 218px !important;
-  margin-bottom: 10px !important;
+.alert{
+  position: fixed;
+width: 50%;
+left: 25%;
+text-align: center;
+top: 0px;
+z-index: 10000;
 }

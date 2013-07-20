@@ -21,7 +21,6 @@ class UsersController < ApplicationController
   	   params[:user][:team_id] = team.id
        params[:user][:user_type] = "User"
        password = Devise.friendly_token.first(8)
-       password = 
        params[:user][:password] = password
        user = User.create(params[:user])
        if user
@@ -57,16 +56,13 @@ class UsersController < ApplicationController
     else
       flash.alert = "unable to update plan"
       render :action => "edit_subscription"
-    
     end
-    
   end
 
   def cancel
     @user = User.find(params[:id])
     @user.update_attribute(:status, false)
     redirect_to users_path , :notice =>  "User Cancelled"
-
   end
   
   def update_card
@@ -77,10 +73,6 @@ class UsersController < ApplicationController
     else
       flash.alert = "unable to update card"
       render :action => "edit_subscription"
-    
     end
-    
-    
   end
-  
 end

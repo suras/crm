@@ -52,7 +52,7 @@ window.call_lists = <%= get_call_list%>;
                       </div>
                       <div class="span2 likebox">
                         <img ng-click="approval($parent.$index,$index,'rejected','approved')" src="/assets/unlike.png" />
-                        <input class="pull-right" type="checkbox">
+                        <input class="pull-right" ng-click="make_selection(candidate.email,$event)"  type="checkbox">
                       </div>
                     </div>
                   </li>
@@ -69,14 +69,14 @@ window.call_lists = <%= get_call_list%>;
                       <div class="span2 likebox">
                         <img ng-click="approval($parent.$index,$index,'rejected','newly_added')" src="/assets/unlike.png" />
                         <img ng-click="approval($parent.$index,$index,'approved','newly_added')" src="/assets/like.png" />
-                        <input class="pull-right" type="checkbox">
+                        <input class="pull-right" ng-click="make_selection(candidate.email,$event)"  type="checkbox">
                       </div>
                     </div>
                   </li>
                 </ul>
                 <ul class="{{(date.date != null)}}" >
                   <li class="yellow">
-                    left off here on 2/13/2013
+                    left off here on {{date.date}}
                   </li>
                 </ul>
               </div>
@@ -147,7 +147,7 @@ window.call_lists = <%= get_call_list%>;
     </div>
     <div class="row ">
       <div class="span3 offset3 sendmail changeToHidden-show">
-        <a href="">Send Mail</a>
+        <a ng-click="send_mail()" href="">Send Mail</a>
       </div>
     </div>
   </div>
@@ -172,13 +172,13 @@ app.controller('call_list_controller', ['$scope','$http','$filter',
   function($scope, $http, $filter) {
     $scope.call_lists=window.call_lists;
     $scope.approved_candidates = [];
+    $scope.selected_candidates = [];
     $scope.rejected_candidates = [];
     $scope.newly_added_candidates = [];
     $scope.edit="Edit";
     $scope.message="aa";
 
     $scope.$watch('message', function() {
-      console.log("watched")
       if ($scope.message!="aa"){
         $(".alert").fadeIn(500).delay(5000).fadeOut(2000,function(){
           $scope.message="aa";
@@ -282,6 +282,14 @@ app.controller('call_list_controller', ['$scope','$http','$filter',
       });
     };
 
+    $scope.make_selection = function(email,event){
+      if(event.target.checked==true)
+        $scope.selected_candidates.push(email);
+      else
+        $scope.selected_candidates.splice($scope.selected_candidates.indexOf(email),1);
+    };
+
+
     $scope.stop_process = function(){
       console.log($scope.current_call_list)
       if($scope.current_date_index != undefined){
@@ -332,7 +340,6 @@ app.controller('call_list_controller', ['$scope','$http','$filter',
           $scope.can.notes.push(data);
         }).
         error(function(data, status) {
-          console.log(data);
         });
       }
       else{
@@ -340,6 +347,16 @@ app.controller('call_list_controller', ['$scope','$http','$filter',
       }
     };
 
+    $scope.send_mail = function(){
+      var emails=[];
+      if( $scope.selected_candidates.length>0){
+          to = $scope.selected_candidates[0]
+          location.target="_blank";
+          location.href="mailto:"+to+ "?bcc="+$scope.selected_candidates.join(",");
+        }
+        else 
+          $scope.message = "You must select atleast one candidate";
+    };
     $scope.add_note = function(){
       $(".new-note-form").slideDown();
       $scope.note.candidate_note="";

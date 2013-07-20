@@ -7,9 +7,6 @@ class ApplicationController < ActionController::Base
   def current_team
     current_user.team  if current_user
   end
-  def get_random
-    ([*('A'..'Z'),*('0'..'9')]-%w(0 1 I O)).sample(8).join
-  end
   def check_subscription
     status = current_team.status
     if(status == "charged")
