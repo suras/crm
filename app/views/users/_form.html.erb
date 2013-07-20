@@ -1,0 +1,63 @@
+<% url = @user.new_record? ? users_path : user_path(@user) %>
+    <div class="span8 register-box">
+        <%= form_for(@user, :url =>url) do |f| %>
+        <div class="row">
+          <div class="span2">
+            <%= f.label :first_name %>
+          </div>
+          <div class="span6">
+            <%= f.text_field :first_name %>
+          </div>
+        </div>
+        <div class="row">
+          <div class="span2">
+            <%= f.label :last_name %>
+          </div>
+          <div class="span6">
+            <%= f.text_field :last_name %>
+          </div>
+        </div>
+        <div class="row">
+          <div class="span2">
+            <%= f.label :company %>
+          </div>
+          <div class="span6">
+            <%= f.text_field :company %>
+          </div>
+        </div>
+        <div class="row">
+          <div class="span2">
+            <%= f.label :email %>
+          </div>
+          <div class="span6">
+            <%= f.text_field :email %>
+          </div>
+        </div>
+        <div class="row">
+          <div class="span2">
+            <%= f.label :own_email %>
+          </div>
+          <div class="span6">
+            <%= f.text_field :own_email %>
+          </div>
+        </div>
+        <div class="row">
+          <div class="span2">
+            <%= f.label  :profile_pic %>
+          </div>
+          <div class="span6">
+            <%= f.file_field  :profile_pic %>
+          </div>
+        </div>
+       
+        <div class="row btn-submit">
+          <div class="span2 offset2">
+            <%= f.submit "Save", :class => "btn btn-success", :id => "submit_button" %>
+            
+          </div>
+        </div>
+        <% end %>
+        
+      </div>
+    </div>
+  </div>

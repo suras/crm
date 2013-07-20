@@ -1,78 +1,105 @@
 <%= javascript_include_tag("view_profile/application")%>
-<div ng-app="app" class="container profile-container">
-<div ng-controller="notes_controller">
-	<p class="center"><h3> Candidate Profile </h3></p>
-	<div class="row">
-		<div class="span12 profile-info">
-			<div class="row">
-				<div class="span7">
-					<p> <%= link_to "Edit Candidate Details", edit_candidate_path(@candidate) %></p>
-					<div class="row">
-						<div class="span2">
-							<%= image_tag @candidate.profile_pic_url, :class => "profile-pic125" %>
-						</div>
-						<div class="span5">
-							<p><h3><%= @candidate.last_name %> , <%= @candidate.first_name %></h3></p>
-							<p><%= @candidate.position %></p>
-							<p><h3>Keywords / Tags </h3></p>
-							<p> <%= @candidate.get_tags %></p>
-						</div>
-					</div>
-				</div>
-				<div class="span5 info-right">
-					<p class="row">
-					<span class="span3 bold">Company</span>
-					<span class="span2"><a href="<%= @candidate.resume_url%>" target="_blank">View Resume</a></span>
-					</p>
-					<p> <%= @candidate.company %></p>
-					<p class="bold"> Location </p>
-					<p> <%= @candidate.address %></p>
-					<p><%= @candidate.city %>,<%= @candidate.state %> <%= @candidate.zip %></p>
-					<p class="bold"> Email</p>
-					<p> <%= @candidate.email %></p>
-					</p>
-				</div>
-			</div>
-		</div>
-	</div>
-	<div class="row">
-		<div class="span12 big-btns">
-			<div class="row">
-				<div class="span4 offset4">
-					<div class="btn-block-div">
-						<a target="_blank" class="btn btn-success btn-block btn-large" href="mailto:<%= @candidate.email %>?body=Dear <%= @candidate.name %>">Send Email</a>
-					</div>
-					<div class="btn-block-div">
-						<a class="btn btn-success btn-block btn-large" ng-click="add_note()">Add Note</a>
-					</div>
-				</div>
-			</div>
-		</div>
-	</div>
-	<div class="row">
-		<div class="span12 notes-header">
-			<div class="row">
-				<div class="span2">Notes</div>
-				<div class="span8"></div>
-				<div class="span2">
-					<a ng-click="add_note()">  + Add a note </a>
-				</div>
-			</div>
-		</div>
-	</div>
+<%= stylesheet_link_tag "profile", "common" %>
 
-	<div>
+	<div class="body-content profile" ng-app="app">
+		<div class="container" ng-controller="notes_controller">
+			<div class="row">
+				<div class="span2 back-icon">
+					<img src="/assets/icon-back.png"> Back
+				</div>					
+				<div class="span8">
+					<div class="title">candidate profile</div>
+				</div>					
+				<div class="span2 next-icon">
+					<div class=" pull-right">Next <img src="/assets/icon-next.png"></div>
+				</div>					
+			</div>
+			<div class="row">
+				<div class="span12 outlined">
+					<div class="row profile-info">
+						<div class="span6 info-left spanBlock">
+							<div class="row">
+								<div class="span2 textCenter">
+									<!--<img class="profile-pic100" src="img/profile-pic.png">-->
+									<%= image_tag @candidate.profile_pic_url, :class => "profile-pic100" %>
+								</div>
+								<div class="span4">
+									<!--<span class="name">Last , First Name</span>-->
+									<span class="name"><%= @candidate.last_name %> , <%= @candidate.first_name %></span>
+									<!--<span>Position Title</span>-->
+									<span><%= @candidate.position %></span>
+									<span class="name colorBlack">keywords/ tags</span>
+									<span><%= @candidate.get_tags %></span>
+								</div>
+							</div>
+						</div>
+						<div class="span6 info-right position-relative spanBlock">
+							<span class="fieldTitle">Company:</span>
+							<span><%= @candidate.company %></span>
+							<span class="fieldTitle">Location:</span>
+							<span><%= @candidate.address %></span>
+							<span><%= @candidate.city %>,<%= @candidate.state %> <%= @candidate.zip %></span>
+							<span class="fieldTitle">Cell Phone:</span>
+							<span>786-797-5555</span>
+							<span class="fieldTitle">Email:</span>
+							<span><%= @candidate.email %></span>
+							<div class="info-link">
+								<span><a href="<%= @candidate.resume_url%>" target="_blank">View Resume</a></span>
+								<span><a href="">Attach resume to email</a></span>
+							</div>
+						</div>
+					</div>
+					<div class="row">
+						<div class="span12 big-btns">
+							<div class="row">
+								<div class="span6 textCenter">
+									<!--<img src="img/btn-send-mail.png">-->
+									<a target="_blank" href="mailto:<%= @candidate.email %>?body=Dear <%= @candidate.name %>"><img src="/assets/btn-send-mail.png"></a>
+								</div>
+								<div class="span6 textCenter">
+									
+									<a ng-click="add_note()"><img src="/assets/btn-add-note.png"></a>
+								</div>
+							</div>
+						</div>
+					</div>
+					<div class="row">
+						<div class="span12 notes-container">
+							<div class="row">
+								<div class="span12 notes-header">
+									<span class="notes-head">Notes</span>
+									<span class="pull-right"><a ng-click="add_note()">  + Add a note </a></span>
+								</div>
+							</div>
+							<div class="row">
+								<div class="span12">
+									<ul class="notes-list">
+										<li ng-repeat="note in notes">
+											<div>
+												<span class="notes-date">{{ note.date}}</span>
+												<span class="pull-right"><a ng-click="edit_note($index)">Edit</a></span>
+											</div>
+											<div>
+												{{note.candidate_note}}
+											</div>
+										</li>
+										
+										
+									</ul>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+			<div>
 		<div>
 
-			<div ng-repeat="note in notes">
-				<p class="row"><span class="span10">{{ note.date}} - by {{note.creater_name}}</span><span class="span2"><a ng-click="edit_note($index)">Edit</a></span></p>
-				<p class="note_content">{{note.candidate_note}}</p>
-			</div>
 			
 			<div class='new-note-form hide'>
 				<textarea ng-model='note.candidate_note' id="get_note"></textarea>
         <p><a ng-click='create_note()'>Create</a></p>
-      </div>
+         </div>
 			<div modal="notes_popup" class="hide" close="notes_popup=false">
 	      <div class="modal-header">
 	        <h5>{{modal_head}}</h5>
@@ -87,7 +114,15 @@
     	</div>
 		</div>
 	</div>
-	<script type="text/javascript">
+		</div>
+		</div>
+		</div>
+		<div class="footer-profile">
+
+</div>
+</div>
+
+<script type="text/javascript">
 		var app = angular.module("app",['ui.bootstrap']);
 
 		app.controller("notes_controller", ['$scope','$http','$dialog',function($scope,$http,$dialog){
@@ -116,7 +151,7 @@
     	$scope.modal_action = "Update Note";
 	    $scope.modal_head = "Create New Note";
 	  };
-	  
+
 	  $scope.perform_notes_task = function(){
 	  	if($scope.modal_action =="Create Note")
 	  		$scope.create_note();
@@ -148,5 +183,4 @@
     };
 		}]);
 	</script>
-	</div>
-</div>
+	

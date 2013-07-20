@@ -21,9 +21,12 @@ group :assets do
   gem 'uglifier', '>= 1.0.3'
   gem 'twitter-bootstrap-rails', :git => 'git://github.com/seyhunak/twitter-bootstrap-rails.git'
   gem 'angularjs-rails'
+
 end
   gem 'jquery-tokeninput-rails'
+  gem 'angular-ui-rails', :git=>'git@github.com:mike-park/angular-ui-rails.git'
   gem 'angular-ui-bootstrap-rails'
+
 
 group :development do
   gem "better_errors"
@@ -40,6 +43,10 @@ gem 'mailman', require: false
 gem 'stripe'
 
 gem 'stripe_event'
+
+
+gem 'carmen', git: 'git://github.com/jim/carmen.git'
+gem 'carmen-rails', git: 'git://github.com/jim/carmen-rails.git'
 
 # To use ActiveModel has_secure_password
 # gem 'bcrypt-ruby', '~> 3.0.0'

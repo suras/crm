@@ -1,4 +1,18 @@
 GIT
+  remote: git://github.com/jim/carmen-rails.git
+  revision: 958b23d8e0d5de7883669950002e490fc22e2e82
+  specs:
+    carmen-rails (1.0.0.beta1)
+      carmen (~> 1.0.0.beta2)
+      rails
+
+GIT
+  remote: git://github.com/jim/carmen.git
+  revision: 731c87ab041fa17be1b921f452e5bfd52d1e3002
+  specs:
+    carmen (1.0.0.beta2)
+
+GIT
   remote: git://github.com/seyhunak/twitter-bootstrap-rails.git
   revision: cdda8d78b41275e1fa4a6d7aa71b370573ca2553
   specs:
@@ -7,6 +21,12 @@ GIT
       execjs
       rails (>= 3.1)
       railties (>= 3.1)
+
+GIT
+  remote: git@github.com:mike-park/angular-ui-rails.git
+  revision: b69997361db795831675c6a42308f90e86c45a8c
+  specs:
+    angular-ui-rails (0.4.0.2)
 
 GEM
   remote: https://rubygems.org/
@@ -190,8 +210,11 @@ PLATFORMS
 
 DEPENDENCIES
   angular-ui-bootstrap-rails
+  angular-ui-rails!
   angularjs-rails
   better_errors
+  carmen!
+  carmen-rails!
   coffee-rails (~> 3.2.1)
   devise
   email_validator

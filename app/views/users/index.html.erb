@@ -28,7 +28,7 @@
 												<span><%= user.email %> (their HootRecruit email)</span>
 											</div>
 											<div class="profile-info-right">
-												<span ><%= (user.user_type == "owner") ? "Admin | User" : (link_to 'Cancel User', "/users/cancel/user#{user.id}") %></span>
+												<span ><%= (user.user_type == "owner") ? "Admin | User" : (link_to 'Cancel User',cancel_user_path(user),:confirm=>"Are you sure to cancel user?") %></span>
 												<span><%= (user.user_type == "owner") ? (link_to "Edit User", edit_user_registration_path()) : (link_to "Edit User" , edit_user_path(user))%></span>
 											</div>
 										</div>
@@ -42,7 +42,7 @@
 				<div class="row bottom-links">
 					<div class="span8 add-more">
 						<%= link_to "+ Add More Users", new_user_path() if @add_more==true %>
-						<%= image_tag "btn-upgrade.jpg"%>
+						<%= image_tag "btn-upgrade.png"%>
 					</div>
 				</div>
 			</div>
@@ -50,9 +50,10 @@
 				<div class="row h70"></div>
 				<div class="row">
 					<div class="span4 links-list">
-						<span><a href="">edit billing information</a></span>
-						<span><a href="">add more users</a></span>
-						<span><a href="">click here to cancel your HootRecruit account</a></span>
+						<span><%= link_to "edit billing information",edit_subscription_path %></a></span>
+						<span><%= link_to "add more users", new_user_path() if @add_more==true %></span>			
+						<span><%= link_to "click here to cancel your HootRecruit account", registration_path(@user), :confirm => "Are you sure?", :method => :delete %>
+			</span>
 					</div>
 				</div>
 				<div class="row">

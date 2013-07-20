@@ -15,5 +15,4 @@
 //= require jquery.validate
 //= require twitter/bootstrap
 //= require jquery.tokeninput
-//= require subscriptions
 

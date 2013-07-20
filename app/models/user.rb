@@ -5,12 +5,12 @@ class User < ActiveRecord::Base
   devise :database_authenticatable, :registerable,
          :recoverable, :rememberable, :trackable, :validatable
  has_attached_file :profile_pic, :styles => { :small => "150x150>" },
-                  :url  => "/assets/candidates/:id/avatar/:style/:basename.:extension",
-                  :path => ":rails_root/public/assets/candidates/:id/avatar/:style/:basename.:extension",
+                  :url  => "/assets/users/:id/avatar/:style/:basename.:extension",
+                  :path => ":rails_root/public/assets/users/:id/avatar/:style/:basename.:extension",
                    :default_url => "/assets/profile_pic.png"
   # Setup accessible (or protected) attributes for your model
   attr_accessible :email, :password, :password_confirmation, :remember_me, :first_name, :last_name, :company,:profile_pic,
-                   :user_type, :status, :team_id, :plan_id, :register_type, :name, :stripe_card_token, :stripe_customer_token
+                   :user_type, :status, :team_id, :plan_id, :register_type, :name, :stripe_card_token, :stripe_customer_token, :own_email
   attr_accessor :plan_id, :register_type, :name, :stripe_card_token 
   def name
     "#{first_name.to_s} #{last_name.to_s}" 
@@ -28,9 +28,7 @@ class User < ActiveRecord::Base
     else
      @team = Team.create( :owner_id => self.id, :status => 'pending', :plan_id => self.plan_id, :stripe_customer_token => self.stripe_customer_token)
      self.team = @team
-     self.user_type = 'owner'
-     #self.team_id = @team.id
-     self.save
+     self.update_attributes(:user_type => 'owner',:team_id=>@team.id)
    end
  end
   def save_with_payment
@@ -41,7 +39,6 @@ class User < ActiveRecord::Base
       customer = Stripe::Customer.create(description:email, 
         plan: plan_id, email: email, card: stripe_card_token)
       self.stripe_customer_token = customer.id
-      
     end
    end
     rescue Stripe::InvalidRequestError => e

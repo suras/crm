@@ -5,7 +5,9 @@ class Doc < ActiveRecord::Base
   :url  => "/jobs/docs/:basename.:extension",
                   :path => ":rails_root/public/jobs/docs/:basename.:extension"
     validates_attachment_content_type :resume, :content_type => ["application/msword", 
-             "application/vnd.openxmlformats-officedocument.wordprocessingml.document"]              
+             "application/vnd.openxmlformats-officedocument.wordprocessingml.document"]   
+           validates :resume, :attachment_presence => true
+           
                   
                
 end

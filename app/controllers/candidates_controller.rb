@@ -19,7 +19,7 @@ class CandidatesController < ApplicationController
     @candidate = @team.candidates.new(params[:candidate])
     if @candidate.save
       @candidate.tags << tags
-      redirect_to users_index_path(), :notice => "Candidate Added Successfully"
+      redirect_to search_path(), :notice => "Candidate Added Successfully"
     else
       render :action => "new"
     end
@@ -140,5 +140,9 @@ class CandidatesController < ApplicationController
 
 
   end
+  
+  def subregion_options
+  render partial: 'subregion_select'
+ end
 
 end

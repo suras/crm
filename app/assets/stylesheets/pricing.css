@@ -1,0 +1,165 @@
+
+
+/* Style for Pricing page */
+	@font-face {
+    font-family: 'alternategothic2_btregular';
+    src: url('/assets/font/alternate_gothic_no2_bt-webfont.eot');
+    src: url('/assets/font/alternate_gothic_no2_bt-webfont.eot?#iefix') format('embedded-opentype'),
+         url('/assets/font/alternate_gothic_no2_bt-webfont.woff') format('woff'),
+         url('/assets/font/alternate_gothic_no2_bt-webfont.ttf') format('truetype'),
+         url('/assets/font/alternate_gothic_no2_bt-webfont.svg#alternategothic2_btregular') format('svg');
+    font-weight: normal;
+    font-style: normal;
+
+	}
+	#price_header {
+		background: url('/assets/pricing_header.png') repeat-x;
+		height: 60px;
+		width: 100%;
+	}
+
+	#price_logo {
+		float: left;
+		font-family: alternategothic2_btregular;
+		font-size: 35px;
+		padding-top: 20px;
+	}
+
+	#price_phone {
+		font-family: fgb;
+		font-size: 14px;
+		float: right;
+		padding-top: 20px;
+	}
+
+	#free_trail {
+		font-family: fgmc;
+		font-size: 47px;
+		text-align: center;
+		margin-top: 30px;
+		text-transform: capitalize;
+	}
+
+	#pick_plan {
+		font-family: fgb;
+		padding-top: 35px;
+		font-style:italic;
+		font-size: 29px;
+		color: #594b4e;
+		text-align: center;
+	}
+
+	.plan_style1 {
+		background: url("/assets/pricing_small_box.png") repeat-y;
+		height: 370px;
+		position: relative;
+		margin-top: 25px;
+	}
+
+	.plan_style2 {
+		background: url("/assets/pricing_big_box.png") repeat-y;
+		height: 425px;
+		position: relative;
+		width: 320px;
+		margin-left: 0px;
+	}
+
+	.plan_button_style {
+		position: absolute;
+		bottom: 0;
+	}
+
+	#five_users {
+		margin-left: 15px;
+	}
+
+	#pricing_boxs {
+		margin-top: 50px;
+	}
+
+	.no_user_style1 {
+font-family: alternategothic2_btregular;
+font-size: 50px;
+margin-top: 35px;
+text-align: center;
+	}
+
+	.text_style {
+		text-align: center;
+		font-family: fgdi;
+		font-size: 25px;
+		width: 280px;
+	}
+
+	.text_style1 {
+		margin-top: 50px;
+	}
+	.text_style2 {
+		margin-top: 30px;
+	}
+	.text_style3 {
+		margin-top: 15px;
+	}
+
+	.no_user_style2 {
+font-family: alternategothic2_btregular;
+font-size: 45px;
+margin-top: 35px;
+text-align: center;
+	}
+
+	.text_style_big {
+		text-align: center;
+		font-family: fgdi;
+		font-size: 30px;
+		width: 315px;
+	}
+
+	.text_style4 {
+		margin-top: 60px;
+	}
+	.text_style5 {
+		margin-top: 40px;
+	}
+	.text_style6 {
+		margin-top: 25px;
+	}
+
+	#everything_text {
+		margin: 60px 0px 60px 0px;
+		font-family: fgd;
+		color: #796e70;
+		font-size: 24px;
+		text-align: center;
+	}
+
+	#faq {
+		border: 1px #c2c2c2 solid;
+		background: white;
+		width: 100%;
+		height: auto;
+		margin-bottom: 50px;
+	}
+
+	#faq_head {
+		text-align: center;
+		text-transform: capitalize;
+		font-size: 40px;
+		font-family: fgmc;
+		color: #1f557b;
+		margin: 35px 0px 50px 0px;
+	}
+
+	.faq_text {
+		margin: 20px 0px 20px 0px;
+		font-family: fgd;
+		font-size: 16px;
+		background: url('/assets/faq_divider.png') 0 30 repeat-x; 
+		height: 40px;
+		text-align: left;
+		padding-left: 50px;
+	}
+
+	.faq_text_last {
+		background: none;
+	}

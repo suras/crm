@@ -18,8 +18,8 @@
   
   handleStripeResponse: (status, response) ->
     if status == 200
-     
       $('#user_stripe_card_token').val(response.id)
+      alert(response.id)
       $('input[type=submit]').attr('disabled', false)
       $('#submit_button').trigger('click')
     else
