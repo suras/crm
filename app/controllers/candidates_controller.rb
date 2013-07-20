@@ -2,54 +2,52 @@ require 'nokogiri'
 require 'open-uri'
 include ERB::Util
 class CandidatesController < ApplicationController
-   respond_to :html, :xml, :json, :js
-  before_filter :authenticate_user!, :get_team
-  layout "candidate"
+  respond_to :html, :xml, :json, :js
+  before_filter :authenticate_user!, :get_team, :check_subscription
   def new
-    
     @candidate = @team.candidates.new
   end
-  
+
   def create
     params[:candidate][:user_id] = current_user.id
-  
+
     tag_names = params[:tags].split(',')
     tags = tag_names.collect do |tag_name|
       tag = Tag.find_or_create_by_name(tag_name)
-      
+
     end
     @candidate = @team.candidates.new(params[:candidate])
     if @candidate.save
-       @candidate.tags << tags
-    redirect_to users_index_path(), :notice => "Candidate Added Successfully"
-    else 
+      @candidate.tags << tags
+      redirect_to users_index_path(), :notice => "Candidate Added Successfully"
+    else
       render :action => "new"
     end
   end
- 
+
   def get_candidate_tags
-   
-      @full_tags = Tag.all
-      @tags = @full_tags.select {|tag| tag.name =~ /#{params[:q]}/i}
-      @tags = @tags.map{|tag| { "id" => tag.name, "name"=>tag.name} }
-      if (!@tags.any?)
-        @tags << {"id" => params[:q], "name" => params[:q]}
-      end
-      
-    
-   respond_to do |format|
-    format.json { render :json => @tags.to_json }
-     end
+
+    @full_tags = Tag.all
+    @tags = @full_tags.select {|tag| tag.name =~ /#{params[:q]}/i}
+    @tags = @tags.map{|tag| { "id" => tag.name, "name"=>tag.name} }
+    if (!@tags.any?)
+      @tags << {"id" => params[:q], "name" => params[:q]}
+    end
+
+
+    respond_to do |format|
+      format.json { render :json => @tags.to_json }
+    end
   end
-  
-  
+
+
   def show
     @candidate = Candidate.find(params[:id])
     if params[:dl]
-      send_file(@candidate.resume.path, 
-        :filename=>"#{@candidate.name.gsub(/\s+/,'_')}.#{File.extname(@candidate.resume_file_name)}",
-        :type => @candidate.resume.content_type,
-        :disposition => "attachment")
+      send_file(@candidate.resume.path,
+                :filename=>"#{@candidate.name.gsub(/\s+/,'_')}.#{File.extname(@candidate.resume_file_name)}",
+                :type => @candidate.resume.content_type,
+                :disposition => "attachment")
       return
     end
     respond_to do |format|
@@ -89,7 +87,7 @@ class CandidatesController < ApplicationController
   end
 
   def destroy
-    
+
   end
 
   def index
@@ -121,35 +119,26 @@ class CandidatesController < ApplicationController
   def get_team
     @team = current_user.team
   end
-  
- 
+
+
   def phrase_contents
-   # @image_url = params[:url] + params[:type]
+    # @image_url = params[:url] + params[:type]
     @page = Nokogiri::HTML(open(params[:url]))
     @page = @page.to_s
-   if(params[:type] == "linkedin")
-      
-        @image_url = @page.match(/(http:\/\/m\.c\.lnkd\.licdn\.com\/mpr\/pub\/)(.+)(\.jpg)/)
-       #@image_url = @page.match(/http/)
-       @image_url = @image_url[0]
+    if(params[:type] == "linkedin")
+
+      @image_url = @page.match(/(http:\/\/m\.c\.lnkd\.licdn\.com\/mpr\/pub\/)(.+)(\.jpg)/)
+      #@image_url = @page.match(/http/)
+      @image_url = @image_url[0]
     end
-    
+
     if(params[:type] == "facebook")
-      
-        #@image_url = @page.match(/(https:\/\/fbcdn-profile-a\.akamaihd\.net\/hprofile-ak-)((?!\.jpg).+)(\.jpg)/)
-        @image_url = @page.match(/(https:\/\/fbcdn-profile-a\.akamaihd\.net\/hprofile-ak-)(.*?)(\.jpg)/)
-       
-       #@image_url = @page.match(/http/)
-       @image_url = @image_url[0]
-      # @image_url =  @image_url.slice(0, @image_url.index(".jpg"))
-       #@image_url = @image_url + ".jpg"
+      @image_url = @page.match(/(https:\/\/fbcdn-profile-a\.akamaihd\.net\/hprofile-ak-)(.*?)(\.jpg)/)
+      @image_url = @image_url[0]
     end
-   #page = Nokogiri::HTML(open('http://in.linkedin.com/in/anisharavind'))
-   #render :inline => html_escape(page.to_s)
-   #render :inline => @image_url
-   respond_with(@image_url, :layout => false)
- 
-    
+    respond_with(@image_url, :layout => false)
+
+
   end
-  
+
 end

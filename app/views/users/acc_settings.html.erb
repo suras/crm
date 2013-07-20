@@ -170,34 +170,36 @@ $(document).ready(function(){
 						<div class="span8">
 							<div class="outlined">
 								<ul class="users-list">
+									<% @users.each do |user| %>
 									<li>
 										<div class="position-relative">
 											<div class="profile-pic-box">
-												<img class="profile-pic75" src="img/profile-pic.png">
+												<img class="profile-pic75" src="<%= user.profile_pic(:small)%>">
 											</div>
 											<div class="profile-info-box">
 												<div class="">
-													<span class="head">Chris Holtzhauer</span>
-													<span>Email: chris.holtzhauer@company.com (their email)</span>
-													<span>User name: Emailisignedupwith@gmail.com</span>
+													<span class="head"><%= user.name %></span>
+													<span>Email: <%= user.own_email %>(their email)</span>
+													<span>User name: <%= user.email%> </span>
 													<span class="fgmc18">Your personal HootRecruit  email</span>
 													<span>Forward or BCC email to this address to attach it to a candidates's notes.</span>
-													<span>chris.holtzhauer@hootrecruit .com (their HootRecruit email)</span>
+													<span><%= user.email %> (their HootRecruit email)</span>
 												</div>
 												<div class="profile-info-right">
-													<span >Admin | User</span>
-													<span><a href="">Edit User</a></span>
+													<span ><%= user.user_type %></span>
+													<span><%= link_to "Edit User" , edit_user_path(user)%></span>
 												</div>
 											</div>
 										</div>
 									</li>
+									<% end %>
 								</ul>
 							</div>
 						</div>
 					</div>
 					<div class="row bottom-links">
 						<div class="span8 add-more">
-								<a href="">+ Add More Users</a>
+								<%= link_to "+ Add More Users", new_user_path() %>
 								<img class="" src="img/btn-upgrade.jpg">
 						</div>
 							
