@@ -8,19 +8,19 @@
         <div>
           <ul class="nav-list">
             <li>
-              <a href="search.html"><span><img src="/assets/icon-search.png"></span><span>Search</span></a>
+              <a href="<%= search_path %>"><span><img src="/assets/icon-search.png"></span><span>Search</span></a>
             </li>
             <li>
-              <a href="add.html"><span><img src="/assets/icon-add.png"></span><span>Add</span></a>
+              <a href="<%= new_candidate_path %>"><span><img src="/assets/icon-add.png"></span><span>Add</span></a>
             </li>
             <li>
-              <a href="call_list.html"><span><img src="/assets/icon-call-list.png"></span><span>Call List</span></a>
+              <a href="<%= call_lists_path %>"><span><img src="/assets/icon-call-list.png"></span><span>Call List</span></a>
             </li>
           </ul>
         </div>
       </div>
       <div class="span3">
-        <div class="pull-right"><a href="accounts.html">My Account</a> | <a href="">Logout</a></div>
+        <div class="pull-right"><a href="<%= users_path()%>">My Account</a> | <a href="<%=destroy_user_session_path()%>" data-method="DELETE">Logout</a></div>
       </div>
     </div>
   </div>

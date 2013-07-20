@@ -5,6 +5,7 @@
     <%= javascript_include_tag "application" %>
     <%= javascript_include_tag "jquery.validate" %>
     <%= tag :meta, :name => "stripe-key", :content => STRIPE_PUBLIC_KEY %>
+    <%= javascript_include_tag "https://js.stripe.com/v1/", "application" %>
     <%= csrf_meta_tags %>
   </head>
   <body class="<%= controller_name %> <%= action_name %>">

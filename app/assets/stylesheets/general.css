@@ -21,8 +21,8 @@
   }
   @font-face {
   font-family: fgd;
-  src: url('/assets/font/Franklin Gothic Demi.eot/Franklin Gothic Demi.eot');
-  src: local('☺'), url('/assets/font/Franklin Gothic Demi.woff/Franklin Gothic Demi.woff') format('woff'), url('/assets/font/Franklin Gothic Demi.ttf/Franklin Gothic Demi.ttf') format('truetype'), url('/assets/font/Franklin Gothic Demi.svg/Franklin Gothic Demi.svg') format('svg');
+  src: url('/assets/font/Franklin Gothic Demi/Franklin Gothic Demi.eot');
+  src: local('☺'), url('/assets/font/Franklin Gothic Demi/Franklin Gothic Demi.woff') format('woff'), url('/assets/font/Franklin Gothic Demi/Franklin Gothic Demi.ttf') format('truetype'), url('/assets/font/Franklin Gothic Demi/Franklin Gothic Demi.svg') format('svg');
   font-weight: normal;
   font-style: normal;
   }

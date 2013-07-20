@@ -1,5 +1,5 @@
+<%= javascript_include_tag "stripe/subscriptions" %>
 <script type="text/javascript">
-
 $(document).ready(function(){
 	
 	$.validator.setDefaults({ 
@@ -73,7 +73,6 @@ $(document).ready(function(){
     //});
 });
 </script>
-
 <br /><br />
 <%= form_for(resource, :as => resource_name, :url => registration_path(resource_name)) do |f| %>
   <%= devise_error_messages! %>

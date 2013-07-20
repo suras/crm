@@ -1,6 +1,5 @@
 class UsersController < ApplicationController
   before_filter :authenticate_user!
-  layout "candidate"
   def index
     @user=current_user
     @team = current_team
@@ -9,31 +8,45 @@ class UsersController < ApplicationController
   end
 
   def new
-
+    @user = User.new
   end
 
   def edit
+    @user = User.find(params[:id])
+    render "new"
   end
   def create
-  	stat=User.create(params[:user]);
-  	if stat
-	  	@user=current_user
-	  	max=@user.team.plan.max_user
-	  	team=@user.team
-	  	current=team.users.count
-	  	@more_visibility = current < max ? true : false
-	  	status=1
-	 else
-       status=0
-	 end 	
-  	render :json => {"status"=>status,"visible"=>@more_visibility}
+    team = current_team
+    if team.plan.max_user.to_i > team.users.count
+  	   params[:user][:team_id] = team.id
+       params[:user][:user_type] = "User"
+       password = Devise.friendly_token.first(8)
+       password = 
+       params[:user][:password] = password
+       user = User.create(params[:user])
+       if user
+        GeneralMailer.send_password(user,password).deliver
+        flash[:message] = "New User has been created"
+        redirect_to users_path
+      else 
+        render "new"
+      end
+    else
+      redirect_to users_path(), :notice=>"You dont have access to create user. Upgrade your account"
+    end
   end
 
+  def update 
+    @user = User.find(params[:id])
+    if @user.update_attributes(params[:user])
+      redirect_to users_path , :notice =>  "User details Successfully updated"
+    else
+      render "new"
+    end
+  end
 
   def edit_subscription
-    
     @user = current_user if current_user.user_type == "owner"
-    
   end
   
   def update_plan
@@ -47,6 +60,13 @@ class UsersController < ApplicationController
     
     end
     
+  end
+
+  def cancel
+    @user = User.find(params[:id])
+    @user.update_attribute(:status, false)
+    redirect_to users_path , :notice =>  "User Cancelled"
+
   end
   
   def update_card
