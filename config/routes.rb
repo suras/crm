@@ -7,7 +7,7 @@ HootQuest::Application.routes.draw do
   root :to => "home#index"
 
   devise_for :users
-  
+  mount StripeEvent::Engine => '/stripe'
   match "/search(/:query)" =>"candidates#search", :as => "search"
   match "/stop_here/:call_list_id"=>"call_lists#stop_here"
 
@@ -41,9 +41,9 @@ HootQuest::Application.routes.draw do
 
   match "/faq" => "static_pages#faq" 
   match "/pricing" => "static_pages#billing_info" 
-
-  
-
+  get "/users/edit_subscription" => "users#edit_subscription", :as => "edit_subscription"
+  put "/users/update_card" => "users#update_card", :as => "update_card"
+  put "/users/update_plan" => "users#update_plan", :as => "update_plan"
   
  
   #get "users/edit/:id" => "users#edit_user" :as => "edit_user"

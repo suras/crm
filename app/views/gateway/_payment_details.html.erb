@@ -2,13 +2,17 @@
   <div class="span8">
     <h5>Payment</h5>
   </div>
+  <div id="stripe_error" class="error" style="padding-left:22px">
+    <noscript>JavaScript is not enabled and is required for this form. First enable it in your web browser settings.</noscript>
+  </div>
 </div>
 <div class="row">
+	
   <div class="span2">
     <%=label_tag :"Card Number"%>
   </div>
   <div class="span6">
-    <%=text_field_tag "card_number"%>
+    <%= text_field_tag :card_number, nil, name: nil %>
   </div>
 </div>
 <div class="row">
@@ -16,14 +20,16 @@
     <%=label_tag :"Expires On"%>
   </div>
   <div class="span6">
-    <%=text_field_tag "expires_on"%>
+    <%= select_month nil, {add_month_numbers_true: true}, {name: nil, id: "card_month"}%>
+    <%= select_year nil, {start_year: Date.today.year, end_year: Date.today.year+15}, {name: nil, id: "card_year"}%>
   </div>
 </div>
 <div class="row">
   <div class="span2">
-    <%=label_tag :"Billing Zip"%>
+    <%=label_tag :"Card Code"%>
   </div>
   <div class="span6">
-    <%=text_field_tag "billing_zip"%>
+    <%= text_field_tag :card_code, nil, name: nil %>
+   
   </div>
 </div>

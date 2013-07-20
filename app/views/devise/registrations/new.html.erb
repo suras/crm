@@ -1,7 +1,13 @@
 <script type="text/javascript">
+
 $(document).ready(function(){
-  $("#card_number").attr("maxlength","14");
-  $("#billing_zip").attr("maxlength","12");
+	
+	$.validator.setDefaults({ 
+    ignore: [],
+    // any other default options and/or rules
+     });
+  $("#card_number").attr("maxlength","20");
+  //$("#billing_zip").attr("maxlength","12");
   $("#new_user").validate({
         rules:{
           // uname:"required",
@@ -23,30 +29,20 @@ $(document).ready(function(){
           'user[last_name]':{
             required:true
           },
+          'user[stripe_card_token]':{
+            required:true
+          },
           'user[company]':{
             required:true
           },
           'user[plan_id]':{
             required:true
-          },
-          expires_on:{
-              required:true
-          },
-          card_number:{
-            required:true,
-            minlength: 14,
-            maxlength: 14,
-            number:true
-          },
-          billing_zip:{
-            required:true,
-            minlength: 10,
-            maxlength: 12,
-            number:true
           }
+          
         },
         messages:{
           'user[email]':"Enter Valid Email",
+          'user[stripe_card_token]':" ",
           'user[password]':{
             required:"Enter your Password",
             minlength:"Password must be atleast 8 characters"
@@ -58,20 +54,8 @@ $(document).ready(function(){
           'user[first_name]':"Enter the First Name",
           'user[last_name]':"Enter the Last Name",
           'user[company]':"Enter Your Company",
-          'user[plan_id]':"Selct the Number of Users",
-          expires_on:"This Field is Required",
-          card_number:{
-            required:"Enter Valid Card Number",
-            minlength:"Card Number must be 14 digits",
-            maxlength:"Card Number must be 14 digits",
-            number:"Enter Valid Card Number"
-          },
-          billing_zip:{
-            required:"Enter Valid Billing Zip",
-            minlength:"Billing Zip must be atleast 10 digits",
-            maxlength:"Billing Zip must be lessthan 12 digits",
-            number:"Enter Valid Billing Zip"
-          }
+          'user[plan_id]':"Selct the Number of Users"
+          
         },
        errorPlacement: function (error, element) {
            error.insertAfter(element);
@@ -81,12 +65,12 @@ $(document).ready(function(){
 
 
 // Submit button clicks
-   $(document).on("click","#submit_button",function(){
-       if($("#new_user").valid()){
-              document.new_user.submit();
-       }
+ // $(document).on("click","#submit_button",function(){
+      // if($("#new_user").valid()){
+              //document.new_user.submit();
+     // }
  
-    });
+    //});
 });
 </script>
 
@@ -182,13 +166,14 @@ $(document).ready(function(){
           </div>
           <div class="row">
             <div class="span8">
-              <%=select("user", "plan_id", Plan.all.collect {|p| [ p.name, p.id ] })%>
+              <%=select("user", "plan_id", Plan.all.collect {|p| [ p.id, p.id ] })%>
             </div>
           </div>
         </div>
       </div>
       <div class="row">
         <div class="span8 fields-register-left">
+        	 <%= f.hidden_field :stripe_card_token %>
           <%=render 'gateway/payment_details'%>
         </div>
       </div>
