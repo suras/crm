@@ -8,13 +8,8 @@ class UsersController < ApplicationController
 
   def acc_settings
   	@user=current_user
-     #@user.plan
-  	max=@user.team.plan.max_user
-  	team=@user.team
-  	current=team.users.count
-  	@more_visibility = current < max ? true : false
-  		
-  	#render :json => @user	
+    @team = current_team
+    @users = @team.users
   end
 
   def add_more_user

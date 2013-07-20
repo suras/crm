@@ -1,7 +1,7 @@
 /* 
  *= require_self
  *= require token-input-facebook
- *= require_tree .
+ *= require ./custom
  */
  ul{
   list-style: none;
