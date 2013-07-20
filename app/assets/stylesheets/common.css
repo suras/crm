@@ -1,0 +1,230 @@
+/* Font face */
+	@font-face {
+		font-family: logoFonta;
+		src: url('Alternate Gothic No2 BT/Alternate Gothic No2 BT.eot');
+		src: local('☺'), url('Alternate Gothic No2 BT/Alternate Gothic No2 BT.woff') format('woff'), url('Alternate Gothic No2 BT/Alternate Gothic No2 BT.ttf') format('truetype'), url('Alternate Gothic No2 BT/Alternate Gothic No2 BT.svg') format('svg');
+		font-weight: normal;
+		font-style: normal;
+	}
+	@font-face {
+		font-family: fgb;
+		src: url('font/Franklin Gothic Book/Franklin Gothic Book.eot');
+		src: local('☺'), url('font/Franklin Gothic Book/Franklin Gothic Book.woff') format('woff'), url('font/Franklin Gothic Book/Franklin Gothic Book.ttf') format('truetype'), url('font/Franklin Gothic Book/Franklin Gothic Book.svg') format('svg');
+		font-weight: normal;
+		font-style: normal;
+	}
+	@font-face {
+	font-family: fgbi;
+	src: url('font/Franklin Gothic Book Italic/Franklin Gothic Book Italic.eot');
+	src: local('☺'), url('font/Franklin Gothic Book Italic/Franklin Gothic Book Italic.woff') format('woff'), url('font/Franklin Gothic Book Italic/Franklin Gothic Book Italic.ttf') format('truetype'), url('font/Franklin Gothic Book Italic/Franklin Gothic Book Italic.svg') format('svg');
+	font-weight: normal;
+	font-style: normal;
+	}
+	@font-face {
+	font-family: fgd;
+	src: url('font/Franklin Gothic Demi/Franklin Gothic Demi.eot');
+	src: local('☺'), url('font/Franklin Gothic Demi/Franklin Gothic Demi.woff') format('woff'), url('font/Franklin Gothic Demi/Franklin Gothic Demi.ttf') format('truetype'), url('font/Franklin Gothic Demi/Franklin Gothic Demi.svg') format('svg');
+	font-weight: normal;
+	font-style: normal;
+	}
+	@font-face {
+	font-family: fgdc;
+	src: url('font/Franklin Gothic Demi Cond/Franklin Gothic Demi Cond.eot');
+	src: local('☺'), url('font/Franklin Gothic Demi Cond/Franklin Gothic Demi Cond.woff') format('woff'), url('font/Franklin Gothic Demi Cond/Franklin Gothic Demi Cond.ttf') format('truetype'), url('font/Franklin Gothic Demi Cond/Franklin Gothic Demi Cond.svg') format('svg');
+	font-weight: normal;
+	font-style: normal;
+	}
+	@font-face {
+	font-family: fgdi;
+	src: url('font/Franklin Gothic Demi Italic/Franklin Gothic Demi Italic.eot');
+	src: local('☺'), url('font/Franklin Gothic Demi Italic/Franklin Gothic Demi Italic.woff') format('woff'), url('font/Franklin Gothic Demi Italic/Franklin Gothic Demi Italic.ttf') format('truetype'), url('font/Franklin Gothic Demi Italic/Franklin Gothic Demi Italic.svg') format('svg');
+	font-weight: normal;
+	font-style: normal;
+	}
+	@font-face {
+	font-family: fgm;
+	src: url('font/Franklin Gothic Medium/Franklin Gothic Medium.eot');
+	src: local('☺'), url('font/Franklin Gothic Medium/Franklin Gothic Medium.woff') format('woff'), url('font/Franklin Gothic Medium/Franklin Gothic Medium.ttf') format('truetype'), url('font/Franklin Gothic Medium/Franklin Gothic Medium.svg') format('svg');
+	font-weight: normal;
+	font-style: normal;
+	}
+	@font-face {
+	font-family: fgmc;
+	src: url('font/Franklin Gothic Medium Cond/Franklin Gothic Medium Cond.eot');
+	src: local('☺'), url('font/Franklin Gothic Medium Cond/Franklin Gothic Medium Cond.woff') format('woff'), url('font/Franklin Gothic Medium Cond/Franklin Gothic Medium Cond.ttf') format('truetype'), url('font/Franklin Gothic Medium Cond/Franklin Gothic Medium Cond.svg') format('svg');
+	font-weight: normal;
+	font-style: normal;
+	}
+	@font-face {
+	font-family: fgmi;
+	src: url('font/Franklin Gothic Medium Italic/Franklin Gothic Medium Italic.eot');
+	src: local('☺'), url('font/Franklin Gothic Medium Italic/Franklin Gothic Medium Italic.woff') format('woff'), url('font/Franklin Gothic Medium Italic/Franklin Gothic Medium Italic.ttf') format('truetype'), url('font/Franklin Gothic Medium Italic/Franklin Gothic Medium Italic.svg') format('svg');
+	font-weight: normal;
+	font-style: normal;
+	}
+	@font-face
+	{
+	font-family: logoFont;
+	src: url('font/Alternate Gothic No2 BT.ttf'); 
+	}
+	@font-face
+	{
+	font-family: fgh;
+	src: url('font/Franklin Gothic Heavy.ttf'); 
+	}
+	@font-face
+	{
+	font-family: fghi;
+	src: url('font/Franklin Gothic Heavy Italic.ttf'); 
+	}
+	
+
+/* == Common == */
+
+body{
+	font-family:fgb;
+	font-size: 14px;
+	color: #414141;	
+	background: #f8f8f8;
+}
+input{
+	height: 30px !important;
+}
+a:hover, a:focus {
+	color: #0184ad;
+}
+p{
+	margin-bottom: 20px;
+	margin-top: 15px;
+}
+.title{
+	font-size: 20px;
+	padding: 25px 0px 25px 0px;
+	font-family: fgmc;
+}
+.body-content a{
+	text-decoration: underline;
+}
+.btn-custom{
+	margin-top: 10px;
+}
+
+.boldMe{
+	font-weight: bold;
+	font-size: 18px;
+}
+.calibri15{
+	font-size: 15px;
+	font-family: "Calibri";
+}
+.calibri17{
+	font-size: 17px;
+	font-family: "Calibri";
+}
+.profile-pic50,.profile-pic65,.profile-pic75,.profile-pic100,.profile-pic125{
+	border: 1px #CCC solid;
+	padding: 1px;
+}
+.profile-pic50{
+	border-radius: 25px;
+	height: 50px;
+	width: 50px;
+}
+.profile-pic65{
+	border-radius: 35px;
+	height: 65px;
+	width: 65px;
+}
+.profile-pic75{
+	border-radius: 40px;
+	height: 75px;
+	width: 75px;
+}
+.profile-pic100{
+	border-radius: 50px;
+	height: 100px;
+	width: 100px;
+}
+.profile-pic125{
+	border-radius: 65px;
+	height: 125px;
+	width: 125px;
+}
+.position-relative{
+	position: relative;
+}
+.h70{
+	height: 70px;
+}
+.displayBlock{
+	display: block;
+}
+.spanBlock span{
+	display: block;
+}
+.fgmc18{
+	font-size: 18px;
+	font-family: fgmc;
+}
+
+.profile-box{
+	position: absolute;
+	right: 30px;
+	top: 15px;
+	text-align: center;
+}
+/* == Header == */
+
+.header{
+	background: url(../img/header-bg.jpg) repeat;
+	height: 60px;
+}
+.logoFont{
+	font-family: logoFont;
+	font-size: 35px;
+}
+.header .container{
+	color: #fff;
+	padding:18px;
+}
+.header a,.header a:hover{
+	color: #fff;
+	text-decoration: none;
+}
+.nav-list{
+list-style: none;
+}
+.nav-list li{
+	float: left;
+	font-size: 18px;
+	padding-left: 20px;
+}
+.nav-list li span{
+	padding-right: 10px;
+}
+.right-nav{
+	margin-right: 30px;
+}
+
+.outlined{
+padding: 5px 0px 0px 5px;
+list-style: none;
+outline: 1px solid #d6d6d6;
+}
+.rightSide{
+	background: #ecebeb;
+	height: 800px;
+	margin-left: 10px;
+}
+.textCenter{
+	text-align: center;
+}
+.colorBlack{
+	color: #000 !important;
+}
+.fontsize25{
+	font-size: 25px;
+}
+.fontsize30{
+	font-size: 30px;
+}

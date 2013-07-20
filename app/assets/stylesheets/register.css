@@ -1,0 +1,76 @@
+/* -- Register -- */
+@font-face {
+	font-family: fgmc;
+	src: url('/assets/font/Franklin Gothic Medium Cond/Franklin Gothic Medium Cond.eot');
+	src: local('☺'), url('/assets/font/Franklin Gothic Medium Cond/Franklin Gothic Medium Cond.woff') format('woff'), url('/assets/font/Franklin Gothic Medium Cond/Franklin Gothic Medium Cond.ttf') format('truetype'), url('font/Franklin Gothic Medium Cond/Franklin Gothic Medium Cond.svg') format('svg');
+	font-weight: normal;
+	font-style: normal;
+	}
+.sub-title{
+	font-size: 18px;
+	padding: 5px 0px 10px 0px;
+	font-weight: bold;
+	font-family: fgmc;
+}
+.fieldName{
+	width: 90px;
+}
+.login-info span{
+	padding-bottom: 5px;
+}
+.register input{
+	width: 275px;
+	height: 29px;
+}
+.register select{
+	width: 150px;
+}
+.register .rightSide{
+	height: 940px;
+}
+
+.thanks-head{
+	font-size: 28px;
+	font-family: fgmc;
+	text-transform: uppercase;
+	text-align: center;
+	padding: 50px 0px;
+	line-height: 30px;
+}
+.borderTopImage{
+	-webkit-border-image:url(../img/border-top.png) 15 0 round; /* Safari 5 */
+	-o-border-image:url(../img/border-top.png) 15 0 round; /* Opera */
+	border-image:url(../img/border-top.png) 15 0 round;
+	border-left: 0;
+	border-right: 0;
+	border-bottom: 0;
+}
+.register .head{
+	color: #0184ad;
+	font-family: fgmc;
+	font-size: 22px !important;
+	font-weight: lighter;
+}
+
+.spanBlock span {
+    display: block;
+}
+.register .fields div{
+	display: inline-block;
+}
+.register .fields{
+	padding: 30px 0px 35px 0px;
+	font-size: 16px;
+	font-family: fgmc;
+	text-align: justify;
+}
+.register .fields .span3{
+	margin-left: -8px;
+}
+
+.rightSide {
+    background: none repeat scroll 0 0 #ECEBEB;
+    height: 800px;
+    margin-left: 10px;
+}
+

@@ -1,15 +1,58 @@
-<%=form_for @resume, url: upload_doc_path, :html => { :multipart => true } do |f|%>
-<% if(@resume.errors.any?)%>
-<% @resume.errors.full_messages.each do |msg|%>
-<%=msg%>
-<% end %>
-<% end %>
-<h4>Upload Candidates from Resume</h4>
-<p>Important: Before you can import your Outlook contacts, you'll need to convert them into a format this software can read. 
-	If the contacts are not in the proper format they will not be imported.</p>
-<%=f.file_field :resume %></br>
-<%=f.submit :"upload and import"%>
-
-
-
-<% end %>
+<script>
+ $(document).on("click","#chooseProfile",function(){
+    $("#doc_resume").trigger("click");
+    return false;
+  });
+</script>
+<div class="body-content">
+		<div class="container">
+			<div class="row">
+			<%=form_for @resume, url: upload_doc_path, :html => { :multipart => true } do |f|%>
+				<div class="span12">
+					<div class="row">
+						<div class="span12">
+							<div class="title">Upload Candidates from Resume</div>
+						</div>	
+					</div>
+					<div class="row">
+					
+                       <% if(@resume.errors.any?)%>
+                       <div class="error">
+                       <% @resume.errors.full_messages.each do |msg|%>
+                            <%=msg%>
+                          <% end %>
+                          </div>
+                       <% end %>
+						<div class="span12">
+							<div class="outlined padding15 position-relative">
+								<div class="row">
+									<div class="span12">Import candidates from resume.</div>
+								</div>
+								<div class="row">
+								<%=f.file_field :resume, :class => "hide"%></br>
+                               <div class="span2"><img id="chooseProfile" class="btn-custom" src="/assets/btn-choose.jpg"></div>
+								</div>
+							</div>
+						</div>
+					</div>
+					<div class="row">
+						<div class="span12">
+							<div class="outlined padding15 position-relative">
+								<div class="row">
+								    <div class="span3"><input type="image" src ="/assets/btn-upload-import.jpg" class="btn-custom" /></div>
+									<!--<div class="span3"><img class="btn-custom" src="img/btn-upload-import.jpg"></div>-->
+									<div class="span3"><img class="btn-custom" src="/assets/btn-cancel-import.jpg"></div>
+								</div>
+							</div>
+						</div>
+					</div>
+					
+				</div>
+				<%end%>
+			</div>
+			<div class="row">
+				<div class="span8"></div>
+				<div class="span4"></div>
+			</div>
+		</div>
+	</div>
