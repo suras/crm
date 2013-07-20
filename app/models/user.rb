@@ -4,9 +4,12 @@ class User < ActiveRecord::Base
   # :lockable, :timeoutable and :omniauthable
   devise :database_authenticatable, :registerable,
          :recoverable, :rememberable, :trackable, :validatable
-
+ has_attached_file :profile_pic, :styles => { :small => "150x150>" },
+                  :url  => "/assets/candidates/:id/avatar/:style/:basename.:extension",
+                  :path => ":rails_root/public/assets/candidates/:id/avatar/:style/:basename.:extension",
+                   :default_url => "/assets/profile_pic.png"
   # Setup accessible (or protected) attributes for your model
-  attr_accessible :email, :password, :password_confirmation, :remember_me, :first_name, :last_name, :company,
+  attr_accessible :email, :password, :password_confirmation, :remember_me, :first_name, :last_name, :company,:profile_pic,
                    :user_type, :status, :team_id, :plan_id, :register_type, :name, :stripe_card_token, :stripe_customer_token
   attr_accessor :plan_id, :register_type, :name, :stripe_card_token 
   def name
@@ -26,7 +29,7 @@ class User < ActiveRecord::Base
      @team = Team.create( :owner_id => self.id, :status => 'pending', :plan_id => self.plan_id, :stripe_customer_token => self.stripe_customer_token)
      self.team = @team
      self.user_type = 'owner'
-     self.team_id = @team.id
+     #self.team_id = @team.id
      self.save
    end
  end
@@ -63,4 +66,38 @@ class User < ActiveRecord::Base
     
     
   end
+  
+  def plan_update(user_plan_id)
+    unless stripe_customer_token.nil?
+      customer = Stripe::Customer.retrieve(stripe_customer_token)
+      customer.update_subscription(:plan => user_plan_id)
+       team = self.team
+       team.plan_id = user_plan_id
+       team.save
+    end
+   
+    true
+  rescue Stripe::StripeError => e
+    logger.error "Stripe Error: " + e.message
+    errors.add :base, "Unable to update your subscription. #{e.message}."
+    false
+  end
+  
+  def card_update(card_token)
+    unless stripe_customer_token.nil?
+      customer = Stripe::Customer.retrieve(stripe_customer_token) 
+      customer.card = card_token
+      customer.email = email
+      customer.description = email
+      customer.save
+    end
+  rescue Stripe::StripeError => e
+    logger.error "Stripe Error: " + e.message
+    errors.add :base, "#{e.message}."
+    self.stripe_token = nil
+    false
+  end
+  
+  
+  
 end

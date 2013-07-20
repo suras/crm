@@ -17,9 +17,12 @@ HootQuest::Application.routes.draw do
   match "/approval/:call_list_id/:candidate_id"=> "call_lists#approval"
   match "/shortlists/bulk_update"=>"shortlists#bulk_update"
   match "/get_candidates/:call_list_id" => "candidates#index"
-  resources :candidates,:notes,:shortlists,:call_lists
+
+  # match "/users/accountSettings" => "users#acc_settings"
+  # post "/users/addMoreUser" => "users#add_more_user", :as =>"add_more_user"
   
-  get "users/index", :to =>"users#index", :as => "users_index"
+  resources :candidates,:notes,:shortlists,:call_lists#,:users
+  resources :users, :path_names=> { :new=> "new",:index=> "accountSettings", :destroy=> "cancel_users"}
   
   get "uploads/excel", :to => "uploads#new_upload_excel", :as => "new_upload_excel"
   
@@ -38,10 +41,9 @@ HootQuest::Application.routes.draw do
 
   match "/faq" => "static_pages#faq" 
   match "/pricing" => "static_pages#billing_info" 
-  match "/users/accountSettings" => "users#acc_settings"
-  post "/users/addMoreUser" => "users#add_more_user", :as =>"add_more_user"
-  
-
+  get "/users/edit_subscription" => "users#edit_subscription", :as => "edit_subscription"
+  put "/users/update_card" => "users#update_card", :as => "update_card"
+  put "/users/update_plan" => "users#update_plan", :as => "update_plan"
   
  
   #get "users/edit/:id" => "users#edit_user" :as => "edit_user"
