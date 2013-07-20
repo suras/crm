@@ -1,6 +1,72 @@
-<% if @candidates.present?%>
-	 <h2>Candidates List</h2>
-<% else %>
- <h2>Welcome</h2>
-	<p>Get Started: <%=link_to 'Add Candidates To Your Account', new_candidate_path()%></p>
- <%  end %> 
+<%= stylesheet_link_tag "users"%>
+<div class="body-content account">
+	<div class="container">
+		<div class="row">
+			<div class="span8">
+				<div class="row">
+					<div class="span8">
+						<div class="title">Users</div>
+					</div>
+				</div>
+				<div class="row">
+					<div class="span8">
+						<div class="outlined">
+							<ul class="users-list">
+								<% @users.each do |user| %>
+								<li>
+									<div class="position-relative">
+										<div class="profile-pic-box">
+											<img class="profile-pic75" src="<%= user.profile_pic(:small)%>">
+										</div>
+										<div class="profile-info-box">
+											<div class="">
+												<span class="head"><%= user.name %></span>
+												<span>Email: <%= user.own_email %>(their email)</span>
+												<span>User name: <%= user.email%> </span>
+												<span class="fgmc18">Your personal HootRecruit  email</span>
+												<span>Forward or BCC email to this address to attach it to a candidates's notes.</span>
+												<span><%= user.email %> (their HootRecruit email)</span>
+											</div>
+											<div class="profile-info-right">
+												<span ><%= (user.user_type == "owner") ? "Admin | User" : (link_to 'Cancel User', "/users/cancel/user#{user.id}") %></span>
+												<span><%= (user.user_type == "owner") ? (link_to "Edit User", edit_user_registration_path()) : (link_to "Edit User" , edit_user_path(user))%></span>
+											</div>
+										</div>
+									</div>
+								</li>
+								<% end %>
+							</ul>
+						</div>
+					</div>
+				</div>
+				<div class="row bottom-links">
+					<div class="span8 add-more">
+						<%= link_to "+ Add More Users", new_user_path() if @add_more==true %>
+						<%= image_tag "btn-upgrade.jpg"%>
+					</div>
+				</div>
+			</div>
+			<div class="span4 rightSide">
+				<div class="row h70"></div>
+				<div class="row">
+					<div class="span4 links-list">
+						<span><a href="">edit billing information</a></span>
+						<span><a href="">add more users</a></span>
+						<span><a href="">click here to cancel your HootRecruit account</a></span>
+					</div>
+				</div>
+				<div class="row">
+					<div class="span4 works">
+						<span class="head">How does my HootRecruit email work?</span>
+						<div><span>FORWARD an email to your HootRecruit email and HootRecruit  will find the candidate who wrote the email and attach the email to that candidate's notes in their profile.</span>
+						<span>BCC your HootRecruit email when you send an email and the email will be attached to the person receiving the email.</span></div>
+					</div>
+				</div>
+			</div>
+		</div>
+		<div class="row">
+			<div class="span8"></div>
+			<div class="span4"></div>
+		</div>
+	</div>
+</div>

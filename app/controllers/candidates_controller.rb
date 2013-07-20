@@ -4,7 +4,6 @@ include ERB::Util
 class CandidatesController < ApplicationController
    respond_to :html, :xml, :json, :js
   before_filter :authenticate_user!, :get_team
-  layout "candidate"
   def new
     
     @candidate = @team.candidates.new
