@@ -153,3 +153,13 @@ font-size: 15px;
 .sortBy button[disabled],.bottomLink button[disabled]{
   color: #888888;
 }
+.sortBy input {height: 25px;
+padding: 10px;
+margin-bottom: 0px;}
+
+.view-candidate-quick {
+text-align: center;
+margin-top: 210px;
+font-family: fgb;
+font-size: 15px;
+}

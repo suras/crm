@@ -1,0 +1,29 @@
+.landing{
+	color: #313131;
+}
+.welcome-msg{
+	padding: 10px 0px;
+	font-family: fgmc;
+	background: #fffec2;
+	margin-top: 10px;
+	margin-bottom: 10px;
+}
+.welcome-msg span{
+	display: block;
+	padding: 10px 0px;
+	text-align: center;
+}
+.welcome-below{
+	font-size: 19px;
+	text-align: center;
+	padding: 10px 0px 50px 0px;
+}
+.welcome-search{
+	text-align: center;
+	border: 2px #eee solid;
+	width: 785px;
+	margin: 0px auto;
+}
+.footer-landing{
+	height: 75px;
+}

@@ -1,7 +1,6 @@
 <%= javascript_include_tag("view_profile/application")%>
 <%= stylesheet_link_tag "profile", "common" %>
 
-	
 	<div class="body-content profile" ng-app="app">
 		<div class="container" ng-controller="notes_controller">
 			<div class="row">
@@ -55,11 +54,11 @@
 							<div class="row">
 								<div class="span6 textCenter">
 									<!--<img src="img/btn-send-mail.png">-->
-									<a target="_blank" class="btn btn-success btn-block btn-large" href="mailto:<%= @candidate.email %>?body=Dear <%= @candidate.name %>"><img src="/assets/btn-send-mail.png"></a>
+									<a target="_blank" href="mailto:<%= @candidate.email %>?body=Dear <%= @candidate.name %>"><img src="/assets/btn-send-mail.png"></a>
 								</div>
 								<div class="span6 textCenter">
 									
-									<a class="btn btn-success btn-block btn-large" ng-click="add_note()"><img src="/assets/btn-add-note.png"></a>
+									<a ng-click="add_note()"><img src="/assets/btn-add-note.png"></a>
 								</div>
 							</div>
 						</div>

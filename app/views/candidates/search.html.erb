@@ -30,8 +30,8 @@ window.candidate_url = '<%= "#{root_url}"+"candidates/"%>';
                 <span><button ng-disabled ="disable_sort" ng-click="predicate = 'first_name';reverse=!reverse">Name</button></span>
                 <span><button ng-disabled ="disable_sort" ng-click="predicate = 'position';reverse=!reverse">Title</button></span>
                 <span><button ng-disabled ="disable_sort" ng-click="predicate = 'contact_number';reverse=!reverse">Location</button></span>
-                <span><input type="text" ng-model="search" placeholder="Name,tags,position..etc"></span>
-                <!-- <span><select ng-model="added_by" ng-options="candidate.added_by for candidate in candidates"><option value="ddfsafdsa">Filter By Users</option>
+<!--                 <span><input type="text" ng-model="search" placeholder="Name,tags,position..etc"></span>
+ -->                <!-- <span><select ng-model="added_by" ng-options="candidate.added_by for candidate in candidates"><option value="ddfsafdsa">Filter By Users</option>
 </select></span> -->
                 <span class="selectall pull-right"><button ng-disabled ="disable_sort"  ng-click="select_all()">Select All</button></span>
               </div>
@@ -40,14 +40,14 @@ window.candidate_url = '<%= "#{root_url}"+"candidates/"%>';
             </div>
 
               <ul class=" candidate-list candidate-list-box height685 ">
-                <li ng-class="{blue: candidate.id==selectedIndex}" ng-repeat="candidate in candidates | filter:search | orderBy:predicate:reverse " >
+                <li ng-class="{blue: candidate.id==selectedIndex}" ng-repeat="candidate in candidates | orderBy:predicate:reverse " >
                   <div class="candidatre-list-inner" ng-click="view(candidate.id)">
                     <div class="">
                       <img class="profile-pic75" src="{{candidate.profile_pic_url}}">
                     </div>
                     <div class="details">
                       <div class="name-title">
-                        <span class="calibri17"><a href="">{{ candidate.first_name}} {{ candidate.last_name}}</a></span>
+                        <span class="calibri17"><a href="/candidates/{{candidate.id}}">{{ candidate.first_name}} {{ candidate.last_name}}</a></span>
                         <span class="calibri15">{{ candidate.position}}</span>
                       </div>
                       <div class="keys">{{candidate.get_tags}}</div>
@@ -68,7 +68,7 @@ window.candidate_url = '<%= "#{root_url}"+"candidates/"%>';
                 <a href="/candidates/{{can.id}}/edit" class="displayBlock">Edit</a>
               </div>
               <div class="info">
-                <span class="name">{{ can.last_name}} {{ can.first_name}}</span>
+                <span class="name"><a href="/candidates/{{can.id}}" > {{ can.last_name}} {{ can.first_name}}</a></span>
                 <span>{{ can.position}}</span>
                 <span class="fieldTitle">Company:</span>
                 <span>{{ can.company}}</span>

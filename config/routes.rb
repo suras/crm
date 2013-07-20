@@ -16,7 +16,7 @@ HootQuest::Application.routes.draw do
   match "/approval/:call_list_id/:candidate_id"=> "call_lists#approval"
   match "/shortlists/bulk_update"=>"shortlists#bulk_update"
   match "/get_candidates/:call_list_id" => "candidates#index"
-
+  match "/landing" => "home#landing", :as=> "landing"
   get "uploads/excel", :to => "uploads#new_upload_excel", :as => "new_upload_excel"
   
   post "uploads/excel", :to => "uploads#upload_excel", :as => "upload_excel"
@@ -33,7 +33,7 @@ HootQuest::Application.routes.draw do
   post "uploads/docs", :to => "uploads#upload_doc", :as => "upload_doc"
 
   match "/faq" => "static_pages#faq" 
-  match "/pricing" => "static_pages#billing_info" 
+  match "/pricing" => "home#pricing" 
   scope '/account' do
     match "/" => "users#index"
     match "/cancel/:id"=> "users#cancel", :as=>"cancel_user"
