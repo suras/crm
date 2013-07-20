@@ -10,14 +10,14 @@ HootQuest::Application.routes.draw do
   mount StripeEvent::Engine => '/stripe'
   match "/search(/:query)" =>"candidates#search", :as => "search"
   match "/stop_here/:call_list_id"=>"call_lists#stop_here"
-
+  
   get "/candidates/get_candidate_tags", :to => "candidates#get_candidate_tags"
   get "/candidates/phrase_contents", :to => "candidates#phrase_contents"
   match "/call_list" => "call_lists#index"
   match "/approval/:call_list_id/:candidate_id"=> "call_lists#approval"
   match "/shortlists/bulk_update"=>"shortlists#bulk_update"
   match "/get_candidates/:call_list_id" => "candidates#index"
-
+  get '/candidates/subregion_options' => 'candidates#subregion_options'
   # match "/users/accountSettings" => "users#acc_settings"
   # post "/users/addMoreUser" => "users#add_more_user", :as =>"add_more_user"
   
