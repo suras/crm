@@ -1,5 +1,6 @@
 <script type="text/javascript">
 $(document).ready(function(){
+	 $("#loading").hide();
   $("#tags").addClass("hide");
   $("#candidate_contact_number").attr("maxlength","13");
   $(document).on("change","#candidate_profile_pic",function(){
@@ -164,10 +165,15 @@ $.ajax({
   cache:false,
   data:{ url: s_url, type: s_type },
   success: function(res) {
+  	 $("#loading").hide();
 //var headline = $(res.responseText).find('a.tsh').text();
 $("#candidate_social_image_url").val(res);
 $('#preview').attr('src', res);
 
+},
+error:function()
+{
+	$("#loading").hide();
 }
 });
 }
@@ -178,6 +184,7 @@ $(document).ready(function(){
     if (profile_pic == "" || profile_pic == " ")
     {
       var url = $("#candidate_linked_in").val();
+       $("#loading").show();
       get_profile_url(url, "linkedin");
 
     }
@@ -189,6 +196,7 @@ $("#candidate_facebook").blur(function(){
 var social_image = $("#candidate_social_image_url").val();
 if ((profile_pic == "" || profile_pic == " ") && (social_image == " " || social_image == ""))
 {
+	$("#loading").show();
   var url = $("#candidate_facebook").val();
   get_profile_url(url, "facebook");
 
@@ -342,7 +350,13 @@ $(function() {
               </div>
               <div class="span4">
                 <%= f.text_field :linked_in %>
+                
               </div>
+              <div id ="loading" style="position:absolute;
+              position: absolute;
+             left: 371px;
+               bottom: 115px;
+              "><%= image_tag("loading.gif", height: '102', width: '100')%></div>
             </div>
             <div class="row">
               <div class="span2">

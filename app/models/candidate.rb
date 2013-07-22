@@ -2,8 +2,8 @@ require "open-uri"
 class Candidate < ActiveRecord::Base
   attr_accessible :company, :experience, :first_name, :last_name, :profile_pic, :resume, :first_name,
                   :last_name, :email, :address, :city, :state, :zip, :contact_number, :team_id, :user_id,
-                  :added_from, :linked_in, :twitter, :facebook, :position,:name, :unique_id, :social_image_url, :country
-  attr_accessor :social_image_url                
+                  :added_from, :linked_in, :twitter, :facebook, :position,:name, :unique_id, :social_image_url, :country, :resume_data
+  attr_accessor :social_image_url   
 
  has_attached_file :profile_pic, :styles => { :small => "150x150>" },
                   :url  => "/assets/candidates/:id/avatar/:style/:basename.:extension",
@@ -25,7 +25,7 @@ validates_attachment_content_type :resume, :content_type => ["application/pdf", 
  validates :email,  :first_name, :presence => true
  validates :email, :email => true, :uniqueness=>true
  has_many :notes
-
+ #after_post_process :read_resume
 
  before_create :generate_unique_id, :generate_profile_picture
  belongs_to :user
@@ -115,6 +115,18 @@ validates_attachment_content_type :resume, :content_type => ["application/pdf", 
 
   def profile_pic_url
     self.profile_pic(:small)
+  end
+  
+  def read_resume
+    path = resume.queued_for_write[:original].path
+    
+    Rails.logger.info "#{path.inspect}"
+    if resume.present? && valid?
+    r_file = File.open(path, 'rb') { |f| f.read }
+    Rails.logger.info "#{r_file}"
+    self.resume_data = r_file
+    
+    end
   end
 
 end

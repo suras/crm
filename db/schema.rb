@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20130719151117) do
+ActiveRecord::Schema.define(:version => 20130722063437) do
 
   create_table "call_lists", :force => true do |t|
     t.string   "name"
@@ -55,6 +55,7 @@ ActiveRecord::Schema.define(:version => 20130719151117) do
     t.datetime "updated_at",               :null => false
     t.string   "unique_id"
     t.string   "country"
+    t.string   "resume_data"
   end
 
   create_table "candidates_tags", :force => true do |t|
