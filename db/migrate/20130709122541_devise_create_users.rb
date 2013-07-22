@@ -3,8 +3,15 @@ class DeviseCreateUsers < ActiveRecord::Migration
     create_table(:users) do |t|
       t.string :first_name
       t.string :last_name
+      t.string :college
       t.string :company
-      t.string :user_type
+      t.attachment :profile_pic
+      t.string :contact_number
+      t.string  :country
+      t.string :state
+      t.string :city
+      t.string :address
+      t.string :user_type, :default => "member"
       t.boolean :status, :default => true
       t.references :team
       ## Database authenticatable
@@ -44,8 +51,7 @@ class DeviseCreateUsers < ActiveRecord::Migration
       t.timestamps
     end
 
-    add_index :users, :email,                :unique => true
-    add_index :users, :reset_password_token, :unique => true
+    
     # add_index :users, :confirmation_token,   :unique => true
     # add_index :users, :unlock_token,         :unique => true
     # add_index :users, :authentication_token, :unique => true

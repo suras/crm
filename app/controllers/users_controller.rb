@@ -1,5 +1,6 @@
 class UsersController < ApplicationController
   before_filter :authenticate_user!
+  
   def index
     @user=current_user
     @team = current_team
@@ -15,6 +16,7 @@ class UsersController < ApplicationController
     @user = User.find(params[:id])
     render "new"
   end
+  
   def create
     team = current_team
     if team.plan.max_user.to_i > team.users.count
@@ -44,20 +46,9 @@ class UsersController < ApplicationController
     end
   end
 
-  def edit_subscription
-    @user = current_user if current_user.user_type == "owner"
-  end
+ 
   
-  def update_plan
-    return unless current_user.user_type == "owner"
-    @user = current_user
-    if(@user.plan_update(params[:user][:plan_id]))
-    redirect_to edit_subscription_path, :notice => "Plan Updated Successfully"
-    else
-      flash.alert = "unable to update plan"
-      render :action => "edit_subscription"
-    end
-  end
+  
 
   def cancel
     @user = User.find(params[:id])
@@ -65,14 +56,5 @@ class UsersController < ApplicationController
     redirect_to users_path , :notice =>  "User Cancelled"
   end
   
-  def update_card
-    return unless current_user.user_type == "owner"
-    @user = current_user
-    if(@user.card_update(params[:user][:stripe_card_token]))
-    redirect_to edit_subscription_path, :notice => "Card Updated Successfully"
-    else
-      flash.alert = "unable to update card"
-      render :action => "edit_subscription"
-    end
-  end
+ 
 end

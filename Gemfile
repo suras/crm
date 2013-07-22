@@ -38,11 +38,6 @@ gem 'roo'
 
 gem 'email_validator'
 
-gem 'mailman', require: false
-
-gem 'stripe'
-
-gem 'stripe_event'
 
 
 gem 'carmen', git: 'git://github.com/jim/carmen.git'

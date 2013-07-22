@@ -3,13 +3,13 @@ require 'open-uri'
 include ERB::Util
 class CandidatesController < ApplicationController
   respond_to :html, :xml, :json, :js
-  before_filter :authenticate_user!, :get_team, :check_subscription
+  
   def new
-    @candidate = @team.candidates.new
+    @candidate = Candidate.new
   end
 
   def create
-    params[:candidate][:user_id] = current_user.id
+   
 
     tag_names = params[:tags].split(',')
     tags = tag_names.collect do |tag_name|
@@ -113,33 +113,10 @@ class CandidatesController < ApplicationController
       f.json { render :json=> @main_list.to_json}
     end
   end
-  def candidates
 
-  end
-  def get_team
-    @team = current_user.team
-  end
+ 
 
 
-  def phrase_contents
-    # @image_url = params[:url] + params[:type]
-    @page = Nokogiri::HTML(open(params[:url]))
-    @page = @page.to_s
-    if(params[:type] == "linkedin")
-
-      @image_url = @page.match(/(http:\/\/m\.c\.lnkd\.licdn\.com\/mpr\/pub\/)(.+)(\.jpg)/)
-      #@image_url = @page.match(/http/)
-      @image_url = @image_url[0]
-    end
-
-    if(params[:type] == "facebook")
-      @image_url = @page.match(/(https:\/\/fbcdn-profile-a\.akamaihd\.net\/hprofile-ak-)(.*?)(\.jpg)/)
-      @image_url = @image_url[0]
-    end
-    respond_with(@image_url, :layout => false)
-
-
-  end
   
   def subregion_options
   render partial: 'subregion_select'
