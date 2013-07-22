@@ -137,8 +137,8 @@ $(document).ready(function(){
 							<div class="row">
 								<div class="span8">
 									<div class="sub-title">How many users would you like on the account?</div>
-									<select>
-										<option value="">-- Select --</option>
+									<select name="user[plan_id]">
+										
 										<option value="1">1</option>
 										<option value="2">2</option>
 										<option value="3">3</option>
@@ -181,7 +181,7 @@ $(document).ready(function(){
 
 							<div class="row">
 								<div class="span2 fieldName">
-									Billing Zip
+									Cvc
 								</div>
 								<div class="span4">
 									<%= text_field_tag :card_code, nil, name: nil %>
@@ -199,7 +199,7 @@ $(document).ready(function(){
 					<div class="row bottom-links">
 						<div class="span2">
 							<!--<img class="btn-custom" src="img/btn-start-free.png">-->
-							<input type="image" src="/assets/btn-start-free.png"  class="btn-custom" style="max-width:100%;"/>
+							<input type="image" src="/assets/btn-start-free.png" id="submit_button" class="btn-custom" style="max-width:100%;"/>
 						</div>
 					</div>
 				</div>
