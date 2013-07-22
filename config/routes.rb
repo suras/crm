@@ -5,33 +5,19 @@ HootQuest::Application.routes.draw do
   # get "static_pages/billing_info"
   devise_for :users
 
-  mount StripeEvent::Engine => '/stripe'
+ 
   match "/search(/:query)" =>"candidates#search", :as => "search"
-  match "/stop_here/:call_list_id"=>"call_lists#stop_here"
+  
   get '/candidates/subregion_options' => 'candidates#subregion_options'
 
   get "/candidates/get_candidate_tags", :to => "candidates#get_candidate_tags"
-  get "/candidates/phrase_contents", :to => "candidates#phrase_contents"
-  match "/call_list" => "call_lists#index"
-  match "/approval/:call_list_id/:candidate_id"=> "call_lists#approval"
-  match "/shortlists/bulk_update"=>"shortlists#bulk_update"
-  match "/get_candidates/:call_list_id" => "candidates#index"
-  match "/landing" => "home#landing", :as=> "landing"
-  get "uploads/excel", :to => "uploads#new_upload_excel", :as => "new_upload_excel"
   
-  post "uploads/excel", :to => "uploads#upload_excel", :as => "upload_excel"
-  get  "uploads/excel_jobs", :to => "uploads#excel_jobs"
-  
-  get "uploads/linkedin", :to => "uploads#new_upload_linkedin", :as => "new_upload_linkedin"
-  
-  post "uploads/linkedin", :to => "uploads#upload_linkedin", :as => "upload_linkedin"
-  
-  get "uploads/outlook", :to => "uploads#new_upload_outlook", :as => "new_upload_outlook"
-  post "uploads/outlook", :to => "uploads#upload_outlook", :as => "upload_outlook"
-  
-  get "uploads/docs", :to => "uploads#new_upload_doc", :as => "new_upload_doc"
-  post "uploads/docs", :to => "uploads#upload_doc", :as => "upload_doc"
+  get "/candidates/sign_in", :to => "candidates#sign_in", :as => "candidate_sign_in"
+  post "/candidates/create_sign_in", :to => "candidates#create_sign_in" , :as => "candidate_create_sign_in"
+  delete "/candidates/sign_out", :to => "candidates#sign_out" , :as => "candidate_sign_out"
 
+  match "/landing" => "home#landing", :as=> "landing"
+  
   match "/faq" => "static_pages#faq" 
   match "/pricing" => "home#pricing" 
   scope '/account' do

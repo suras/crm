@@ -1,10 +1,11 @@
 require "open-uri"
+require 'digest'
 class Candidate < ActiveRecord::Base
   attr_accessible :company, :experience, :first_name, :last_name, :profile_pic, :resume, :first_name,
                   :last_name, :email, :address, :city, :state, :zip, :contact_number,
-                  :added_from, :linked_in, :twitter, :facebook, :position, :name, :unique_id, :social_image_url, 
-                  :country, :referred_by
-  attr_accessor :social_image_url   
+                  :added_from, :linked_in, :twitter, :facebook, :position, :name, 
+                  :country, :referred_by, :encrypted_password, :password, :password_confirmation
+  attr_accessor  :password, :password_confirmation  
 
  has_attached_file :profile_pic, :styles => { :small => "150x150>" },
                   :url  => "/assets/candidates/:id/avatar/:style/:basename.:extension",
@@ -19,6 +20,11 @@ class Candidate < ActiveRecord::Base
  validates_attachment_content_type :resume, :content_type => ["application/pdf", "application/msword", 
              "application/vnd.openxmlformats-officedocument.wordprocessingml.document", 
              "text/plain"]
+             
+  validates :password, :confirmation => true,
+                       :length => { :within => 4..20 },
+                       :presence => true
+                              
 
 
  validates :contact_number, :length => {:minimum => 6, :maximum => 25}, :format => { :with => /\A\S[0-9\+\/\(\)\s\-]*\z/i }, :allow_blank => true
@@ -77,7 +83,7 @@ class Candidate < ActiveRecord::Base
  def name
     "#{self.first_name} #{self.last_name}"
   end
- before_create :save_image
+ 
   
 
  def resume_url
@@ -95,6 +101,31 @@ class Candidate < ActiveRecord::Base
   def profile_pic_url
     self.profile_pic(:small)
   end
+  
+  before_save :encrypt_new_password
+ 
+  def self.authenticate(email, password)
+    candidate = find_by_email(email)
+    return candidate if candidate && candidate.authenticated?(password)
+  end
+ 
+  def authenticated?(password)
+    self.encrypted_password == encrypt(password)
+  end
+ 
+  protected
+    def encrypt_new_password
+      return if password.blank?
+      self.encrypted_password = encrypt(password)
+    end
+ 
+    def password_required?
+      encrypted_password.blank? || password.present?
+    end
+ 
+    def encrypt(string)
+      Digest::SHA1.hexdigest(string)
+    end
   
 
 

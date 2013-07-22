@@ -3,23 +3,30 @@ require 'open-uri'
 include ERB::Util
 class CandidatesController < ApplicationController
   respond_to :html, :xml, :json, :js
+  before_filter :authenticate, only: [:edit, :update, :destroy]
   
   def new
+     if logged_in? 
+       redirect_to edit_candidate_path(current_candidate), :notice => "Youre already logged in"
+       false
+     end
+  
+    
     @candidate = Candidate.new
   end
 
   def create
    
-
     tag_names = params[:tags].split(',')
     tags = tag_names.collect do |tag_name|
       tag = Tag.find_or_create_by_name(tag_name)
 
-    end
-    @candidate = @team.candidates.new(params[:candidate])
+      end
+    
+    @candidate = Candidate.new(params[:candidate])
     if @candidate.save
       @candidate.tags << tags
-      redirect_to search_path(), :notice => "Candidate Added Successfully"
+      redirect_to edit_candidate_path(@candidate), :notice => "Candidate Added Successfully"
     else
       render :action => "new"
     end
@@ -114,12 +121,33 @@ class CandidatesController < ApplicationController
     end
   end
 
- 
-
-
-  
   def subregion_options
   render partial: 'subregion_select'
- end
+  end
+   
+   
+   def sign_in
+     
+     
+    end
+    
+  
+ 
+   def create_sign_in
+   
+       if candidate = Candidate.authenticate(params[:email], params[:password])
+          session[:candidate_id] = candidate.id
+          redirect_to edit_candidate_path(candidate), :notice => "Logged in successfully"
+      else
+         flash.now[:alert] = "Invalid login/password combination"
+          render :action => 'candidate_signin_path'
+     end 
+   end
 
+
+  def sign_out
+    reset_session
+    redirect_to candidate_signout_path, :notice => "You successfully logged out"
+   end
+  
 end

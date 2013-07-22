@@ -146,6 +146,7 @@ $(document).on("click","#submit_button",function(){
 
 });
 });
+
 $(function() {
   $("#tags").tokenInput("/candidates/get_candidate_tags.json", {
     crossDomain: false,
@@ -155,57 +156,10 @@ $(function() {
 
   });
 });
-function get_profile_url(s_url, s_type)
-{
-//var data = 'url='+ s_url  & 'type='+ s_type;
 
-$.ajax({
-  url: '/candidates/phrase_contents',
-  type: 'GET',
-  cache:false,
-  data:{ url: s_url, type: s_type },
-  success: function(res) {
-  	 $("#loading").hide();
-//var headline = $(res.responseText).find('a.tsh').text();
-$("#candidate_social_image_url").val(res);
-$('#preview').attr('src', res);
 
-},
-error:function()
-{
-	$("#loading").hide();
-}
-});
-}
-$(document).ready(function(){
-  $("#candidate_linked_in").blur(function(){
-    var profile_pic = $("#candidate_profile_pic").val();
 
-    if (profile_pic == "" || profile_pic == " ")
-    {
-      var url = $("#candidate_linked_in").val();
-       $("#loading").show();
-      get_profile_url(url, "linkedin");
 
-    }
-  });
-
-$("#candidate_facebook").blur(function(){
-  var profile_pic = $("#candidate_profile_pic").val();
-//var linked_in = $("#candidate_linked_in").val();
-var social_image = $("#candidate_social_image_url").val();
-if ((profile_pic == "" || profile_pic == " ") && (social_image == " " || social_image == ""))
-{
-	$("#loading").show();
-  var url = $("#candidate_facebook").val();
-  get_profile_url(url, "facebook");
-
-}
-});
-});
-</script>
-
-<script>
 $(function() {
   return $('select#candidate_country').change(function(event) {
     var country_code, select_wrapper, url;
@@ -311,6 +265,22 @@ $(function() {
                   <%= f.text_field :email %>
                 </div>
               </div>
+               <div class="row">
+                <div class="span2">
+                  Password
+                </div>
+                <div class="span4">
+                  <%= f.password_field :password %>
+                </div>
+              </div>
+                <div class="row">
+                <div class="span2">
+                  Password Confirmation
+                </div>
+                <div class="span4">
+                  <%= f.password_field :"password_confirmation" %>
+                </div>
+              </div>
               <div class="row">
                 <div class="span2">
                   Country
@@ -327,7 +297,7 @@ $(function() {
                   <%= render partial: 'subregion_select', locals: {parent_region: f.object.country} %>
                 </div>
               </div>
-            <%= f.hidden_field :social_image_url %>
+          
             <div class="row">
               <div class="span2">
                 City
@@ -389,35 +359,13 @@ btn-choose.png">-->
           </div>
         </div>
       </div>
-      <div class="span4 leftSide">
-      <div class="row">
-        <div class="span4">
-          <div class="other-head head">Other ways to add candidates</div>
-        </div>
-      </div>
-      <div class="row">
-        <div class="span4 works">
-          <span>Would you like to add multiple candidates at once? </span>
-          <span>Choose from the following options.</span>
-        </div>
-      </div>
-      <div class="row">
-        <ul class="other-list">
-          <li><a href="import_excel.html"><span><%=image_tag "icon-excel.png" %></span><span>Excel</span></a></li>
-          <li><a href="import_outlook.html"><span><%=image_tag "icon-outlook.png" %></span><span>Outlook</span></a></li>
-          <li><a href="import_linkedin.html"><span><%=image_tag "icon-linkedin.png" %></span><span>LinkedIn</span></a></li>
-          <li><a href="import_resume.html"><span><%=image_tag "icon-resume.png" %></span><span>Resumes</span></a></li>
-        </ul>
-      </div>
-    </div>
+  
   </div>
   <div class="row bottom-links">
         <div class="span2 offset1">
           <img class="btn-custom" id="submit_form" src="/assets/btn-save.png">
         </div>
-        <div class="span2">
-          <%= image_tag "btn-cancel.png",:id=>"cancel_submit", :class => "btn-custom"%>
-        </div>
+      
       </div>
     </div>
   <div class="row">

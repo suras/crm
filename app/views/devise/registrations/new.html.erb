@@ -1,4 +1,3 @@
-<%= javascript_include_tag "stripe/subscriptions" %>
 <%= stylesheet_link_tag "register"%>
 <script type="text/javascript">
 $(document).ready(function(){
@@ -82,7 +81,7 @@ $(document).ready(function(){
 				<div class="span8">
 					<div class="row">
 						<div class="span8">
-							<div class="title">Your just 60 seconds away from your new HootQuest account!</div>
+							<div class="title">Sign Up</div>
 						</div>	
 					</div>
 					<div class="row">
@@ -112,10 +111,10 @@ $(document).ready(function(){
 
 							<div class="row">
 								<div class="span2 fieldName">
-									Company
+									College Name
 								</div>
 								<div class="span4">
-									<%= f.text_field :company %>
+									<%= f.text_field :college %>
 								</div>
 							</div>
 							<div class="row">
@@ -134,119 +133,18 @@ $(document).ready(function(){
 									<span class="sub-title"></span>
 								</div>
 							</div>
-							<div class="row">
-								<div class="span8">
-									<div class="sub-title">How many users would you like on the account?</div>
-									<select name="user[plan_id]" id="user_plan_id">
-										
-										<option value="1">1</option>
-										<option value="5">2</option>
-										<option value="5">3</option>
-										<option value="5">4</option>
-										<option value="5">5</option>
-										<option value="20">6</option>
-										<option value="20">7</option>
-										<option value="20">8</option>
-										<option value="20">9</option>
-										<option value="20">10</option>
-										<option value="20">11</option>
-										<option value="20">12</option>
-										<option value="20">13</option>
-										<option value="20">14</option>
-										<option value="20">15</option>
-										<option value="20">16</option>
-										<option value="20">17</option>
-										<option value="20">18</option>
-										<option value="20">19</option>
-										<option value="20">20</option>
-									</select>
-								</div>
-							</div>
-							<div class="row">
-								<div class="span8">
-									<div class="sub-title">Payments</div>
-								</div>
-							</div>
-							<div class="row">
-								<div class="span2 fieldName">
-								<%= f.hidden_field :stripe_card_token %>
-									Card Number
-								</div>
-								<div class="span4">
-									<div id="stripe_error" class="error" style="padding-left:22px">
-    <noscript>JavaScript is not enabled and is required for this form. First enable it in your web browser settings.</noscript>
-  </div>
-									<%= text_field_tag :card_number, nil, name: nil %>
-								</div>
-							</div>
-							<div class="row">
-								<div class="span2 fieldName">
-									Expires on
-								</div>
-								<div class="span4">
-									<%= select_month nil, {add_month_numbers_true: true}, {name: nil, id: "card_month"}%>
-                                    <%= select_year nil, {start_year: Date.today.year, end_year: Date.today.year+15}, {name: nil, id: "card_year"}%>
-								</div>
-							</div>
-
-							<div class="row">
-								<div class="span2 fieldName">
-									Cvc
-								</div>
-								<div class="span4">
-									<%= text_field_tag :card_code, nil, name: nil %>
-								</div>
-							</div>
-							<div class="row">
-								<div class="span8">
-									<p> Your 7-day free trial lasts until this time 7 days from now. If you don't want to continue using HootRecruit, just cancel before the trial ends and you won't be charged. Otherwise, you'll pay for the service as long as your account is open. You can upgrade, downgrade, or cancel any time.</p>
-									<p>By clicking you agree to these terms.</p>
-								</div>
-							</div>
-
+						
+						
 						</div>
 					</div>
 					<div class="row bottom-links">
 						<div class="span2">
 							<!--<img class="btn-custom" src="img/btn-start-free.png">-->
-							<input type="image" src="/assets/btn-start-free.png" id="submit_button" class="btn-custom" style="max-width:100%;"/>
+							<input type="submit"  id="submit_button" class="btn-custom" style="max-width:100%;"/>
 						</div>
 					</div>
 				</div>
-				<div class="span4 rightSide">
-					<div class="row">
-						<div class="span4">
-							<div class="thanks-head">Thanks for choosing HootQuest!</div>
-						</div>	
-					</div>
-					<div class="row">
-						<div class="span4 fields spanBlock borderTopImage">
-							<div class="span1"><img src="/assets/icon-hand.png"></div>
-							<div class="span3">	
-								<span class="head">Excellent Customer Service</span>
-								<span>Fast, Helpful and Friendly help</span>
-							</div>
-						</div>
-					</div>
-					<div class="row">
-						<div class="span4 fields spanBlock borderTopImage">
-							<div class="span1"><img src="/assets/icon-secure.png"></div>
-							<div class="span3">	
-								<span class="head">Secure Data</span>
-								<span>Your data is backed up daily</span>
-							</div>
-						</div>
-					</div>
-					<div class="row">
-						<div class="span4 fields spanBlock borderTopImage">
-							<div class="span1"><img src="/assets/icon-free.png"></div>
-							<div class="span3">	
-								<span class="head">7 day free trial!</span>
-								<span>You won't be billed unless you keep your account open past your 7 day free trial.</span>
-							</div>
-						</div>
-					</div>
-				</div>
+		
 			</div>
 			<div class="row">
 				<div class="span8"></div>

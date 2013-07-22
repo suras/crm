@@ -10,7 +10,7 @@ class User < ActiveRecord::Base
                    :default_url => "/assets/profile_pic.png"
   # Setup accessible (or protected) attributes for your model
   attr_accessible :email, :password, :password_confirmation, :remember_me, :first_name, :last_name, :company,:profile_pic,
-                   :user_type, :status, :team_id,  :register_type, :name
+                   :user_type, :status, :team_id,  :register_type, :name, :college, :country, :state, :city
   attr_accessor  :register_type, :name
   def name
     "#{first_name.to_s} #{last_name.to_s}" 
