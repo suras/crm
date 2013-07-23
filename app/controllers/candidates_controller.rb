@@ -1,12 +1,14 @@
 require 'nokogiri'
 require 'open-uri'
 include ERB::Util
+require 'zip/zip'
+require 'zip/zipfilesystem'
 class CandidatesController < ApplicationController
   respond_to :html, :xml, :json, :js
   before_filter :authenticate, only: [:edit, :update, :destroy]
   
   def new
-     if logged_in? 
+     if candidate_logged_in? 
        redirect_to edit_candidate_path(current_candidate), :notice => "Youre already logged in"
        false
      end
@@ -65,7 +67,7 @@ class CandidatesController < ApplicationController
 
   def search
     @result = []
-    @candidates = current_team.candidates.includes(:notes,:tags).order("first_name")
+    @candidates = Candidate.includes(:notes,:tags).order("first_name")
     if params[:query] && !(params[:query].blank?)
       tag_ids = params[:query].split(",").map{ |t| t.to_i }.uniq
       @tags = Tag.includes(:candidates).where(:id=> tag_ids)
@@ -149,5 +151,66 @@ class CandidatesController < ApplicationController
     reset_session
     redirect_to candidate_signout_path, :notice => "You successfully logged out"
    end
+   
+   
+   #zipping
+   def download_resumes_as_zip
+    return unless (session[:candidates].present?)
+    generate_zip(session[:candidates]) do |zipname, zip_path, temp_dir|
+       send_file(zip_path, :type => "application/zip", :disposition => "attachment; filename=#{zipname}")
+       
+       session[:candidates] = nil
+       
+      
+       
+      #sen_data zip_path, :type => 'application/zip; charset=iso-8859-1; header=present', :disposition => "attachment; filename=zipname"
+    end
+    
+  end
+
+
+  def export_zip
+    session[:candidates] = params[:candidates]
+     #redirect_to :action => "download_resumes_as_zip", :candidates => params[:candidates]
+     if request.xhr?
+        render :json => {
+          :location => url_for(:controller => 'candidates', :action => 'download_resumes_as_zip'),
+          :flash => {:notice => "Hello "}
+        }
+      end
   
+    end
+
+
+# Zipfile generator
+  def generate_zip(candidates, &block)
+    candidates = candidates.split(",").map{ |t| t.to_i }.uniq
+    resumes = Candidate.find_all_by_id(candidates)
+  # base temp dir
+    temp_dir = Dir.mktmpdir
+  # path for zip we are about to create, I find that ruby zip needs to write to a real file
+    zip_path = File.join(temp_dir, 'export.zip')
+    Zip::ZipFile::open(zip_path, true) do |zipfile|
+      resumes.each do |res|
+        zipfile.get_output_stream(res.resume_file_name) do |io|
+          docfile = File.open(res.resume.path, 'r') 
+         
+          io.write docfile.read
+          docfile.close()
+      
+        end
+      end
+    end
+  # yield the zipfile to the action
+    block.call 'export.zip', zip_path, temp_dir
+   ensure
+  # clean up the tempdir now!
+    #FileUtils.rm_rf temp_dir if temp_dir
+   end
+  
+   
+   #zipping
+  
+ 
+
 end

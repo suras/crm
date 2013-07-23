@@ -5,7 +5,7 @@ class UsersController < ApplicationController
     @user=current_user
     @team = current_team
     @users = @team.users
-    @add_more = @team.plan.max_user.to_i > @users.count
+    #@add_more = @team.plan.max_user.to_i > @users.count
   end
 
   def new

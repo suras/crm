@@ -1,27 +1,34 @@
 <div class="header">
   <div class="container">
+  	
     <div class="row">
+    	<% if user_signed_in? %>
       <div class="span3">
         <div class="logoFont">HOOTRECRUIT</div>
       </div>
       <div class="span6">
         <div>
+        	
           <ul class="nav-list">
             <li>
               <a href="<%= search_path %>"><span><img src="/assets/icon-search.png"></span><span>Search</span></a>
             </li>
-            <li>
-              <a href="<%= new_candidate_path %>"><span><img src="/assets/icon-add.png"></span><span>Add</span></a>
-            </li>
-            <li>
-              <a href="<%= call_lists_path %>"><span><img src="/assets/icon-call-list.png"></span><span>Call List</span></a>
-            </li>
+           
+            
           </ul>
+          
         </div>
       </div>
       <div class="span3">
         <div class="pull-right right-nav"><a href="<%= users_path()%>">My Account</a> | <a href="<%=destroy_user_session_path()%>" data-method="DELETE">Logout</a></div>
       </div>
+       <% end %>
+       <% if current_candidate %>
+       <div class="span3">
+        <div class="pull-right right-nav"> <a href="<%=candidate_sign_out_path()%>" data-method="DELETE">Logout</a></div>
+      </div>
+       <%end %>
     </div>
+   
   </div>
 </div>

@@ -9,6 +9,10 @@ HootQuest::Application.routes.draw do
   match "/search(/:query)" =>"candidates#search", :as => "search"
   
   get '/candidates/subregion_options' => 'candidates#subregion_options'
+  
+  get '/candidates/download_resumes_as_zip' => "candidates#download_resumes_as_zip"
+  post '/candidates/download_resumes_as_zip' => "candidates#download_resumes_as_zip"
+  post '/candidates/export_zip' => "candidates#export_zip"
 
   get "/candidates/get_candidate_tags", :to => "candidates#get_candidate_tags"
   

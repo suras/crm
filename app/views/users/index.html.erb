@@ -21,11 +21,11 @@
 										<div class="profile-info-box">
 											<div class="">
 												<span class="head"><%= user.name %></span>
-												<span>Email: <%= user.own_email %>(their email)</span>
+												
 												<span>User name: <%= user.email%> </span>
-												<span class="fgmc18">Your personal HootRecruit  email</span>
+												
 												<span>Forward or BCC email to this address to attach it to a candidates's notes.</span>
-												<span><%= user.email %> (their HootRecruit email)</span>
+												<span><%= user.email %> </span>
 											</div>
 											<div class="profile-info-right">
 												<span ><%= (user.user_type == "owner") ? "Admin | User" : (link_to 'Cancel User',cancel_user_path(user),:confirm=>"Are you sure to cancel user?") %></span>
@@ -50,19 +50,13 @@
 				<div class="row h70"></div>
 				<div class="row">
 					<div class="span4 links-list">
-						<span><%= link_to "edit billing information",edit_subscription_path %></a></span>
-						<span><%= link_to "add more users", new_user_path() if @add_more==true %></span>			
+						
+						<span><%= link_to "add more users", new_user_path() %></span>			
 						<span><%= link_to "click here to cancel your HootRecruit account", registration_path(@user), :confirm => "Are you sure?", :method => :delete %>
 			</span>
 					</div>
 				</div>
-				<div class="row">
-					<div class="span4 works">
-						<span class="head">How does my HootRecruit email work?</span>
-						<div><span>FORWARD an email to your HootRecruit email and HootRecruit  will find the candidate who wrote the email and attach the email to that candidate's notes in their profile.</span>
-						<span>BCC your HootRecruit email when you send an email and the email will be attached to the person receiving the email.</span></div>
-					</div>
-				</div>
+				
 			</div>
 		</div>
 		<div class="row">

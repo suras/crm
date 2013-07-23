@@ -2,7 +2,7 @@ class ApplicationController < ActionController::Base
   protect_from_forgery
   
   def after_sign_in_path_for(resource)
-     landing_path()
+     search_path()
   end
   def current_team
     current_user.team  if current_user
@@ -21,11 +21,11 @@ class ApplicationController < ActionController::Base
     # Filter method to enforce a login requirement
     # Apply as a before_filter on any controller you want to protect
     def authenticate
-      logged_in? ? true : access_denied
+      candidate_logged_in? ? true : access_denied
     end
  
     # Predicate method to test for a logged in user    
-    def logged_in?
+    def candidate_logged_in?
       current_candidate.is_a? Candidate
     end
  

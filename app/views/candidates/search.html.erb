@@ -1,7 +1,7 @@
 <script type="text/javascript">
 window.tags = <%=  get_tags%>;
 window.candidates = <%= raw @candidates.to_json %>
-window.call_lists = <%= get_call_list %>
+
 window.candidate_url = '<%= "#{root_url}"+"candidates/"%>';
 </script>
 <%= stylesheet_link_tag "search/application"%>
@@ -65,7 +65,7 @@ window.candidate_url = '<%= "#{root_url}"+"candidates/"%>';
             <div class="span4 quickView height685 position-relative hide">
               <div class="profile-box">
                 <img src="{{can.profile_pic_url}}" class="profile-pic100">
-                <a href="/candidates/{{can.id}}/edit" class="displayBlock">Edit</a>
+                
               </div>
               <div class="info">
                 <span class="name"><a href="/candidates/{{can.id}}" > {{ can.last_name}} {{ can.first_name}}</a></span>
@@ -112,11 +112,9 @@ window.candidate_url = '<%= "#{root_url}"+"candidates/"%>';
             <button ng-disabled ="disable_sort" ng-click="send_mail()">Send Mail</button>
           </span>
           <span>
-            <button ng-disabled ="disable_sort" ng-click="show_new_call_list()">Create New Call List</button>
+            <button ng-disabled ="disable_sort" ng-click="download_zip()">Download Selected Resumes</button>
           </span>
-          <span>
-            <button ng-disabled ="disable_sort" ng-click="show_existing_call_list()">Add to Existing Call List</button>
-          </span>
+        
         </div>
       </div>
   <div modal="new_call_open" class="hide" close="new_call_open=false">
@@ -136,11 +134,7 @@ window.candidate_url = '<%= "#{root_url}"+"candidates/"%>';
       <h3>which list would you like to add these candidates to?</h3>
     </div>
     <div class="modal-body">
-      <ul class="call-lists">
-        <li ng-repeat="call_list in call_lists">
-          <a ng-click="update_call_list($index)">{{call_list.name}}</a>
-        </li>
-      </ul>
+    
     </div>
     <div class="modal-footer">
       <button class="btn btn-warning cancel" ng-click="edit_call_open=false">Cancel</button>
@@ -218,7 +212,7 @@ app.controller('candidates_controller', ['$scope','$http','$dialog','$filter',
       }
     });
     $scope.candidates=window.candidates;
-    $scope.call_lists=window.call_lists;
+    
     $scope.view = function(id){
       $scope.selectedIndex = id;
       $(".make_edit").removeAttr("contenteditable");
@@ -266,56 +260,8 @@ app.controller('candidates_controller', ['$scope','$http','$dialog','$filter',
      $scope.message = "You must select atleast one candidate";
  };
 
- $scope.create_call_list = function(){
-  var candidate_ids =[];
-  for(cand in $scope.selected_candidates)
-    {        candidate_ids.push($scope.selected_candidates[cand].id); }
-  $http({method:"POST",
-    url:"/shortlists",
-    data:{name:$scope.call_list_name,candidate_ids:candidate_ids.join(",")},
-    headers:{'X-CSRF-Token': $('meta[name=csrf-token]').attr('content')}
-  }).
-  success(function(data, status) {
-    $scope.call_lists.push(data);
-    $scope.call_list_name= "";
-    $scope.message = "Call list has been created";
-  }).
-  error(function(data, status) {
-    $scope.new_call_open=false;
-  });
-};
-$
-$scope.show_existing_call_list= function(){
-  if($scope.selected_candidates.length>0){
-    $scope.edit_call_open=true;
-  }
-  else{
-    $scope.message = "You must select atleast one candidate";
-  }
-}; 
 
-$scope.update_call_list=function(index){
-  var candidate_ids =[];
-  for(cand in $scope.selected_candidates)
-    {        candidate_ids.push($scope.selected_candidates[cand].id); }
-  $http({method:"POST",
-    url:"/shortlists/bulk_update",
-    data:{call_list_id:$scope.call_lists[index].id,candidate_ids:candidate_ids.join(",")},
-    headers:{'X-CSRF-Token': $('meta[name=csrf-token]').attr('content')}
-  }).
-  success(function(data, status) {
-    if(data.count>0){
-      $scope.message = "Candidates added to call list";
-    }
-    else
-      $scope.message = "Already In Call List";
-    $scope.edit_call_open=false;
-  }).
-  error(function(data, status) {
-    $scope.edit_call_open=false;
-  });
 
-};
 $scope.make_selection = function(id,event){
   var cand_index=$filter('getIndexById')($scope.candidates,id);
   var sel_index=$filter('getIndexById')($scope.selected_candidates,id);
@@ -344,6 +290,25 @@ $scope.make_editable=function(candidate){
   }
 };
 
+$scope.download_zip = function(){
+  var candidate_ids =[];
+  for(cand in $scope.selected_candidates)
+    {        candidate_ids.push($scope.selected_candidates[cand].id); }
+  $http({method:"POST",
+    url:"/candidates/export_zip.json",
+    data:{candidates:candidate_ids.join(",")},
+    headers:{'X-CSRF-Token': $('meta[name=csrf-token]').attr('content')}
+  }).
+  success(function(data, status) {
+  	window.location.href = data.location
+    //$scope.call_lists.push(data);
+    //$scope.call_list_name= "";
+   // $scope.message = "Call list has been created";
+  }).
+  error(function(data, status) {
+    //$scope.new_call_open=false;
+  });
+};
 $scope.send_mail = function(email,id){
   var emails=[];
   var body="";
@@ -417,5 +382,6 @@ $scope.save = function() {
   });
 };
 }]);
+
 
 </script>

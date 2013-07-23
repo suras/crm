@@ -46,7 +46,7 @@ class Candidate < ActiveRecord::Base
     where(cond)
   end)
  
- delegate :name, :to=>:user, :prefix=>true
+ #delegate :name, :to=>:user, :prefix=>true
  has_and_belongs_to_many :tags
  attr_reader :get_tags, :profile_pic_url,:get_notes, :name
  
@@ -72,8 +72,8 @@ class Candidate < ActiveRecord::Base
     facebook: self.facebook,
     twitter: self.twitter,
     notes: self.get_notes,
-    resume: self.resume_url,
-    added_by: self.user_name
+    resume: self.resume_url
+    
   }
     # options ||= {}
     # options[:methods] = ((options[:methods] || []) + [:get_tags,:profile_pic_url])
