@@ -1,5 +1,8 @@
 HootQuest::Application.routes.draw do
  
+  resources :categories
+
+
   # get "static_pages/faq"
 
   # get "static_pages/billing_info"

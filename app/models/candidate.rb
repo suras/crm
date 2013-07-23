@@ -4,7 +4,7 @@ class Candidate < ActiveRecord::Base
   attr_accessible :company, :experience, :first_name, :last_name, :profile_pic, :resume, :first_name,
                   :last_name, :email, :address, :city, :state, :zip, :contact_number,
                   :added_from, :linked_in, :twitter, :facebook, :position, :name, 
-                  :country, :referred_by, :encrypted_password, :password, :password_confirmation
+                  :country, :referred_by, :encrypted_password, :password, :password_confirmation, :category_id
   attr_accessor  :password, :password_confirmation  
 
  has_attached_file :profile_pic, :styles => { :small => "150x150>" },
@@ -23,7 +23,8 @@ class Candidate < ActiveRecord::Base
              
   validates :password, :confirmation => true,
                        :length => { :within => 4..20 },
-                       :presence => true
+                       :presence => true,
+                       :if => :password_required?
                               
 
 
@@ -32,6 +33,7 @@ class Candidate < ActiveRecord::Base
  validates :email,  :first_name, :presence => true
  validates :email, :email => true, :uniqueness=>true
  has_many :notes
+ belongs_to :category
 
 
  
@@ -84,7 +86,9 @@ class Candidate < ActiveRecord::Base
     "#{self.first_name} #{self.last_name}"
   end
  
-  
+   def password_required?
+       password.present?
+    end
 
  def resume_url
     self.resume.exists? ? self.resume.url :  "javascript:return(false);"

@@ -297,6 +297,7 @@ $(function() {
                   <%= render partial: 'subregion_select', locals: {parent_region: f.object.country} %>
                 </div>
               </div>
+              
           
             <div class="row">
               <div class="span2">
@@ -306,6 +307,20 @@ $(function() {
                 <%= f.text_field :city %>
               </div>
             </div>
+            
+             <div class="row">
+              <div class="span2">
+                Degree
+              </div>
+              <div class="span4">
+               <%=select("candidate", "category_id", Category.find(:all, :order => "degree").collect {|p| [ p.degree + p.branch, p.id ] })%>
+              </div>
+            </div>
+            
+              
+            
+            
+            
             <div class="row">
               <div class="span2">
                 Zip

@@ -85,14 +85,25 @@ class CandidatesController < ApplicationController
   end
 
   def update
-    @candidate = Candidate.find(params[:id])
-    @candidate.update_attributes(params[:candidate].except(:id, :profile_pic_url, :get_tags,:notes,:added_by,:name,:resume))
+   
+    @candidate = current_candidate
+     
+    if params[:tags].present?
+      tag_names = params[:tags].split(',')
+      tags = tag_names.collect do |tag_name|
+      tag = Tag.find_or_create_by_name(tag_name)
+      end
+      @candidate.tags << tags
+    end
+    @candidate.update_attributes(params[:candidate].except(:id))
     respond_to do |f|
-      f.html { redirect_to candidates_path }
+      f.html { redirect_to edit_candidate_path(current_candidate), :notice => "Updated Successfully" }
       f.json { render :json => @candidate.to_json}
     end
   end
+  
   def edit
+    @candidate = current_candidate
   end
 
   def destroy
@@ -149,7 +160,7 @@ class CandidatesController < ApplicationController
 
   def sign_out
     reset_session
-    redirect_to candidate_signout_path, :notice => "You successfully logged out"
+    redirect_to candidate_sign_in_path, :notice => "You successfully logged out"
    end
    
    
@@ -205,7 +216,7 @@ class CandidatesController < ApplicationController
     block.call 'export.zip', zip_path, temp_dir
    ensure
   # clean up the tempdir now!
-    #FileUtils.rm_rf temp_dir if temp_dir
+    FileUtils.rm_rf temp_dir if temp_dir
    end
   
    
