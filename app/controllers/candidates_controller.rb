@@ -224,7 +224,7 @@ class CandidatesController < ApplicationController
     block.call 'export.zip', zip_path, temp_dir
    ensure
   # clean up the tempdir now!
-    FileUtils.rm_rf temp_dir if temp_dir
+   # FileUtils.rm_rf temp_dir if temp_dir
    end
   
    
