@@ -15,8 +15,8 @@ class User < ActiveRecord::Base
   after_create :create_team              
   # attr_accessible :title, :body
   belongs_to :team
-  has_many :call_lists
-  has_many :notes ,:foreign_key=>"creater_id"
+  has_many :call_lists, :dependent => :destroy
+  has_many :notes ,:foreign_key=>"creater_id", :dependent => :destroy
   def create_team
    if register_type.blank? 
      return

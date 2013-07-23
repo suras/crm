@@ -76,6 +76,47 @@ ul.nav {
 ul.nav li {
   display: inline;
 }
+
+
+
+.acc_settings_container{
+border: 1px solid #DACDCC;
+border-radius: 3px;
+box-shadow: 0px 1px 10px 2px #ECECEC;
+}
+
+#headings_container{
+  margin-left: 0px;
+  min-height: 60px;
+  background: #EAF5FD;
+  border-bottom: 1px solid #DACDCC;
+}
+
+.headings{
+ 
+}
+.top-border{
+  margin-left: 0px;
+ border-top: 1px solid #DACDCC;
+}
+.top-padding5{
+
+ padding-top: 5px;
+}
+.warning{
+  color: #EE7E17;
+}
+.sub-title{
+  font-size: 18px;
+}
+.pad0{
+  padding:10px;
+}
+
+
+
+
+
 #flash_notice, #flash_alert {
   padding: 5px 8px;
   margin: 10px 0;

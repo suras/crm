@@ -75,16 +75,26 @@ class CandidatesController < ApplicationController
 
   def index
     @candidates_list = Hash.new
+    @main_list = Hash.new
+    dates = []
     if params[:call_list_id]
       @call_list = current_user.call_lists.find(params[:call_list_id])
-      @candidates = @call_list.candidates  if @call_list
-      @candidates_list[:approved] = @candidates.status('approved')
-      @candidates_list[:rejected] = @candidates.status('rejected')
-      @candidates_list[:newly_added] = @candidates.status('newly_added')
+      @left_dates = @call_list.candidates.pluck(:left_on).uniq.reject{ |x| x.nil?}.push(nil)
+
+      @candidates = @call_list.candidates if @call_list
+      @left_dates.each do |date|
+        candidates_list = {}
+        candidates_list[:approved_candidates] = @candidates.status('approved',date)
+        candidates_list[:newly_added_candidates] = @candidates.status('newly_added',date)
+        candidates_list[:date]=date
+        dates.push(candidates_list);
+      end
+      @main_list[:rejected_candidates] = @candidates.status('rejected',"")
+      @main_list[:dates] = dates
     end
     respond_to do |f|
       f.html
-      f.json { render :json=> @candidates_list.to_json}
+      f.json { render :json=> @main_list.to_json}
     end
   end
   def candidates

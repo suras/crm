@@ -4,117 +4,124 @@ window.call_lists = <%= get_call_list%>;
 <%= stylesheet_link_tag "call_list/application"%>
 <%= javascript_include_tag "call_list/application"%>
 <div ng-app="app">
-<div class="container" ng-controller="call_list_controller">
-  <div class="row">
-    <p><span class="bold span4">Call Lists</span><span class="span4"></span><span class="span4"><a ng-click="delete_call_list()" class="pull-right"> Delete Call List </a> <a class="pull-right"> Stop Here and save my place </a> </p>
-  </div>
-  <div class="row" >
-    <div class="span4">
-      <div class="call_list">
-        <ul>
-          <li ng-repeat="call_list in call_lists">
-            <h4><a ng-click="show_candidates($index)">{{ call_list.name}}</a></h4>
-          </li>
-        </ul>
-      </div>
+  <div class="container" ng-controller="call_list_controller">
+    <div class="row">
+      <p><span class="bold span4">Call Lists</span><span class="span4"></span><span class="span4"><a ng-click="delete_call_list()" class="pull-right"> Delete Call List </a> <a ng-click="stop_process()" class="pull-right"> Stop Here and save my place </a> </p>
     </div>
-    <div class="span4">
-      <div class="candidates_list">
-        <ul>
-          <li class="approved" ng-repeat="candidate in approved_candidates">
-            <div class="row">
-              <div class="span1"><img class="img-circle" src="{{candidate.profile_pic_url}}"></div>
-              <div class="span2">
-                <a ng-click="view_candidate($index,'approved')">{{ candidate.name}}</a>
-              </div>
-              <div class="span1 actions">
-                <a ng-click="approval($index,'rejected','approved')"><i class="icon-thumbs-down"></i></a>
-              </div>
-            </div>
-          </li>
-          <li class="newly_added" ng-repeat="candidate in newly_added_candidates">
-            <div class="row">
-              <div class="span1"><img class="img-circle" src="{{candidate.profile_pic_url}}"></div>
-              <div class="span2">
-                <a ng-click="view_candidate($index,'newly_added')">{{ candidate.name}}</a>
-              </div>
-              <div class="span1 actions">
-                <a ng-click="approval($index,'approved','newly_added')"><i class="icon-thumbs-up"></i></a>
-                <a ng-click="approval($index,'rejected','newly_added')"><i class="icon-thumbs-down"></i></a>
-              </div>
-            </div>
-          </li>
-          <li class="rejected" ng-repeat="candidate in rejected_candidates">
-            <div class="row">
-              <div class="span1"><img class="img-circle" src="{{candidate.profile_pic_url}}"></div>
-              <div class="span2">
-                <a ng-click="view_candidate($index,'rejected')">{{ candidate.name}}</a>
-              </div>
-              <div class="span1 actions">
-                <a ng-click="approval($index,'approved','rejected')"><i class="icon-thumbs-up"></i></a>
-              </div>
-            </div>
-          </li>
-          
-        </ul>
-      </div>
-    </div>
-    <div class="span4">
-      <div class="row NameDiv">
-        <div class="span4">
-          <div class="name"><a href="#"><span class="make_edit">{{ can.first_name}}</span><span class="make_edit">{{ can.last_name}}</span></a></div>
-          <span class="title">{{ can.position}}</span>
+    <div class="row" >
+      <div class="span4">
+        <div class="call_list">
+          <ul>
+            <li ng-repeat="call_list in call_lists">
+              <h4><a ng-click="show_candidates($index)">{{ call_list.name}}</a></h4>
+            </li>
+          </ul>
         </div>
       </div>
-      <div class="innerDiv row">
-        <div class="span4">
-          <span class="bold">Company:</span>
-          <span class="make_edit">{{ can.company}}</span>
+      <div class="span4">
+        <div class="candidates_list">
+          <ul class="date">
+            <li ng-repeat="date in dates">
+              <ul class="candidates_listing">
+                <li class="approved" ng-repeat="candidate in date.approved_candidates">
+                  <div class="row">
+                    <div class="span1"><img class="img-circle" src="{{candidate.profile_pic_url}}"></div>
+                    <div class="span2">
+                      <a ng-click="view_candidate($parent.$index,$index,'approved')">{{ candidate.name}}</a>
+                    </div>
+                    <div class="span1 actions">
+                      <a ng-click="approval($parent.$index,$index,'rejected','approved')"><i class="icon-thumbs-down"></i></a>
+                    </div>
+                  </div>
+                </li>
+                <li class="newly_added" ng-repeat="candidate in date.newly_added_candidates">
+                  <div class="row">
+                    <div class="span1"><img class="img-circle" src="{{candidate.profile_pic_url}}"></div>
+                    <div class="span2">
+                      <a ng-click="view_candidate($parent.$index,$index,'newly_added')">{{ candidate.name}}</a>
+                    </div>
+                    <div class="span1 actions">
+                      <a ng-click="approval($parent.$index,$index,'approved','newly_added')"><i class="icon-thumbs-up"></i></a>
+                      <a ng-click="approval($parent.$index,$index,'rejected','newly_added')"><i class="icon-thumbs-down"></i></a>
+                    </div>
+                  </div>
+                </li>
+              </ul>
+              <p>{{date.date}}</p>
+            </li>
+          </ul>
+          <ul class="candidates_listing">
+            <li class="rejected" ng-repeat="candidate in rejected_candidates">
+                  <div class="row">
+                    <div class="span1"><img class="img-circle" src="{{candidate.profile_pic_url}}"></div>
+                    <div class="span2">
+                      <a ng-click="view_candidate('',$index,'rejected')">{{ candidate.name}}</a>
+                    </div>
+                    <div class="span1 actions">
+                      <a ng-click="approval('',$index,'approved','rejected')"><i class="icon-thumbs-up"></i></a>
+                    </div>
+                  </div>
+                </li>
+              </ul>
         </div>
       </div>
-      <div class="innerDiv row">
-        <div class="span4">
-          <span class="bold">expereience:</span>
-          <span class="make_edit">{{ can.experience}} years</span>
+      <div class="span4">
+        <div class="row NameDiv">
+          <div class="span4">
+            <div class="name"><a href="#"><span class="make_edit">{{ can.first_name}}</span><span class="make_edit">{{ can.last_name}}</span></a></div>
+            <span class="title">{{ can.position}}</span>
+          </div>
+        </div>
+        <div class="innerDiv row">
+          <div class="span4">
+            <span class="bold">Company:</span>
+            <span class="make_edit">{{ can.company}}</span>
+          </div>
+        </div>
+        <div class="innerDiv row">
+          <div class="span4">
+            <span class="bold">expereience:</span>
+            <span class="make_edit">{{ can.experience}} years</span>
+          </div>
+        </div>
+        <div class="innerDiv row">
+          <div class="span4">
+            <span class="bold">tags:</span>
+            <span >{{ can.get_tags}}</span>
+          </div>
+        </div>
+        <div class="innerDiv row">
+          <div class="span4">
+            <span class="bold">location:</span>
+            <div><span class="make_edit">{{ can.city}}</span><span class="make_edit"> {{can.state}}</span></div>
+          </div>
+        </div>
+        <div class="innerDiv row">
+          <div class="span4">
+            <span class="bold">cell phone:</span>
+            <span class="make_edit">{{ can.contact_number}}</span>
+          </div>
+        </div>
+        <div class="innerDiv row">
+          <div class="span4">
+            <span class="bold">email:</span>
+            <span class="make_edit">{{ can.email}}</span> | <a ng-click="send_mail(can.email)" href="">send email</a></span>
+          </div>
+        </div>
+        <div class="innerDiv row">
+          <div class="span4">
+            <span><a target="_blank" href="{{can.resume}}">view resume</a></span>
+          </div>
+        </div>
+        <div class="innerDiv row">
+          <div class="span4">
+            <span><a ng-click="send_mail(can.email,can.id)" href="">attach resume to email</a></span>
+          </div>
         </div>
       </div>
-      <div class="innerDiv row">
-        <div class="span4">
-          <span class="bold">tags:</span>
-          <span >{{ can.get_tags}}</span>
-        </div>
+      <div class="profile-box">
+        <img class="img-circle" src="{{can.profile_pic_url}}">
       </div>
-      <div class="innerDiv row">
-        <div class="span4">
-          <span class="bold">location:</span>
-          <div><span class="make_edit">{{ can.city}}</span><span class="make_edit"> {{can.state}}</span></div>
-        </div>
-      </div>
-      <div class="innerDiv row">
-        <div class="span4">
-          <span class="bold">cell phone:</span>
-          <span class="make_edit">{{ can.contact_number}}</span>
-        </div>
-      </div>
-      <div class="innerDiv row">
-        <div class="span4">
-          <span class="bold">email:</span>
-          <span class="make_edit">{{ can.email}}</span> | <a ng-click="send_mail(can.email)" href="">send email</a></span>
-        </div>
-      </div>
-      <div class="innerDiv row">
-        <div class="span4">
-          <span><a target="_blank" href="{{can.resume}}">view resume</a></span>
-        </div>
-      </div>
-      <div class="innerDiv row">
-        <div class="span4">
-          <span><a ng-click="send_mail(can.email,can.id)" href="">attach resume to email</a></span>
-        </div>
-      </div>
-    </div>
-    <div class="profile-box">
-      <img class="img-circle" src="{{can.profile_pic_url}}">
     </div>
   </div>
 </div>
@@ -137,29 +144,31 @@ app.controller('call_list_controller', ['$scope','$http','$filter',
     $scope.approved_candidates = [];
     $scope.rejected_candidates = [];
     $scope.newly_added_candidates = [];
-
     $scope.show_candidates = function(index) {
       $scope.current_call_list = $scope.call_lists[index];
       $http.get("/get_candidates/"+$scope.current_call_list.id).
       success(function(data, status) {
-        $scope.approved_candidates = data.approved;
-        $scope.rejected_candidates = data.rejected;
-        $scope.newly_added_candidates = data.newly_added;
-        console.log($scope.accepted_candidates)
+        $scope.dates = data.dates;
+        $scope.rejected_candidates = data.rejected_candidates;
+        console.log($scope.rejected_candidates);
+
       }).
       error(function(data, status) {
-
       });
     };
 
-    $scope.view_candidate = function(index,status){
+    $scope.view_candidate = function(parent_index,index,status){
+      $scope.current_date_index=parent_index;
+      if(status=='rejected')
       eval("$scope.can = $scope."+status+"_candidates[index];");
+      else
+      eval("$scope.can = $scope.dates[parent_index]."+status+"_candidates[index];");
     };
 
     $scope.delete_call_list = function(){
       if($scope.current_call_list)
       {
-        if(confirm("Are you sure to delete"+$scope.current_call_list.name))
+        if(confirm("Are you sure to delete call list : "+$scope.current_call_list.name))
         {
           var id = $scope.current_call_list.id;
           $http.delete("/call_lists/"+id,{headers:{'X-CSRF-Token': $('meta[name=csrf-token]').attr('content')}}).
@@ -175,22 +184,62 @@ app.controller('call_list_controller', ['$scope','$http','$filter',
         alert("CLick the call list first");
       }
     };
-
-    $scope.approval = function(index,status,source){
-      $scope.view_candidate(index,source);
-      eval("$scope."+source+"_candidates.splice(index,1);");
-      $http.post("/approval/"+$scope.can.id,{status:status},{headers:{'X-CSRF-Token': $('meta[name=csrf-token]').attr('content')}}).
-      success(function(data, status) {
-        if(data.candidate_id==$scope.can.id)
-        {
-          var js_to_run = "$scope."+data.status+"_candidates.push($scope.can);";
+    $scope.approval = function(parent_index,index,status,source){
+      $scope.view_candidate(parent_index,index,source);
+      if(source=='rejected')
+        eval("$scope."+source+"_candidates.splice(index,1);");
+      else
+        eval("$scope.dates[parent_index]."+source+"_candidates.splice(index,1);");
+      $http.post("/approval/"+$scope.current_call_list.id+"/"+$scope.can.id,
+        {status:status},
+        {headers:{'X-CSRF-Token': $('meta[name=csrf-token]').attr('content')}}).
+        success(function(data, status) {
+          if(data.status=="rejected")
+            js_to_run = "$scope.rejected_candidates.push($scope.can);";
+          else if (source == 'rejected')
+            js_to_run = "$scope.dates[$scope.dates.length-1]."+data.status+"_candidates.push($scope.can);";
+          else
+            js_to_run = "$scope.dates[parent_index]."+data.status+"_candidates.push($scope.can);";
           eval(js_to_run);
-        }
+        }).
+        error(function(data, status) {
+        });
+    };
+    $scope.stop_process = function(){
+      console.log($scope.current_call_list)
+      if($scope.current_date_index){
+      from = 'approved';
+      index = $filter('getIndexById')($scope.dates[$scope.current_date_index].approved_candidates,$scope.can.id);
+      if(index==null || undefined){
+      from='newly_added';
+      index = $filter('getIndexById')($scope.dates[$scope.current_date_index].newly_added_candidates,$scope.can.id);
+      }
+      ids = []
+      if(from == 'approved')
+      {
+        for(i=0;i<=index;i++)
+          ids.push($scope.dates[$scope.current_date_index].approved_candidates[i].id)
+      }
+      else
+      {
+        for(i=0;i<=$scope.dates[$scope.current_date_index].approved_candidates.length-1;i++)
+          ids.push($scope.dates[$scope.current_date_index].approved_candidates[i].id);
+       for(i=0;i<=index;i++)
+          ids.push($scope.dates[$scope.current_date_index].newly_added_candidates[i].id);
+      }
 
-      }).
-      error(function(data, status) {
-      });
+      $http.post("/stop_here/"+$scope.current_call_list.id,
+        {candidate_ids: ids.join(",")},
+        {headers:{'X-CSRF-Token': $('meta[name=csrf-token]').attr('content')}}).
+        success(function(data, status) {
+          if(data.status==true)
+            location.reload;
+        }).
+        error(function(data, status) {
+        });
+      console.log(index+","+from);
+      }
     };
   }
-  ]);
+]);
 </script>
