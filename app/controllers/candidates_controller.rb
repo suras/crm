@@ -69,10 +69,18 @@ class CandidatesController < ApplicationController
     @result = []
     @candidates = Candidate.includes(:notes,:tags).order("first_name")
     if params[:query] && !(params[:query].blank?)
-      tag_ids = params[:query].split(",").map{ |t| t.to_i }.uniq
+      tag_ids = params[:query].split(",").map{ |t| t.to_i if t =~ /^[^0][1-9]*/ }.uniq
+      cat_ids = params[:query].split(",").map{ |t| t.to_i if t =~ /^0[1-9]*/ }.uniq
+      @cats = Candidate.where(:category_id => cat_ids)
       @tags = Tag.includes(:candidates).where(:id=> tag_ids)
       @candidates.each do |candidate|
         @result << candidate if(candidate.tags & @tags).count == tag_ids.count
+      end
+      if(@result.present?)
+        
+      @result = @result & @cats if @cats.count>0
+      else
+        @result = @cats
       end
     else
       @result = @candidates
