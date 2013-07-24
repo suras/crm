@@ -168,7 +168,8 @@ font-family: fgmc;
 }
 /* == Header == */
 .header{
-  background: url(/assets/header-bg.jpg) repeat;
+  /* background: url(/assets/header-bg.jpg) repeat; */
+  background-color: #F1900D;
   height: 60px;
 }
 .logoFont{
@@ -176,7 +177,7 @@ font-family: fgmc;
   font-size: 35px;
 }
 .header .container{
-  color: #fff;
+  color: black;
   padding:18px;
 }
 .header a,.header a:hover{
@@ -268,7 +269,7 @@ font-size: 25px !important;
   padding: 5px 0px;
 }
 .head{
-  color: #0184ad;
+  color: #F1900D;
   font-family: fgmc;
   font-size: 17px;
   font-weight: bold;

@@ -81,7 +81,7 @@ padding: 5px 12px;
   background: none !important;
   -moz-box-shadow: none !important;
   -webkit-box-shadow: none !important;
-  color: #fff;
+  color: #F1900D;
   text-decoration: underline;
 }
  .bottomLink{
@@ -90,7 +90,7 @@ padding: 5px 12px;
  .bottomLink button{
   font-family: fgmc;
   font-size: 17px;
-  color: #0084ab;
+  color: #F1900D;
   padding-right: 30px;
  }
 .sortBy img{

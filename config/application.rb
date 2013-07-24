@@ -45,7 +45,7 @@ module HootQuest
     
     config.to_prepare do
           Devise::SessionsController.layout "blue" 
-           Devise::RegistrationsController.layout proc{ |controller| user_signed_in? ? "application" : "registration" }
+           #Devise::RegistrationsController.layout proc{ |controller| user_signed_in? ? "application" : "registration" }
     end
 
     # Use SQL instead of Active Record's schema dumper when creating the database.
