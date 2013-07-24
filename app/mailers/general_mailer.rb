@@ -4,6 +4,6 @@ class GeneralMailer < ActionMailer::Base
   	@user = user
   	@password = password
   	subject= "You have been added to HootRecruit Team"
-  	mail(to: @user.own_email, subject: subject)
+  	mail(to: @user.email, subject: subject)
   end
 end

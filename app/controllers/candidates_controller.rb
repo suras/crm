@@ -162,7 +162,7 @@ class CandidatesController < ApplicationController
    
    def sign_in
      
-     
+      render :layout => 'blue'
     end
     
   

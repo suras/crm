@@ -19,7 +19,7 @@ class UsersController < ApplicationController
   
   def create
     team = current_team
-    if team.plan.max_user.to_i > team.users.count
+  
   	   params[:user][:team_id] = team.id
        params[:user][:user_type] = "User"
        password = Devise.friendly_token.first(8)
@@ -32,9 +32,7 @@ class UsersController < ApplicationController
       else 
         render "new"
       end
-    else
-      redirect_to users_path(), :notice=>"You dont have access to create user. Upgrade your account"
-    end
+    
   end
 
   def update 
