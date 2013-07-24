@@ -69,18 +69,31 @@ class CandidatesController < ApplicationController
     @result = []
     @candidates = Candidate.includes(:notes,:tags).order("first_name")
     if params[:query] && !(params[:query].blank?)
-      tag_ids = params[:query].split(",").map{ |t| t.to_i if t =~ /^[^0][1-9]*/ }.uniq
-      cat_ids = params[:query].split(",").map{ |t| t.to_i if t =~ /^0[1-9]*/ }.uniq
+      tag_ids = params[:query].split(",").map{ |t| t.to_i if t =~ /^[^c][1-9]*/ }.uniq
+      cat_ids = params[:query].split(",").map{ |t| t.slice(1,t.length).to_i if t =~ /^c[1-9]*/ }.uniq
+      tag_ids.delete_if {|x| x == nil}
+      cat_ids.delete_if {|x| x == nil}
       @cats = Candidate.where(:category_id => cat_ids)
       @tags = Tag.includes(:candidates).where(:id=> tag_ids)
+      #Rails.logger.info "#fbgfh#{@cats.inspect}"
+      #Rails.logger.info "tags #{@tags.inspect}"
       @candidates.each do |candidate|
         @result << candidate if(candidate.tags & @tags).count == tag_ids.count
-      end
-      if(@result.present?)
         
-      @result = @result & @cats if @cats.count>0
+        
+      end
+      #Rails.logger.info "ffffff#{tag_ids}"
+      if(@tags.present? && @cats.present?)
+        
+        #Rails.logger.info "aaaaaaa#{@cats}"
+        @result = @result & @cats 
+        #Rails.logger.info "first"
+      elsif (@tags.present? && @cats.empty?)
+        @result 
+        #Rails.logger.info "second"
       else
         @result = @cats
+        #Rails.logger.info "third"
       end
     else
       @result = @candidates

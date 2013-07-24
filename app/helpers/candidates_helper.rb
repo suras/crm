@@ -8,7 +8,7 @@ module CandidatesHelper
   def get_tags
     tags = Tag.all.map{|tag| { "id"=>tag.id,"name"=>tag.name} }
     cats = []
-    cats << Category.all.map{|category| { "id"=>"0"+category.id.to_s, "name"=> category.branch +  " " + category.degree} }
+    cats << Category.all.map{|category| { "id"=>"c"+category.id.to_s, "name"=> category.branch +  " " + category.degree} }
     tags = tags.zip(cats).flatten.compact
     #tags.merge(cats)
     raw tags.to_json
